@@ -3,10 +3,10 @@ import React from 'react'
 export default function AllCategories() {
   return (
     <div className="container mx-auto py-5">
-    <h1 className="text-2xl font-bold mb-4 text-teal-950">All categories</h1>
+    <h1 className="text-2xl font-bold mb-4 text-teal-950 mx-auto">All categories</h1>
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-9 gap-4">
       <div className="flex flex-col items-center">
-        <div className="w-20 h-20 rounded-full bg-teal-200 flex items-center justify-center">
+        <div className="w-20 h-20 rounded-full bg-teal-200 flex items-center ">
           <img
             alt="Mobile icon"
             className="w-20 h-18 rounded-full object-cover"

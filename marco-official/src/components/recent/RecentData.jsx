@@ -387,13 +387,16 @@ export function RecentData() {
                             <img src={item.image} alt={item.name} className="w-full h-48 object-cover" />
                             <div className="p-4">
                               <div className="flex justify-between items-center mb-2">
-                                <span className="text-lg font-semibold text-teal-950">{item.price}</span>
-                                <FontAwesomeIcon icon={farHeart} className="text-teal-950" />
+                                {/* <span className="text-lg font-semibold text-teal-950">{item.price}</span>
+                                <FontAwesomeIcon icon={farHeart} className="text-teal-950" /> */}
+                              <span className="text-lg sm:text-base font-semibold text-teal-950">{item.price}</span>
+                    <FontAwesomeIcon icon={farHeart} className="text-teal-950" />
+                 
                               </div>
-                              <h2 className="text-teal-950 text-lg font-semibold">{item.name}</h2>
-                              <p className="text-teal-950 mt-4">{item.location}</p>
-                              <p className="text-teal-950 text-sm">{item.time}</p>
-                            </div>
+                              <h2 className="text-teal-950 text-lg sm:text-base font-semibold">{item.name}</h2>
+                  <p className="text-teal-950 mt-4">{item.location}</p>
+                  <p className="text-teal-950 text-sm">{item.time}</p>
+              </div>
                           </div>
 ))}
           </Carousel>

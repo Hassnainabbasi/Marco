@@ -15,7 +15,7 @@ const Location = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-start',
-  padding: theme.spacing(3, 2),
+  padding: theme.spacing(3, 1),
   border: '1px solid #ccc',
   color: theme.palette.teal[700],
   cursor: 'pointer',
@@ -30,20 +30,23 @@ const DropdownMenu = styled('div')(({ theme }) => ({
   top: '67px', // Distance from the Location component
   left: '16px',
   width: '95%', // Same width as Location
-  maxHeight: '200px', // Set max height for scrollbar
+  maxHeight: '300px', // Set max height for scrollbar
   border: '1px solid #ccc',
   backgroundColor: '#fff',
   boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
   zIndex: 10, // Ensure it stays above other elements
-  padding: '10px',
+  cursor : "pointer",
+  // padding: '10px',
+  // margin : "15px",
   borderRadius: theme.shape.borderRadius,
+  borderColor : "white",
   overflowY: 'auto', // Enable vertical scrollbar if items exceed maxHeight
   '& p': {
     margin: '5px 0',
     cursor: 'pointer',
     padding: '5px',
     '&:hover': {
-      backgroundColor: '#f5f5f5',
+      // backgroundColor: '#f5f5f5',
     },
   },
 }));
@@ -149,18 +152,24 @@ const SmallIcon = styled('svg')({
 
 export default function MixingItems() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+  const [location , setLocation] = useState('Pakistan')
   const handleLocationClick = () => {
     setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown state
   };
 
+  const handleLocationSelect = (location) => {
+    setLocation(location); // Update the selected location
+    setIsDropdownOpen(false); // Close dropdown after selection
+    console.log('location,',location)
+  };
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Box sx={{
       width: '100%',
-      padding: '10px',
+      paddingBlock : "15px",
       height: 'auto', // Ensure the height is flexible by default
+      
       [theme.breakpoints.down('sm')]: {
         height: '290px', // Adjust height for mobile
         padding: '5px', // Reduce padding for mobile
@@ -172,7 +181,7 @@ export default function MixingItems() {
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
     <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
   </svg>
-  <Typography variant="body1" sx={{ ml: 1, color: 'black' }}>Pakistan</Typography>
+  <Typography  variant="body1" sx={{ ml: 1, color: 'black' }}>{location}</Typography>
   {!isMobile && (
     <SmallIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
       <path d={isDropdownOpen
@@ -183,60 +192,59 @@ export default function MixingItems() {
   )}
 </Location>
 {isDropdownOpen && (
-  <DropdownMenu>
+  <DropdownMenu >
   {/* Use Current Location */}
-  <div className="flex items-center gap-2 mb-4 border-b border-gray-200 pb-4">
-  <MyLocation />
-    <span className="text-blue-600 font-medium">Use current location</span>
+  <div className="flex items-center border-b  pb-5 px-3 py-6 hover:bg-[#B4F9FF]">
+  <MyLocation className='text-blue-500'/>
+    <span className="text-blue-600 font-medium px-2">Use current location</span>
   </div>
-
   {/* See Ads in All Pakistan */}
-  <div className="flex items-center mb-4 border-b gap-2 border-gray-200 pb-4">
+  <div className="flex items-center mb-4 border-b gap-2 p-5 border-gray-200 pb-4 px-3 hover:bg-[#B4F9FF]">
    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
     <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
   </svg>
-    <span className="text-teal-950">See ads in all Pakistan</span>
+    <span className="text-teal-950 hover:bg-[#B4F9FF]">See ads in all Pakistan</span>
   </div>
 
   {/* Choose Region */}
-  <div className="text-teal-950 font-medium mb-2">CHOOSE REGION</div>
+  <div className="text-slate-400 font-thin mb-2 px-3 text-sm">POPULAR LOCATIONS</div>
 
   {/* Regions with Icons */}
-  <div className="flex items-center mb-2">
+  <div  onClick={() => handleLocationSelect('Azad Kashmire, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
     <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
   </svg>
-    <p className="text-teal-950">Azad Kashmir, Pakistan</p>
+    <p className="text-teal-950 px-3 hover:bg-[#B4F9FF]">Azad Kashmir, Pakistan</p>
   </div>
-  <div className="flex items-center mb-2">
+  <div   onClick={() => handleLocationSelect('Balochistan, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
     <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
   </svg>
-    <p className="text-teal-950">Balochistan, Pakistan</p>
+    <p className="text-teal-950 px-3 hover:bg-[#B4F9FF]">Balochistan, Pakistan</p>
   </div>
-  <div className="flex items-center mb-2">
+  <div   onClick={() => handleLocationSelect('Sindh, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
     <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
   </svg>
-    <p className="text-teal-950">Sindh, Pakistan</p>
+    <p className="text-teal-950 px-3">Sindh, Pakistan</p>
   </div>
-  <div className="flex items-center mb-2">
+  <div onClick={() => handleLocationSelect('Punjab, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
     <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
   </svg>
-    <p className="text-teal-950">Punjab, Pakistan</p>
+    <p className="text-teal-950 px-3">Punjab, Pakistan</p>
   </div>
-  <div className="flex items-center mb-2">
+  <div onClick={() => handleLocationSelect('Khyber Pakhtunkhwa, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
     <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
   </svg>
-    <p className="text-teal-950">Khyber Pakhtunkhwa, Pakistan</p>
+    <p className="text-teal-950 px-3">Khyber Pakhtunkhwa, Pakistan</p>
   </div>
-  <div className="flex items-center mb-2">
+  <div   onClick={() => handleLocationSelect('Gilgit-Baltistan, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
     <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
   </svg>
-    <p className="text-teal-950">Gilgit-Baltistan, Pakistan</p>
+    <p className="text-teal-950 px-3">Gilgit-Baltistan, Pakistan</p>
   </div>
 </DropdownMenu>
 

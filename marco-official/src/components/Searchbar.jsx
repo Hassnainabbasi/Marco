@@ -6,7 +6,7 @@ import Topheader from "./header/Topheader";
 
 export default function SearchBar() {
   return (
-    <div className="">
+    <div className=''>
         <ThemeProvider theme={theme}>
     <Topheader />
         <Mixingitems />

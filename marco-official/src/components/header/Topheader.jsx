@@ -6,11 +6,11 @@ export default function Topheader() {
   return (
     <div className='flex container mx-auto items-center gap-8 '>
       <img 
-        className='w-14 object-contain' 
+        className='w-14 object-contain ' 
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpqfEZTbw3kP6VH9MXJ018iDt9z6WzhDA-yQ&s" 
         alt="logo" 
       />
-      <div className="flex space-x-8 items-center mb-2">
+      <div className="flex space-x-8 items-center p-2">
         {/* Motors Section */}
         <div className="flex items-center space-x-2">
          <div className='bg-slate-100 rounded-full p-2'>
