@@ -4,8 +4,9 @@ import { faCar, faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 export default function Topheader() {
   return (
-    <div className='flex container mx-auto items-center gap-8 '>
-      <img 
+    // <div className='flex container mx-auto items-center gap-8 px-16 sm:px-5'>
+    <div className='flex items-center gap-2 px-2 md:px-16 md:gap-8 lg:px-10 xl:px-16'>
+    <img 
         className='w-14 object-contain ' 
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpqfEZTbw3kP6VH9MXJ018iDt9z6WzhDA-yQ&s" 
         alt="logo" 

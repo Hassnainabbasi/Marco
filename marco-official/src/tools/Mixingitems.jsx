@@ -10,6 +10,8 @@ import Grid from '@mui/material/Grid';
 import SearchIcon from '@mui/icons-material/Search';
 import { theme } from '../context/ThemeContext';
 import { MyLocation } from '@mui/icons-material';
+// import '../styles/custom.css';  // Correct relative path
+
 
 const Location = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -59,6 +61,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: '#000000',
   height: '40px',
   width: '119%',
+  [theme.breakpoints.down('sm')]: {
+  width: '100%', 
+  },
 }));
 
 const SearchButton = styled(IconButton)(({ theme }) => ({
@@ -121,6 +126,7 @@ const GradientBorderDiv = styled('div')(({ theme }) => ({
     fontSize: 12,
     position: 'relative',
     top: '-66px',
+    padding : '10px'
   },
 }));
 
@@ -165,15 +171,50 @@ export default function MixingItems() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
+    // <Box sx={{
+    //   width: '100%',
+    //   paddingBlock : "15px",
+    //   height: 'auto', // Ensure the height is flexible by default
+    //   paddingInline : 'auto',
+    //   [theme.breakpoints.down('sm')]: {
+    //     height: '260px', // Adjust height for mobile
+    //     padding: '15px', // Reduce padding for mobile
+    //   },
+    //   [theme.breakpoints.down('lg')]: {
+    //     paddingInline: '40px',
+    //     // padding : '8px'
+    //     // Reduce padding for mobile
+    //   },
+    //   [theme.breakpoints.down('xl')]: {
+    //     paddingInline: '96px', // Reduce padding for mobile
+    //   }
+    // }}>
     <Box sx={{
       width: '100%',
-      paddingBlock : "15px",
-      height: 'auto', // Ensure the height is flexible by default
+      paddingBlock: '15px',
+      height: 'auto', // Flexible height by default
+      paddingInline: 'auto', // This will adapt to the container's width
       
+      // For small screens (mobile)
       [theme.breakpoints.down('sm')]: {
-        height: '290px', // Adjust height for mobile
-        padding: '5px', // Reduce padding for mobile
-      }
+        height: '260px', // Adjust height for mobile
+        paddingInline: '15px',  // Reduce padding for small screens
+      },
+    
+      // For medium screens (tablet or small laptops)
+      [theme.breakpoints.down('lg')]: {
+        paddingInline: '30px',  // Adjust padding for medium screens (tablets)
+      },
+    
+      // For larger screens (desktop and above)
+      [theme.breakpoints.down('xl')]: {
+        paddingInline: '30px',  // Increase padding for larger screens (laptops/desktops)
+      },
+    
+      // For very large screens (xl and above)
+      [theme.breakpoints.up('xl')]: {
+        paddingInline: '96px', // More padding for extra-large screens
+      },
     }}>
       <Grid container spacing={2} alignItems="center" justifyContent="center">
         <Grid item xs={12} sm={3} style={{ position: 'relative' }}>

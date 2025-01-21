@@ -9,7 +9,7 @@ export default function Header() {
     <div>
       <div className="fixed left-0 w-full top-0 z-50 bg-white">
         {/* Fixed Search Bar */}
-        <div className="container mx-auto mt-2">
+        <div className="container mt-2">
           <SearchBar />
         </div>
         <hr />
