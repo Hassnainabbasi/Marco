@@ -8,23 +8,17 @@ import '../../styles/custom.css';  // Correct relative path
 
 export default function Home() {
   return (
-    // <div className=''>
-    //     <Header  />
-    //     <Centerone />
-    //     <Footer />
-    //     <FooterTwo />
-    // </div>
-    <div>
-    <div className="bs-container">
+    <div className=''>
+    <div className="bs-container=">
       <Header />
     </div>
     <div className="bs-container">
       <Centerone />
     </div>
-    <div className="bs-container">
+    <div className="">
       <Footer />
     </div>
-    <div className="bs-container">
+    <div className="">
       <FooterTwo />
     </div>
   </div>

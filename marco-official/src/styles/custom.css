@@ -17,7 +17,7 @@
     }
   }
   
-  @media (min-width: 1200px) {
+  @media (min-width: 1170px) {
     .bs-container {
       width: 1170px;
     }

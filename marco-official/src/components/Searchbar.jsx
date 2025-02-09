@@ -7,10 +7,10 @@ import '../styles/custom.css';  // Correct relative path
 
 export default function SearchBar() {
   return (
-    <div className=''>
+    <div className='bs-container'>
         <ThemeProvider theme={theme}>
     <Topheader />
-    <div className='bs-container'>
+    <div className=''>
         <Mixingitems />
 </div>
       </ThemeProvider>
