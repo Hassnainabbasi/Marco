@@ -1,75 +1,3 @@
-{/* <Location onClick={handleLocationClick}>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-<path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-</svg>
-<Typography  variant="body1" sx={{ ml: 1, color: 'black' }}>{location}</Typography>
-{!isMobile && (
-<SmallIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
-<path d={isDropdownOpen
-? "M85.4 746.67h60.32l366.34-366.34L878.4 746.67h60.33v-60.33L529.74 277.33h-35.3L85.4 686.33z" // Up arrow
-: "M85.4 277.33h60.32l366.34 366.34L878.4 277.33h60.33v60.33l-408.99 409h-35.3l-409.05-409z" // Down arrow
-}></path>
-</SmallIcon>
-)}
-</Location> */}
-// {isDropdownOpen && (
-// <DropdownMenu >
-// {/* Use Current Location */}
-// <div className="flex items-center border-b  pb-5 px-3 py-6 hover:bg-[#B4F9FF]">
-// <MyLocation className='text-blue-500'/>
-// <span className="text-blue-600 font-medium px-2">Use current location</span>
-// </div>
-// {/* See Ads in All Pakistan */}
-// <div className="flex items-center mb-4 border-b gap-2 p-5 border-gray-200 pb-4 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <span className="text-teal-950 hover:bg-[#B4F9FF]">See ads in all Pakistan</span>
-// </div>
-
-// <div className="text-slate-400 font-thin mb-2 px-3 text-sm">POPULAR LOCATIONS</div>
-
-// <div  onClick={() => handleLocationSelect('Azad Kashmire, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <p className="text-teal-950 px-3 hover:bg-[#B4F9FF]">Azad Kashmir, Pakistan</p>
-// </div>
-// <div   onClick={() => handleLocationSelect('Balochistan, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <p className="text-teal-950 px-3 hover:bg-[#B4F9FF]">Balochistan, Pakistan</p>
-// </div>
-// <div   onClick={() => handleLocationSelect('Sindh, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <p className="text-teal-950 px-3">Sindh, Pakistan</p>
-// </div>
-// <div onClick={() => handleLocationSelect('Punjab, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <p className="text-teal-950 px-3">Punjab, Pakistan</p>
-// </div>
-// <div onClick={() => handleLocationSelect('Khyber Pakhtunkhwa, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <p className="text-teal-950 px-3">Khyber Pakhtunkhwa, Pakistan</p>
-// </div>
-// <div   onClick={() => handleLocationSelect('Gilgit-Baltistan, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <p className="text-teal-950 px-3">Gilgit-Baltistan, Pakistan</p>
-// </div>
-// </DropdownMenu>
-
-// )}
-
-
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
@@ -78,17 +6,20 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import { theme } from '../../context/ThemeContext';
 import SearchIcon from '@mui/icons-material/Search';
-import { theme } from '../context/ThemeContext';
-import { ArrowBackIos, ArrowLeft, ClearOutlined, EmailOutlined, MyLocation, PhoneOutlined, ReportOutlined } from '@mui/icons-material';
+import { ArrowBackIos, ArrowLeft, CheckBox, CheckBoxOutlineBlank, CheckBoxOutlined, ClearOutlined, EmailOutlined, MyLocation, PhoneOutlined, ReportOutlined } from '@mui/icons-material';
 import { Autocomplete, Button, Modal, Popper, TextField } from '@mui/material';
-import Login from '../auth/Login';
-import ForgetModal from './ForgetModal';
-import PasswordReset from './CreateModal';
-import PasswordCreate from './CreateCorectModal';
-import { LocationIcon } from '../pages/GetCategories/GetCategories';
-// import '../styles/custom.css';  // Correct relative path
+import Login from '../../auth/Login';
+import ForgetModal from '../ForgetModal';
+import PasswordReset from '../CreateModal';
+import PasswordCreate from '../CreateCorectModal';
 
+const LocationIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1024 1024">
+    <path fill="#555" d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
+  </svg>
+);
 
 const StyledPopper = styled(Popper)(({ theme }) => ({
   zIndex: 10,
@@ -228,7 +159,7 @@ const SmallIcon = styled('svg')({
   marginLeft: 'auto',
 });
 
-export default function MixingItems() {
+export default function MixingItemsCat() {
   const [open, setOpen] = useState(false);
   const [forgett, setForgett] = useState(false);
   const [create, setCreate] = useState(false);
@@ -383,7 +314,7 @@ export default function MixingItems() {
         </button>
       </div>
       <div className="text-center mt-6">
-        <a onClick={forgetOpen} className="text-blue-600 hover:underline" href="#">
+        <a onClick={forgetOpen} className="text-teal-ring-teal-950 hover:underline" href="#">
           New to OLX? Create an account
         </a>
       </div>
@@ -726,6 +657,10 @@ export default function MixingItems() {
         </Grid>
 
         <Grid item xs={12} sm={1} sx={{ display: "flex", justifyContent: "flex-end", position: "relative", left: "20px" }}>
+       <div className='flex justify-between gap-2 px-5'>
+       <input id="default-checkbox" type="checkbox" value="" className="w-5 h-6 mt-3 accent-teal-950  text-teal-950 rounded-sm focus:ring-teal-950 dark:focus:ring-teal-950 "/>
+       <label className='flex items-center whitespace-nowrap text-sm text-teal-950'>Only Property for Rent</label>
+       </div>
           <SearchButton onClick={CorrectCreateOpen}>
             <SearchIcon />
           </SearchButton>
@@ -745,22 +680,3 @@ export default function MixingItems() {
     </Box>
   )
 }
- // <Box sx={{
-    //   width: '100%',
-    //   paddingBlock : "15px",
-    //   height: 'auto', // Ensure the height is flexible by default
-    //   paddingInline : 'auto',
-    //   [theme.breakpoints.down('sm')]: {
-    //     height: '260px', // Adjust height for mobile
-    //     padding: '15px', // Reduce padding for mobile
-    //   },
-    //   [theme.breakpoints.down('lg')]: {
-    //     paddingInline: '40px',
-    //     // padding : '8px'
-    //     // Reduce padding for mobile
-    //   },
-    //   [theme.breakpoints.down('xl')]: {
-    //     paddingInline: '96px', // Reduce padding for mobile
-    //   }
-    // }}>
- 

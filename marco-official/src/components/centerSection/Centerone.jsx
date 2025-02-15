@@ -3,6 +3,7 @@ import BannerSection from '../../tools/BannerSection'
 import AllCategories from '../../tools/Categories/AllCategories'
 import { RecentData } from '../recent/RecentData'
 import LastSection from '../../tools/LastSection'
+import { Link } from 'react-router-dom'
 
 export default function Centerone() {
   return (

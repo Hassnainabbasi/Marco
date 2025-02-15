@@ -1,10 +1,20 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneAlt, faComments, faMapMarkerAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
-import { ArrowForward, ArrowForwardIos, ArrowRightAlt, ArrowRightAltRounded, Favorite, FavoriteBorder, HeartBrokenOutlined, LocationOn, ReportOff, ReportOutlined, Share } from '@mui/icons-material';
+import { ArrowBackIos, ArrowForward, ArrowForwardIos, ArrowRightAlt, ArrowRightAltRounded, ClearOutlined, Close, Favorite, FavoriteBorder, HeartBrokenOutlined, LocationOn, ReportOff, ReportOutlined, Share } from '@mui/icons-material';
 import Carousel from 'react-multi-carousel';
+import ProductCarousel from './CarouselProduct';
+import { Box, Button, Modal } from '@mui/material';
+import Testing from './Testing';
+import Lightbox from 'yet-another-react-lightbox';
 
+const images = [
+  "https://images.olx.com.pk/thumbnails/518749137-800x600.webp",
+  "https://images.olx.com.pk/thumbnails/518749137-800x600.webp",
+  "https://storage.googleapis.com/a1aa/image/RLWGjhfOrrbuMtLu7hb10wdQQLqm7MWorax23WJNb-4.jpg",
+  "https://storage.googleapis.com/a1aa/image/7pecTFe8s3ojIkvA7SoV2XtLkqVHYYGSyZDKB4F3SmI.jpg",
+];
 
 export default function GetCustomerBanner() {
     const categories = [
@@ -54,11 +64,17 @@ export default function GetCustomerBanner() {
           ]
         },
     ]
+    const [open , setOpen] = useState(false)
+    const [index, setIndex] = useState(0);
+
+    const openGallery = () => setOpen(true)
+    const closeGallery = () => setOpen(false)
+
   return (
-    <div className="p-4">
+    <div className="">
       <div className="flex flex-col lg:flex-row gap-6 mt-10">
-        <div className="w-full">
-          <div className="border px-5 bg-gray-100 rounded-md">
+        <div className="w-1/2">
+          <div onClick={ ()=> setOpen(true)} className="border px-5 bg-gray-100 rounded-md">
             <img
               src="https://images.olx.com.pk/thumbnails/518749137-800x600.webp"
               alt="Product"
@@ -152,69 +168,13 @@ export default function GetCustomerBanner() {
   <p className="mt-2 text-teal-950 font-semibold">Cash on delivery available in Pakistan!</p>
 </div>
 
-<div className=" rounded-md mt-4">
+<div className="rounded-md mt-4">
 <hr className="mb-4" />
-    <h2 className="text-xl font-semibold mb-4">Related ads</h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-     
-<div className="bg-white rounded-lg shadow ">
-  <img
-    alt="Close-up of a blue smartphone showing the charging port and headphone jack"
-    className="w-full h-48 object-cover rounded-t-lg"
-    height={400}
-    src="https://images.olx.com.pk/thumbnails/513455436-240x180.jpeg"
-    width={600}
-  />
-  <div className="p-4">
-    <div className="flex justify-between items-center mb-2">
-      <span className="text-lg font-semibold">Rs 38,000</span>
-      <i className="far fa-heart" />
-    </div>
-    <h3 className="text-md font-medium mb-1">A71 10/9 8/128 Full Box</h3>
-    <p className="text-sm text-gray-600">Gulgasht Colony, Multan</p>
-    <p className="text-sm text-gray-500">1 hour ago</p>
-  </div>
-</div> 
- <div className="bg-white rounded-lg shadow">
-  <img
-    alt="Hand holding a One Plus 9 Pro smartphone"
-    className="w-full h-48 object-cover rounded-t-lg"
-    height={400}
-    src="https://d8vpm3ty1v2vv.cloudfront.net/resized/36291722187449.jpg"
-    width={600}
-  />
-  <div className="p-4">
-    <div className="flex justify-between items-center mb-2">
-      <span className="text-lg font-semibold">Rs 40,000</span>
-      <i className="far fa-heart" />
-    </div>
-    <h3 className="text-md font-medium mb-1">One Plus 9 Pro</h3>
-    <p className="text-sm text-gray-600">New Multan, Multan</p>
-    <p className="text-sm text-gray-500">3 hours ago</p>
-  </div>
-</div> 
- <div className="bg-white rounded-lg shadow">
-  <img
-    alt="Hand holding a one plus 8t smartphone with a transparent case"
-    className="w-full h-48 object-cover rounded-t-lg"
-    height={400}
-    src="https://images.olx.com.pk/thumbnails/518948883-240x180.jpeg"
-    width={600}
-  />
-  <div className="p-4">
-    <div className="flex justify-between items-center mb-2">
-      <span className="text-lg font-semibold">Rs 40,000</span>
-      <i className="far fa-heart" />
-    </div>
-    <h3 className="text-md font-medium mb-1">
-      one plus 8t 8/128 with box
-    </h3>
-    <p className="text-sm text-gray-600">Cantt, Multan</p>
-    <p className="text-sm text-gray-500">4 hours ago</p>
-  </div>
-</div> 
+    <div className="mt-4">
+  <h2 className="text-xl font-bold text-teal-950 mb-4">Related Ads</h2>
+    <ProductCarousel />
+</div>
 
-    </div>
   </div>
     </div>
 
@@ -264,6 +224,26 @@ export default function GetCustomerBanner() {
         </div>
 
       </div>
+      {open && (
+        <Lightbox
+          open={open}
+          close={() => setOpen(false)}
+          slides={images.map((src) => ({ src }))}
+          index={index}
+          on={{ view: ({ index }) => setIndex(index) }}
+          render={{
+            buttonClose: () => (
+              <button
+                className="absolute top-4 right-4 bg-black text-white p-2 rounded-full"
+                onClick={() => setOpen(false)}
+              >
+                <Close />
+              </button>
+            ),
+          }}
+        />
+      )}
     </div>
+    
   );
 }

@@ -7,16 +7,15 @@ import Topheader from './Topheader';
 export default function Header() {
   return (
     <div className=''>
-      <div className=" w-full top-0 bg-white">
-        {/* Fixed Search Bar */}
-        <div className=" mt-2">
+      <div className="w-full top-0">
+        <div className="fixed left-1/2 w-full z-50 top-0 transform -translate-x-1/2 bg-white">
           <SearchBar />
         </div>
         <hr />
       </div>
 
       {/* Add margin-top to push down the SelectCategory */}
-      <div className="mt-5 bs-container">
+      <div className="mt-36 bs-container">
         <SelectCategory />
       </div>
     </div>

@@ -3,14 +3,14 @@ import React from 'react';
 export default function FooterTwo() {
   return (
     <div className='bg-teal-950 p-4'>
-      <div className='flex justify-end gap-3 flex-wrap md:flex-nowrap'>
-        <p className='text-white font-bold text-sm md:text-base'>
-          Free Classifieds in Pakistan
-        </p>
-        <p className='text-white font-bold text-sm md:text-base'>
+     <ul className='flex bs-container flex-row-reverse gap-5'>
+     <li className='text-white font-bold text-sm'>
           . © 2006-2025 OLX
-        </p>
-      </div>
+        </li>
+        <li className='text-white font-bold text-sm'>
+        Free Classifieds in Pakistan
+        </li>
+     </ul>
     </div>
   );
 }
