@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 import { theme } from '../../context/ThemeContext';
 import SearchIcon from '@mui/icons-material/Search';
 import { ArrowBackIos, ArrowLeft, CheckBox, CheckBoxOutlineBlank, CheckBoxOutlined, ClearOutlined, EmailOutlined, MyLocation, PhoneOutlined, ReportOutlined } from '@mui/icons-material';
-import { Autocomplete, Button, Modal, Popper, TextField } from '@mui/material';
+import { Autocomplete, Button, InputAdornment, Modal, Popper, TextField } from '@mui/material';
 import Login from '../../auth/Login';
 import ForgetModal from '../ForgetModal';
 import PasswordReset from '../CreateModal';
@@ -209,27 +209,7 @@ export default function MixingItemsCat() {
       paddingBlock: '15px',
       height: 'auto', // Flexible height by default
       paddingInline: 'auto', // This will adapt to the container's width
-      
-      // For small screens (mobile)
-      // [theme.breakpoints.down('sm')]: {
-      //   height: '260px', // Adjust height for mobile
-      //   paddingInline: '15px',  // Reduce padding for small screens
-      // },
     
-      // // For medium screens (tablet or small laptops)
-      // [theme.breakpoints.down('lg')]: {
-      //   paddingInline: '30px',  // Adjust padding for medium screens (tablets)
-      // },
-    
-      // // For larger screens (desktop and above)
-      // [theme.breakpoints.down('xl')]: {
-      //   paddingInline: '30px',  // Increase padding for larger screens (laptops/desktops)
-      // },
-    
-      // // For very large screens (xl and above)
-      // [theme.breakpoints.up('xl')]: {
-      //   paddingInline: '96px', // More padding for extra-large screens
-      // },
     }}>
        
  <Modal open={open} onClose={handleClose}>
@@ -637,7 +617,7 @@ export default function MixingItemsCat() {
       renderInput={(params) => 
       <TextField
         {...params}
-        label="Pakistan" 
+       placeholder='Pakistan'
         InputLabelProps={{
           shrink : false,
         }}
@@ -647,6 +627,11 @@ export default function MixingItemsCat() {
             height: "50px", // Adjust the height of the input field
           paddingInline: "10px"
           },
+          startAdornment :(
+            <InputAdornment >
+            <LocationIcon />
+            </InputAdornment>
+          )
         }}
       />}
     /> 

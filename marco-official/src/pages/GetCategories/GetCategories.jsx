@@ -508,8 +508,8 @@ export default function GetCategories() {
         <div className="space-y-4 ">
          <div className='flex items-center justify-end gap-3'>
           <h1 className='text-teal-950 font-bold text-sm'>VIEW</h1>
-          <button onClick={() => setView(false)} className='border rounded-full p-1 cursor-pointer focus:bg-teal-500 border-none'><MenuIcon /></button>
-          <button className='focus:bg-teal-500 border rounded-full p-1 border-none' onClick={() => setView(true)}><img  src="https://www.olx.com.pk/assets/iconGrid_noinline.20d3115f90d4e01862afb7d21be83420.svg" alt="" /></button>
+          <button onClick={() => setView(false)} className={`border rounded-full p-1 cursor-pointer ${view ? "focus:bg-teal-600" : "bg-white"} border-none`} ><MenuIcon /></button>
+          <button className={`${!view ? "focus:bg-teal-600" : "bg-white"} rounded-full p-1 border-none`} onClick={() => setView(true)}><img  src="https://www.olx.com.pk/assets/iconGrid_noinline.20d3115f90d4e01862afb7d21be83420.svg" alt="" /></button>
         <div className='border border-l h-9'></div>
         <h1 className='font-bold text-sm text-teal-950'>SORT BY:</h1>
         <h1 className='text-md text-teal-950'>Newly listed</h1>
