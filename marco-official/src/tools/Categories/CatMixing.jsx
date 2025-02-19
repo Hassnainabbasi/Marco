@@ -610,8 +610,8 @@ export default function MixingItemsCat() {
         )
       }
       sx={{
-        width: 282,
-        "& .MuiOutlinedInput-root": {
+        width: { xs: 180, sm: 175, md: 230, lg: 285 },
+  "& .MuiOutlinedInput-root": {
         },
       }}
       renderInput={(params) => 

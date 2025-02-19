@@ -7,8 +7,8 @@ import HeaderCat from '../../components/header/HeaderCat'
 
 export default function CustomerAccount() {
   return (
-    <div className="">
-       <div className='bs-container'>
+    <div className="bs-container">
+       <div className='bs-container mb-56'>
        <HeaderCat />
        </div>
        <div className='bs-container'>

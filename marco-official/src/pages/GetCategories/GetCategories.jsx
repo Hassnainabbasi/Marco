@@ -12,6 +12,7 @@ import FooterTwo from '../../components/footer/FooterTwo'
 import HeaderCat from '../../components/header/HeaderCat';
 import GetCatFooter from '../../components/footer/GetCatFooter';
 import { Link } from 'react-router-dom';
+import MobileHeader from '../../components/header/MobileHeader';
 
 const StyledPopper = styled(Popper)(({ theme }) => ({
   zIndex: 10,
@@ -255,7 +256,6 @@ export default function GetCategories() {
     { label: "Gilgit-Baltistan, Pakistan", icon: <LocationIcon /> },
   ];
 
-
   useEffect(() => {
     const toggleVisibility = () => {
       if (window.scrollY > 300) {
@@ -275,10 +275,11 @@ export default function GetCategories() {
 
 
   return (
-    <div>
-        <div >
-            <HeaderCat />
-            <div className="fixed top-1/5  left-1/2 transform -translate-x-1/2">
+    <div className='bs-container mx-auto px-4'>
+        <div className=''>
+            {/* <HeaderCat /> */}
+            <MobileHeader />
+            <div className="fixed top-1/5 left-1/2 transform -translate-x-1/2 sm:top-1/4">
   <button
     onClick={scrollToTop}
     className={`flex items-center gap-2 px-5 bg-white py-2 rounded-full text-teal-950 shadow-lg border border-teal-950 transition-all duration-300 ${
@@ -291,20 +292,22 @@ export default function GetCategories() {
 </div>
 
         </div>
-        <div className='bs-container p-7'>
+        <div className='bs-container p-4 sm:p-7'>
             <div className='flex justify-center mb-10'>
             <img src="https://tpc.googlesyndication.com/simgad/11643353606679889402" alt="" />
             </div>
-        <div className='flex'>
+        <div className='hidden sm:block'>
+        <div className='flex '>
          <h1 className='mb-4 text-teal-900 text-sm'>Home</h1>
         </div>
-        <div className='flex gap-5 '>
+        <div className='flex gap-5'>
             <h1 className='text-teal-950 text-2xl font-sans font-bold'>Pakistan Free classifieds</h1>
             <button className='font-semibold bg-teal-100 px-2 text-sm rounded-sm '>10,000+ ads</button>
          </div>
         </div>
- <div className='flex bs-container'>
- <div className="flex-1">
+        </div>
+ <div className='flex flex-col sm:flex-row bs-container'>
+ <div className="flex-1 hidden sm:block">
       <div className="p-4 bg-gray-100 rounded">
         <h2 className="text-lg text-teal-950 font-sans font-bold mb-2">Categories</h2>
         <ul className="space-y-2 px-5">
@@ -519,10 +522,10 @@ export default function GetCategories() {
             <hr />
           </div>
       {!view &&(
-        <div>
+        <div className=''>
            {dummyData.map((item)=>(
  <Link to={'/customer-account'}>
-  <div key={item.id} className="rounded gap-5 mb-2 shadow-lg  flex">
+  <div key={item.id} className="rounded gap-5 mb-2 shadow-lg flex">
  <div className="w-1/3">
  <span className="bg-yellow-400 absolute text-xs font-semibold px-2 p-1 mt-3 mx-4 rounded">
        Featured

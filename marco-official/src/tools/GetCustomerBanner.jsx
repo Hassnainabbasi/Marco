@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneAlt, faComments, faMapMarkerAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
-import { ArrowBackIos, ArrowForward, ArrowForwardIos, ArrowRightAlt, ArrowRightAltRounded, ClearOutlined, Close, Favorite, FavoriteBorder, HeartBrokenOutlined, LocationOn, ReportOff, ReportOutlined, Share } from '@mui/icons-material';
+import { ArrowBackIos, ArrowForward, ArrowForwardIos, ArrowRightAlt, ArrowRightAltRounded, ClearOutlined, Close, Favorite, FavoriteBorder, HeartBrokenOutlined, LocationOn, ReportOff, ReportOutlined, Share, EmailOutlined, PhoneOutlined, CameraAltOutlined, ArrowBack, Comment, LocalPhone } from '@mui/icons-material';
 import Carousel from 'react-multi-carousel';
 import ProductCarousel from './CarouselProduct';
 import { Box, Button, Modal } from '@mui/material';
@@ -10,7 +10,6 @@ import Testing from './Testing';
 import Lightbox from 'yet-another-react-lightbox';
 
 const images = [
-  "https://images.olx.com.pk/thumbnails/518749137-800x600.webp",
   "https://images.olx.com.pk/thumbnails/518749137-800x600.webp",
   "https://storage.googleapis.com/a1aa/image/RLWGjhfOrrbuMtLu7hb10wdQQLqm7MWorax23WJNb-4.jpg",
   "https://storage.googleapis.com/a1aa/image/7pecTFe8s3ojIkvA7SoV2XtLkqVHYYGSyZDKB4F3SmI.jpg",
@@ -66,15 +65,18 @@ export default function GetCustomerBanner() {
     ]
     const [open , setOpen] = useState(false)
     const [index, setIndex] = useState(0);
-
+    const [modal , setModal] = useState(false)
     const openGallery = () => setOpen(true)
     const closeGallery = () => setOpen(false)
+    const openModal = () => setModal(true)
+    const closeModal = () => setModal(false)
+    const [selectedImage, setSelectedImage] = useState(images[0]);
 
   return (
     <div className="">
       <div className="flex flex-col lg:flex-row gap-6 mt-10">
         <div className="w-1/2">
-          <div onClick={ ()=> setOpen(true)} className="border px-5 bg-gray-100 rounded-md">
+          <div onClick={ ()=> setModal(true)} className="border px-5 bg-gray-100 rounded-md">
             <img
               src="https://images.olx.com.pk/thumbnails/518749137-800x600.webp"
               alt="Product"
@@ -120,7 +122,6 @@ export default function GetCustomerBanner() {
           <span className="font-bold text-gray-800"></span>
           <span className="font-bold text-gray-800"></span>
           <span className="font-bold text-gray-800"></span>
-
           </div>
             </div>
             <div className="border p-4 mt-4 rounded-lg shadow-md bg-white">
@@ -225,24 +226,127 @@ export default function GetCustomerBanner() {
 
       </div>
       {open && (
-        <Lightbox
+      <div>
+          <Lightbox
           open={open}
           close={() => setOpen(false)}
           slides={images.map((src) => ({ src }))}
           index={index}
           on={{ view: ({ index }) => setIndex(index) }}
+          className='text-gray-300'
           render={{
+            slide: ({ slide }) => (     
+               <div className="fixed bg-black bg-opacity-50">
+               <img 
+                src={slide.src} 
+                alt="Gallery Image" 
+                className="max-w-[600px] max-h-[500px] object-contain mx-auto"
+              />
+             </div>
+            ),
             buttonClose: () => (
-              <button
-                className="absolute top-4 right-4 bg-black text-white p-2 rounded-full"
+                <button
+                className="top-6 fixed left-44 bg-black text-white p-2 rounded-full"
                 onClick={() => setOpen(false)}
               >
-                <Close />
+               <ArrowBack className='mr-2' />
+                Back To Gallery
               </button>
             ),
           }}
         />
-      )}
+      </div>
+      
+     )}
+      <div>
+        
+      </div>
+      <Modal open={modal} onClose={closeModal}
+      BackdropProps={{
+        sx: {backgroundColor : "rgba(0, 0, 0, 0.8)"}
+      }}
+      >
+       <Box
+         sx={{
+           position: "absolute",
+           top: "50%",
+           left: "50%",
+           transform: "translate(-50%, -50%)",
+           width: "90%",
+           maxWidth: "none",
+           bgcolor: "white",
+           boxShadow: 24,
+           zIndex : "50",
+           p: { xs: 2, sm: 3 }, 
+           borderRadius : "10px",
+         }}
+       >
+         <Button
+           color="teal"
+           onClick={closeModal}
+           sx={{
+             position: "absolute",
+             top: "8px",
+             right: "8px",
+             minWidth: "30px",
+             padding: "5px",
+             borderRadius: "50%",
+             fontSize: "12px",
+           }}
+         >
+           <ClearOutlined className="text-teal-950" />
+         </Button>
+       <div className='p-3 px-10 '>
+      <h1 className='font-semibold text-sm text-teal-950'>
+        <CameraAltOutlined  className='mr-2'/>
+        Photos (7)</h1>
+      </div>
+      <div className='flex bs-container '>
+<div className='border-b border-y-2 flex w-48 border-teal-950'></div>
+<div className='border-b flex w-full'></div>
+      </div>
+      <div className=" gap-2 mt-4 mb-5 overflow-y-auto max-h-[400px] grid grid-cols-2 overflow-auto  ">
+        {images.map((img, index) => (
+          <button
+            key={index}
+            className={`w-full h-96 rounded-md border-2 ${
+              selectedImage === img ? "border-transparent" : "border-transparent"
+            }`}
+            onClick={() => {
+              setIndex(index);
+              setOpen(true);
+            }
+          }
+          >
+            <img src={img} alt={`Thumbnail ${index + 1}`} className="w-full h-full object-cover" />
+          </button>
+        ))}
+      </div>
+     <div className='flex justify-between'>
+     <div className='flex '>
+        <div className='flex'>
+          <img className='w-16 object-contain' src="https://www.olx.com.pk/assets/iconProfilePicture.7975761176487dc62e25536d9a36a61d.png" alt="" />
+        </div>
+        <div className='p-2 px-4'>
+        <h1 className='font-bold text-teal-950'>olx user</h1>
+        <p className='text-teal-950'>Member since Sept 2023</p>
+        </div>
+          </div>
+          <div className='flex items-center gap-5'>
+            <button className='border-teal-950 border text-teal-950 rounded-sm w-52 py-1'>
+              <LocalPhone className='mr-2'/>
+              Show Number</button>
+            <button className='border-teal-950 border text-white rounded-sm bg-teal-950 w-52 py-1'>
+            <FontAwesomeIcon icon={faComments} className="mr-2" /> 
+            Chat</button>
+          </div>
+     </div>
+        <div>
+        
+         </div>
+       </Box>
+     </Modal> 
+     
     </div>
     
   );
