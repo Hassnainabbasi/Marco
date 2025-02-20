@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/header/Headerone'
 import { ArrowDown, ArrowDown01, ArrowDownIcon, ArrowUp, ArrowUpToLine, Heart, MenuIcon } from 'lucide-react'
-import { Autocomplete, Popper, styled, TextField, ToggleButton } from '@mui/material'
-import { ArrowBack, Comment, KeyboardArrowDownOutlined, KeyboardArrowUpOutlined, LocalPhoneOutlined, MapsUgcOutlined, MyLocation } from '@mui/icons-material';
+import { Autocomplete, Popper, styled, TextField, ToggleButton, Modal, Box, Button } from '@mui/material'
+import { ArrowBack, Comment, KeyboardArrowDownOutlined, KeyboardArrowUpOutlined, ClearOutlined ,LocalPhoneOutlined, MapsUgcOutlined, MyLocation } from '@mui/icons-material';
 import SeeStuffButton from './SeeStuffButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart,faPhoneAlt, faComments, } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +13,7 @@ import HeaderCat from '../../components/header/HeaderCat';
 import GetCatFooter from '../../components/footer/GetCatFooter';
 import { Link } from 'react-router-dom';
 import MobileHeader from '../../components/header/MobileHeader';
+import FilterComponent from './FilterComponent';
 
 const StyledPopper = styled(Popper)(({ theme }) => ({
   zIndex: 10,
@@ -207,6 +208,20 @@ export default function GetCategories() {
   const [value, setValue] = useState("0");
   const [view, setView] = useState(false)
   const [isVisible, setIsVisible] = useState(false);
+  const [mobile, setMobile] = useState(window.innerWidth < 768)
+  const [filter, setFilter] = useState(false)
+
+ const filterOpen = () => setFilter(true)
+ const filterClose = () => setFilter(false)
+
+ useEffect(()=>{
+
+  const handleSize = () =>{
+    setMobile(window.innerWidth < 768)
+  }
+  window.addEventListener("resize", handleSize);
+  return () => window.removeEventListener("resize", handleSize);
+ },[])
 
   const toggleCategories = () =>{
     setShowmore(!showmore)
@@ -236,13 +251,6 @@ export default function GetCategories() {
     }
     return num.toString();
   };
-  
-  console.log(formatNumber(1000000000)); 
-  console.log(formatNumber(10000000)); 
-  console.log(formatNumber(100000)); 
-  console.log(formatNumber(1000)); 
-  console.log(formatNumber(500)); 
-  
 
  const locations = [
     { label: "Use current location", icon: <MyLocation /> },
@@ -275,436 +283,458 @@ export default function GetCategories() {
 
 
   return (
-    <div className='bs-container mx-auto px-4'>
+    <div>
+      {filter ? (
+       <FilterComponent setFilter={setFilter}/>
+      ) : (
         <div className=''>
-            {/* <HeaderCat /> */}
-            <MobileHeader />
-            <div className="fixed top-1/5 left-1/2 transform -translate-x-1/2 sm:top-1/4">
-  <button
-    onClick={scrollToTop}
-    className={`flex items-center gap-2 px-5 bg-white py-2 rounded-full text-teal-950 shadow-lg border border-teal-950 transition-all duration-300 ${
-      isVisible ? "opacity-100 scale-100" : "opacity-0 scale-0"
-    }`}
-  >
-    <KeyboardArrowUpOutlined />
-    Back to top
-  </button>
-</div>
-
-        </div>
-        <div className='bs-container p-4 sm:p-7'>
-            <div className='flex justify-center mb-10'>
-            <img src="https://tpc.googlesyndication.com/simgad/11643353606679889402" alt="" />
-            </div>
-        <div className='hidden sm:block'>
-        <div className='flex '>
-         <h1 className='mb-4 text-teal-900 text-sm'>Home</h1>
-        </div>
-        <div className='flex gap-5'>
-            <h1 className='text-teal-950 text-2xl font-sans font-bold'>Pakistan Free classifieds</h1>
-            <button className='font-semibold bg-teal-100 px-2 text-sm rounded-sm '>10,000+ ads</button>
-         </div>
-        </div>
-        </div>
- <div className='flex flex-col sm:flex-row bs-container'>
- <div className="flex-1 hidden sm:block">
-      <div className="p-4 bg-gray-100 rounded">
-        <h2 className="text-lg text-teal-950 font-sans font-bold mb-2">Categories</h2>
-        <ul className="space-y-2 px-5">
-          <li>
-            <a className="text-gray-500 text-sm -ml-6 " href="#">
-              All categories
-            </a>
-          </li>
-          <li>
-            <a className="text-gray-500 text-sm" href="#">
-              Mobiles
-            </a>
-          </li>
-          <li>
-            <a className="text-gray-500 text-sm" href="#">
-              Vehicles
-            </a>
-          </li>
-          <li>
-            <a className="text-gray-500 text-sm" href="#">
-              Property for Sale
-            </a>
-          </li>
-          <li>
-            <a className="text-gray-500 text-sm" href="#">
-              Property for Rent
-            </a>
-          </li>
-          {showmore && (
-              <>
-                <li>
-                  <a className="text-gray-500 text-sm" href="#">
-                    Electric & Home and Appliances
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-500 text-sm" href="#">
-                    Bikes
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-500 text-sm" href="#">
-                    Business and Industrial Agriculture
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-500 text-sm" href="#">
-                    Services
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-500 text-sm" href="#">
-                    Jobs
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-500 text-sm" href="#">
-                    Animals
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-500 text-sm" href="#">
-                    Furniture & Home Decor
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-500 text-sm" href="#">
-                    Fashion & Beauty
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-500 text-sm" href="#">
-                    Books, Sports & Hobbies
-                  </a>
-                </li>
-                <li>
-                  <a className="text-gray-500 text-sm" href="#">
-                    Kids
-                  </a>
-                </li>
-              </>
-            )}
-            <li>
-              <button
-                onClick={toggleCategories}
-                className="text-blue-600 text-sm"
-              >
-                {showmore ? `View Less${<ArrowUpToLine />}` : "View More    "}
-              </button>
-          </li>
-        </ul>
+        {mobile ? 
+          <MobileHeader />
+      :  
+      <HeaderCat />
+    }
+         {!mobile &&(
+    <div className="fixed top-1/5 left-1/2 transform -translate-x-1/2 sm:top-1/4">
+    <button
+     onClick={scrollToTop}
+     className={`flex items-center gap-2 px-5 bg-white py-2 rounded-full text-teal-950 shadow-lg border border-teal-950 transition-all duration-300 ${
+       isVisible ? "opacity-100 scale-100" : "opacity-0 scale-0"
+     }`}
+    >
+     <KeyboardArrowUpOutlined />
+     Back to top
+    </button>
+    </div>
+         )}
+         <div className='bs-container mx-auto'>
+      <div>       
       </div>
-      <div className='mt-5 border p-5 rounded-sm'>
-      <h1 className='mb-4'>Location</h1>
-      <div className='flex mb-3'>
-      <Autocomplete
-      disablePortal={false}
-      PopperComponent={StyledPopper}
-      options={locations}
-      getOptionLabel={(option) => option.label}
-      PopperProps={{
-        modifiers: [
-          {
-            name: "preventOverflow",
-            options: {
-              boundary: "window", 
-            },
-          },
-          {
-            name: "flip",
-            options: {
-              fallbackPlacements: ["bottom"],
-            },
-          },
-        ],
-      }}
-      renderOption={(props, option, { index }) => 
-        option.isHeader ? (
-          <li 
-            {...props} 
-            style={{ fontWeight: "lighter", color: "#023F46", fontSize: 12 }}
-          >
-            {option.label}
-          </li>
-        ) : (
-          <li 
-            {...props} 
-            style={{ 
-              display: "flex", 
-              alignItems: "center", 
-              gap: "8px",
-              padding: index < 2 ? "20px": "13px",
-              cursor: "pointer",
-              borderBottom: index < 2 ? "1px solid #ccc" : "none",
-              color: index === 0 ? "#4998EF" : "inherit"
-            }}
-          >
-            {option.icon}
-            {option.label}
-          </li>
-        )
-      }
-      
-      sx={{
-        width: 300,
-        "& .MuiOutlinedInput-root": {
-          borderRadius: "8px",
-        },
-      }}
-      renderInput={(params) => <TextField {...params} label="Pakistan" />}
-    />
-      </div>
-      <div>
-        <h1 className='text-md mb-1 font-bold text-teal-950'>Pakistan</h1>
-        <div className='px-5'>
-        <ul>
-          <li className='text-gray-500 mb-2 text-sm'>Punjab</li>
-          <li className='text-gray-500 mb-2 text-sm'>Sindh</li>
-          <li className='text-gray-500 mb-2 text-sm'>Islamabad Capital Territory (64449)</li>
-          <li className='text-gray-500 mb-2 text-sm'>Khyber Pakhtunkhwa (29735)</li>
-          <li className='text-gray-500 mb-2 text-sm'>Balochistan (3941)</li>
-          <li className='text-gray-500 mb-2 text-sm'>Azad Kashmir (2942)</li>
-          <li className='text-gray-500 mb-2 text-sm'>Northern Areas (264)</li>
-        </ul>
-      </div>
-      </div>
-        </div>
-        <div className='border mt-4 rounded-md'>
-        <div className='px-3 mt-3'>
-          <h1 className='mb-4 px-2 text-lg font-bold'>Price</h1>
-         <div className='flex gap-5 justify-center mb-2'>
-          <input
-          value={minPrice}
-          min="0" 
-          onChange={(e) => {
-            const value = e.target.value.replace(/\D/g, ""); 
-            if (value <= 553) {
-              setMinPrice(value);
-            }
-          }}
-          className='border p-2 rounded-lg border-gray-400' size={12} type="text" name="" id="" />
-          <input
-           min="0" 
-           value={maxPrice}
-           onChange={(e) => setMaxPrice(e.target.value)}
-          className='border p-2 rounded-lg border-gray-400' size={12} type="text" name="" id="" />
-         </div>
-         <div className='flex justify-center gap-24'>
-  {minPrice && minPrice !== "0" && <p className='flex text-xs'>PKR {minPrice}</p>}
-  {maxPrice && maxPrice !== "0" && (
-    <p className='text-xs'>PKR {formatNumber(Number(maxPrice.replace(/,/g, '')))}</p>
-  )}
-</div>
-        </div>
-      </div>
-     <div className='mt-9'>
-      <SeeStuffButton />
-     </div>
-  </div>
-  <div className="flex-2 p-2">
-        <div className="space-y-4 ">
-         <div className='flex items-center justify-end gap-3'>
-          <h1 className='text-teal-950 font-bold text-sm'>VIEW</h1>
-          <button onClick={() => setView(false)} className={`border rounded-full p-1 cursor-pointer ${view ? "focus:bg-teal-600" : "bg-white"} border-none`} ><MenuIcon /></button>
-          <button className={`${!view ? "focus:bg-teal-600" : "bg-white"} rounded-full p-1 border-none`} onClick={() => setView(true)}><img  src="https://www.olx.com.pk/assets/iconGrid_noinline.20d3115f90d4e01862afb7d21be83420.svg" alt="" /></button>
-        <div className='border border-l h-9'></div>
-        <h1 className='font-bold text-sm text-teal-950'>SORT BY:</h1>
-        <h1 className='text-md text-teal-950'>Newly listed</h1>
-        <button><KeyboardArrowDownOutlined /></button>
-         </div>
-          <div>
-            <hr />
+      <div className='bs-container hidden sm:block p-4 sm:p-7'>
+          <div className='flex justify-center mb-10'>
+          <img src="https://tpc.googlesyndication.com/simgad/11643353606679889402" alt="" />
           </div>
-      {!view &&(
-        <div className=''>
-           {dummyData.map((item)=>(
- <Link to={'/customer-account'}>
-  <div key={item.id} className="rounded gap-5 mb-2 shadow-lg flex">
- <div className="w-1/3">
- <span className="bg-yellow-400 absolute text-xs font-semibold px-2 p-1 mt-3 mx-4 rounded">
-       Featured
-     </span>
-   <img
-     alt="Image of a PBX solution"
-     className="w-full h-56 object-cover"
-     height={200}
-     src={item.image}
-     width={200}
-   />
- </div>
- <div className="p-2">
-   <div className="flex justify-between items-center">
-   <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
-    {item.price}
-   </h3>
-    <Heart className='text-teal-950' />
+      <div className='hidden sm:block'>
+      <div className='flex '>
+       <h1 className='mb-4 text-teal-900 text-sm'>Home</h1>
       </div>
-  
-   <h3 className="text-xl mb-6 font-semibold text-teal-950">
+      <div className='flex gap-5'>
+          <h1 className='text-teal-950 text-2xl font-sans font-bold'>Pakistan Free classifieds</h1>
+          <button className='font-semibold bg-teal-100 px-2 text-sm rounded-sm '>10,000+ ads</button>
+       </div>
+      </div>
+      </div>
+    <div className='flex flex-col sm:flex-row '>
+    <div className="flex-1 hidden sm:block">
+    <div className="p-4 bg-gray-100 rounded">
+      <h2 className="text-lg text-teal-950 font-sans font-bold mb-2">Categories</h2>
+      <ul className="space-y-2 px-5">
+        <li>
+          <a className="text-gray-500 text-sm -ml-6 " href="#">
+            All categories
+          </a>
+        </li>
+        <li>
+          <a className="text-gray-500 text-sm" href="#">
+            Mobiles
+          </a>
+        </li>
+        <li>
+          <a className="text-gray-500 text-sm" href="#">
+            Vehicles
+          </a>
+        </li>
+        <li>
+          <a className="text-gray-500 text-sm" href="#">
+            Property for Sale
+          </a>
+        </li>
+        <li>
+          <a className="text-gray-500 text-sm" href="#">
+            Property for Rent
+          </a>
+        </li>
+        {showmore && (
+            <>
+              <li>
+                <a className="text-gray-500 text-sm" href="#">
+                  Electric & Home and Appliances
+                </a>
+              </li>
+              <li>
+                <a className="text-gray-500 text-sm" href="#">
+                  Bikes
+                </a>
+              </li>
+              <li>
+                <a className="text-gray-500 text-sm" href="#">
+                  Business and Industrial Agriculture
+                </a>
+              </li>
+              <li>
+                <a className="text-gray-500 text-sm" href="#">
+                  Services
+                </a>
+              </li>
+              <li>
+                <a className="text-gray-500 text-sm" href="#">
+                  Jobs
+                </a>
+              </li>
+              <li>
+                <a className="text-gray-500 text-sm" href="#">
+                  Animals
+                </a>
+              </li>
+              <li>
+                <a className="text-gray-500 text-sm" href="#">
+                  Furniture & Home Decor
+                </a>
+              </li>
+              <li>
+                <a className="text-gray-500 text-sm" href="#">
+                  Fashion & Beauty
+                </a>
+              </li>
+              <li>
+                <a className="text-gray-500 text-sm" href="#">
+                  Books, Sports & Hobbies
+                </a>
+              </li>
+              <li>
+                <a className="text-gray-500 text-sm" href="#">
+                  Kids
+                </a>
+              </li>
+            </>
+          )}
+          <li>
+            <button
+              onClick={toggleCategories}
+              className="text-blue-600 text-sm"
+            >
+              {showmore ? `View Less${<ArrowUpToLine />}` : "View More    "}
+            </button>
+        </li>
+      </ul>
+    </div>
+    <div className='mt-5 border p-5 rounded-sm'>
+    <h1 className='mb-4'>Location</h1>
+    <div className='flex mb-3'>
+    <Autocomplete
+    disablePortal={false}
+    PopperComponent={StyledPopper}
+    options={locations}
+    getOptionLabel={(option) => option.label}
+    PopperProps={{
+      modifiers: [
+        {
+          name: "preventOverflow",
+          options: {
+            boundary: "window", 
+          },
+        },
+        {
+          name: "flip",
+          options: {
+            fallbackPlacements: ["bottom"],
+          },
+        },
+      ],
+    }}
+    renderOption={(props, option, { index }) => 
+      option.isHeader ? (
+        <li 
+          {...props} 
+          style={{ fontWeight: "lighter", color: "#023F46", fontSize: 12 }}
+        >
+          {option.label}
+        </li>
+      ) : (
+        <li 
+          {...props} 
+          style={{ 
+            display: "flex", 
+            alignItems: "center", 
+            gap: "8px",
+            padding: index < 2 ? "20px": "13px",
+            cursor: "pointer",
+            borderBottom: index < 2 ? "1px solid #ccc" : "none",
+            color: index === 0 ? "#4998EF" : "inherit"
+          }}
+        >
+          {option.icon}
+          {option.label}
+        </li>
+      )
+    }
+    
+    sx={{
+      width: 300,
+      "& .MuiOutlinedInput-root": {
+        borderRadius: "8px",
+      },
+    }}
+    renderInput={(params) => <TextField {...params} label="Pakistan" />}
+    />
+    </div>
+    <div>
+      <h1 className='text-md mb-1 font-bold text-teal-950'>Pakistan</h1>
+      <div className='px-5'>
+      <ul>
+        <li className='text-gray-500 mb-2 text-sm'>Punjab</li>
+        <li className='text-gray-500 mb-2 text-sm'>Sindh</li>
+        <li className='text-gray-500 mb-2 text-sm'>Islamabad Capital Territory (64449)</li>
+        <li className='text-gray-500 mb-2 text-sm'>Khyber Pakhtunkhwa (29735)</li>
+        <li className='text-gray-500 mb-2 text-sm'>Balochistan (3941)</li>
+        <li className='text-gray-500 mb-2 text-sm'>Azad Kashmir (2942)</li>
+        <li className='text-gray-500 mb-2 text-sm'>Northern Areas (264)</li>
+      </ul>
+    </div>
+    </div>
+      </div>
+      <div className='border mt-4 rounded-md'>
+      <div className='px-3 mt-3'>
+        <h1 className='mb-4 px-2 text-lg font-bold'>Price</h1>
+       <div className='flex gap-5 justify-center mb-2'>
+        <input
+        value={minPrice}
+        min="0" 
+        onChange={(e) => {
+          const value = e.target.value.replace(/\D/g, ""); 
+          if (value <= 553) {
+            setMinPrice(value);
+          }
+        }}
+        className='border p-2 rounded-lg border-gray-400' size={12} type="text" name="" id="" />
+        <input
+         min="0" 
+         value={maxPrice}
+         onChange={(e) => setMaxPrice(e.target.value)}
+        className='border p-2 rounded-lg border-gray-400' size={12} type="text" name="" id="" />
+       </div>
+       <div className='flex justify-center gap-24'>
+    {minPrice && minPrice !== "0" && <p className='flex text-xs'>PKR {minPrice}</p>}
+    {maxPrice && maxPrice !== "0" && (
+    <p className='text-xs'>PKR {formatNumber(Number(maxPrice.replace(/,/g, '')))}</p>
+    )}
+    </div>
+      </div>
+    </div>
+    <div className='mt-9'>
+    <SeeStuffButton />
+    </div>
+    </div>
+    <div className="flex-2">
+      <div className="space-y-4 ">
+        {mobile ? 
+          <div className='flex justify-between items-end mt-5'>
+          <button className='font-semibold bg-teal-100 text-sm h-7 flex items-center rounded-sm px-2'>10,000+ ads</button>
+          <button onClick={() => setFilter(true)} className='flex text-white font-bold gap-2 bg-teal-950 px-3 p-3 rounded-md'>
+          <svg className='' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="b4840212">
+    <path d="M14.9 9h2V7h4V5h-4V3h-2zm6 4v-2h-10v2zm-14-4v2H3v2h4v2h2V9zm6 12v-2h8v-2h-8v-2h-2v6zM2.9 5v2h10V5zm0 12v2h6v-2z" fill="white"></path>
+    </svg>
+           Filter</button>
+          </div>
+      :
+      <div className='flex items-center justify-end gap-3'>
+      <h1 className='text-teal-950 font-bold text-sm'>VIEW</h1>
+      <button onClick={() => setView(false)} className={`border rounded-full p-1 cursor-pointer ${view ? "focus:bg-teal-600" : "bg-white"} border-none`} ><MenuIcon /></button>
+      <button className={`${!view ? "focus:bg-teal-600" : "bg-white"} rounded-full p-1 border-none`} onClick={() => setView(true)}><img  src="https://www.olx.com.pk/assets/iconGrid_noinline.20d3115f90d4e01862afb7d21be83420.svg" alt="" /></button>
+    <div className='border border-l h-9'></div>
+    <h1 className='font-bold text-sm text-teal-950'>SORT BY:</h1>
+    <h1 className='text-md text-teal-950'>Newly listed</h1>
+    <button><KeyboardArrowDownOutlined /></button>
+     </div>
+      }
+     
+     
+        <div>
+          <hr />
+        </div>
+    {!view &&(
+      <div className=''>
+         {dummyData.map((item)=>(
+    <Link to={'/customer-account'}>
+    <div key={item.id} className="rounded gap-5 mb-2 shadow-lg flex">
+    <div className="w-1/3">
+    <span className="bg-yellow-400 absolute text-xs font-semibold px-2 p-1 mt-3 mx-4 rounded">
+     Featured
+    </span>
+    <img
+    alt="Image of a PBX solution"
+    className="w-full h-56 object-cover"
+    height={200}
+    src={item.image}
+    width={200}
+    />
+    </div>
+    <div className="p-2">
+    <div className="flex justify-between items-center">
+    <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
+    {item.price}
+    </h3>
+    <Heart className='text-teal-950' />
+    </div>
+    
+    <h3 className="text-xl mb-6 font-semibold text-teal-950">
     {item.title}
-   </h3>
-   <p className="text-teal-950 text-sm mt-2">
-     {item.location}
-   </p>
-   <div className="flex space-x-2 mt-4">
-     <button className="flex items-center justify-c
-     enter py-2 px-7 text-teal-950  border-2 border-teal-950 rounded">
-     <svg className='mr-2 text-teal-950 text-xl' width="26" height="26" viewBox="0 0 1024 1024" ><path d="M784.55 852.4c-331.43-14.64-598.31-281.52-612.94-612.95l149.97-60 91.69 183.43-71 35.5v26.45c0 141.66 115.25 256.9 256.9 256.9h26.45l11.86-23.64 23.68-47.36 183.38 91.74-59.99 149.93zM918.1 643.45L661.16 514.99l-57.47 19.2-30.04 60.03c-74.07-11.1-132.73-69.8-143.87-143.87l60.08-30.04L509 362.88 380.6 105.94l-54.2-20.6-214.18 85.63-26.88 39.8c0 401.37 326.57 727.9 727.94 727.9l39.76-26.88 85.64-214.19-20.61-54.19z"></path></svg>
-       Call
-     </button>
-     <button className="flex items-center px-6 justify-center py-2 text-white bg-teal-950 border-2 border-teal-950 rounded">
+    </h3>
+    <p className="text-teal-950 text-sm mt-2">
+    {item.location}
+    </p>
+    <div className="flex space-x-2 mt-4">
+    <button className="flex items-center justify-c
+    enter py-2 px-7 text-teal-950  border-2 border-teal-950 rounded">
+    <svg className='mr-2 text-teal-950 text-xl' width="26" height="26" viewBox="0 0 1024 1024" ><path d="M784.55 852.4c-331.43-14.64-598.31-281.52-612.94-612.95l149.97-60 91.69 183.43-71 35.5v26.45c0 141.66 115.25 256.9 256.9 256.9h26.45l11.86-23.64 23.68-47.36 183.38 91.74-59.99 149.93zM918.1 643.45L661.16 514.99l-57.47 19.2-30.04 60.03c-74.07-11.1-132.73-69.8-143.87-143.87l60.08-30.04L509 362.88 380.6 105.94l-54.2-20.6-214.18 85.63-26.88 39.8c0 401.37 326.57 727.9 727.94 727.9l39.76-26.88 85.64-214.19-20.61-54.19z"></path></svg>
+     Call
+    </button>
+    <button className="flex items-center px-6 justify-center py-2 text-white bg-teal-950 border-2 border-teal-950 rounded">
     <FontAwesomeIcon className='mr-2 text-xl' icon={faComment} />
-      Chat
-     </button>
-   </div>
- </div>
-</div>
- </Link>
-         ))}
-        </div>
-      )}    
-        
-      {view &&(
-      <Link to={"/customer-account"}>
-<div className='grid grid-cols-3 gap-2'>
-           {dummyData.map((item)=>(
- <div key={item.id} className="border">
- <div className="">
- <span className="bg-yellow-400 absolute text-xs font-semibold px-2 p-1 mt-3 mx-4 rounded">
-       Featured
-     </span>
-   <img
-     alt="Image of a PBX solution"
-     className="w-full h-56 object-cover"
-     height={200}
-     src={item.image}
-     width={200}
-   />
- </div>
- <div className="p-2">
-   <div className="flex justify-between items-center">
-   <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
+    Chat
+    </button>
+    </div>
+    </div>
+    </div>
+    </Link>
+       ))}
+      </div>
+    )}    
+      
+    {view &&(
+    <Link to={"/customer-account"}>
+    <div className='grid grid-cols-3 gap-2'>
+         {dummyData.map((item)=>(
+    <div key={item.id} className="border">
+    <div className="">
+    <span className="bg-yellow-400 absolute text-xs font-semibold px-2 p-1 mt-3 mx-4 rounded">
+     Featured
+    </span>
+    <img
+    alt="Image of a PBX solution"
+    className="w-full h-56 object-cover"
+    height={200}
+    src={item.image}
+    width={200}
+    />
+    </div>
+    <div className="p-2">
+    <div className="flex justify-between items-center">
+    <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
     {item.price}
-   </h3>
+    </h3>
     <Heart className='text-teal-950' />
-      </div>
-  
-   <h3 className="text-xl mb-6 font-semibold text-teal-950">
+    </div>
+    
+    <h3 className="text-xl mb-6 font-semibold text-teal-950">
     {item.title}
-   </h3>
-   <p className="text-teal-950 text-sm mt-2">
-     {item.location}
-   </p>
- </div>
-</div>
-         ))}
-        </div>
-      </Link>
-      )}
-      <div className='text-center p-5'>
-        <button className='text-teal-950 font-bold border-teal-950 border-2 p-2 rounded-md'>Load more</button>
+    </h3>
+    <p className="text-teal-950 text-sm mt-2">
+    {item.location}
+    </p>
+    </div>
+    </div>
+       ))}
       </div>
-      <div className='mb-4'>
-        <h1 className='text-teal-950 font-semibold mb-3'>Recently View</h1>
-        <hr className='border-gray-400' />
-      </div>
+    </Link>
+    )}
+    <div className='text-center p-5'>
+      <button className='text-teal-950 font-bold border-teal-950 border-2 p-2 rounded-md'>Load more</button>
+    </div>
+    <div className='mb-4'>
+      <h1 className='text-teal-950 font-semibold mb-3'>Recently View</h1>
+      <hr className='border-gray-400' />
+    </div>
     <div className='grid grid-cols-3 gap-2'>
     <div className="border ">
- <div className="">
- 
-   <img
-     alt="Image of a PBX solution"
-     className="w-full h-56 object-cover"
-     height={200}
-     src='https://cdn.pixabay.com/photo/2019/11/23/11/33/mobile-phone-4646854_640.jpg'
-     width={200}
-   />
- </div>
- <div className="p-2">
-   <div className="flex justify-between items-center">
-   <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
-    Rs 38,000
-   </h3>
-    <Heart className='text-teal-950' />
-      </div>
-  
-   <h3 className="text-xl mb-6 font-semibold text-teal-950">
-   A71 10/9 8/9/128 Full Box
-   </h3>
-   <p className="text-teal-950 text-sm mt-2">
-   Gulgasht Colony, Multan
-   </p>
- </div>
-</div>
-<div className="border">
- <div className="">
- <span className="bg-yellow-400 absolute text-xs font-semibold px-2 p-1 mt-3 mx-4 rounded">
-       Featured
-     </span>
-   <img
-     alt="Image of a PBX solution"
-     className="w-full h-56 object-cover"
-     height={200}
-     src='https://img-ik.cars.co.za/ik-seo/carsimages/tr:n-stock_med/9567231/2024-Hyundai-Creta-Grand-15D-Executive-Auto.jpg?v=1691358132'
-     width={200}
-   />
- </div>
- <div className="p-2">
-   <div className="flex justify-between items-center">
-   <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
-    Rs 37,000,00
-   </h3>
-    <Heart className='text-teal-950' />
-      </div>
-   <h3 className="text-xl mb-6 font-semibold text-teal-950">
-   Grand 1.5D Executive Auto
-   </h3>
-   <p className="text-teal-950 text-sm">
-   Korangi ,Karachi
-   </p>
- </div>
-</div>
-<div className="border">
- <div className="">
- <span className="bg-yellow-400 absolute text-xs font-semibold px-2 p-1 mt-3 mx-4 rounded">
-       Featured
-     </span>
-   <img
-     alt="Image of a PBX solution"
-     className="w-full h-56 object-cover"
-     height={200}
-     src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe1G13Fyju4n8hR2Ydh8q-ZNLcuDHm1M0GxQ&s'
-     width={200}
-   />
- </div>
- <div className="p-2">
-   <div className="flex justify-between items-center">
-   <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
-    Rs 78,000
-   </h3>
-    <Heart className='text-teal-950' />
-      </div>
-  
-   <h3 className="text-xl mb-6 font-semibold text-teal-950">
-   . Inverter AC
-   </h3>
-   <p className="text-teal-950 text-sm mt-2">
-   Sukkur , Sindh
-   </p>
- </div>
-</div>
+    <div className="">
+    
+    <img
+    alt="Image of a PBX solution"
+    className="w-full h-56 object-cover"
+    height={200}
+    src='https://cdn.pixabay.com/photo/2019/11/23/11/33/mobile-phone-4646854_640.jpg'
+    width={200}
+    />
     </div>
-        </div>
+    <div className="p-2">
+    <div className="flex justify-between items-center">
+    <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
+    Rs 38,000
+    </h3>
+    <Heart className='text-teal-950' />
+    </div>
+    
+    <h3 className="text-xl mb-6 font-semibold text-teal-950">
+    A71 10/9 8/9/128 Full Box
+    </h3>
+    <p className="text-teal-950 text-sm mt-2">
+    Gulgasht Colony, Multan
+    </p>
+    </div>
+    </div>
+    <div className="border">
+    <div className="">
+    <span className="bg-yellow-400 absolute text-xs font-semibold px-2 p-1 mt-3 mx-4 rounded">
+     Featured
+    </span>
+    <img
+    alt="Image of a PBX solution"
+    className="w-full h-56 object-cover"
+    height={200}
+    src='https://img-ik.cars.co.za/ik-seo/carsimages/tr:n-stock_med/9567231/2024-Hyundai-Creta-Grand-15D-Executive-Auto.jpg?v=1691358132'
+    width={200}
+    />
+    </div>
+    <div className="p-2">
+    <div className="flex justify-between items-center">
+    <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
+    Rs 37,000,00
+    </h3>
+    <Heart className='text-teal-950' />
+    </div>
+    <h3 className="text-xl mb-6 font-semibold text-teal-950">
+    Grand 1.5D Executive Auto
+    </h3>
+    <p className="text-teal-950 text-sm">
+    Korangi ,Karachi
+    </p>
+    </div>
+    </div>
+    <div className="border">
+    <div className="">
+    <span className="bg-yellow-400 absolute text-xs font-semibold px-2 p-1 mt-3 mx-4 rounded">
+     Featured
+    </span>
+    <img
+    alt="Image of a PBX solution"
+    className="w-full h-56 object-cover"
+    height={200}
+    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe1G13Fyju4n8hR2Ydh8q-ZNLcuDHm1M0GxQ&s'
+    width={200}
+    />
+    </div>
+    <div className="p-2">
+    <div className="flex justify-between items-center">
+    <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
+    Rs 78,000
+    </h3>
+    <Heart className='text-teal-950' />
+    </div>
+    
+    <h3 className="text-xl mb-6 font-semibold text-teal-950">
+    . Inverter AC
+    </h3>
+    <p className="text-teal-950 text-sm mt-2">
+    Sukkur , Sindh
+    </p>
+    </div>
+    </div>
+    </div>
       </div>
- </div>
- <div className='bs-container mt-3'>
-  <ul className='flex gap-3 text-teal-950 text-sm'>
+    </div>
+    </div>
+    <div className='bs-container mt-3'>
+    <ul className='flex gap-3 text-teal-950 text-sm'>
     <li className='font-bold'>Popular Searches:</li>
     <li>repair</li>
     <li>-</li>
@@ -713,17 +743,30 @@ export default function GetCategories() {
     <li>machine</li>
     <li>-</li>
     <li>sand</li>
-  </ul>
-</div>
-<div className='flex justify-center mt-12 mb-5'>
-  <img src="https://tpc.googlesyndication.com/simgad/1948415569106598874" alt="" />
-</div>
-<div>
-  <GetCatFooter />
-<Footer />
-<FooterTwo />
-</div>
-       </div>
+    </ul>
+    </div>
+    <div className='flex justify-center mt-12 mb-5'>
+    <img src="https://tpc.googlesyndication.com/simgad/1948415569106598874" alt="" />
+    </div>
+    <div>
+    <GetCatFooter />
+    <Footer />
+    <FooterTwo />
+    </div>
+     </div>
+     <div>
+      </div>
+      </div>
+      )
+      
+      }
+     
+    </div>
   )
 }
 
+// {filter &&(
+//   <div>
+//     <h1></h1>
+//   </div>
+// )}

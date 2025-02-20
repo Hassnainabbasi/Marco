@@ -1,11 +1,41 @@
-import { MenuItem } from '@mui/material'
+import { InputBase, MenuItem, styled, TextField } from '@mui/material'
 import { MenuIcon, SearchIcon } from 'lucide-react'
 import React from 'react'
+import { CloseIcon } from 'yet-another-react-lightbox';
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  padding: theme.spacing(3, 2),
+  borderRadius: theme.shape.borderRadius,
+  color: '#000000',
+  height: '40px',
+  width: '119%',
+  [theme.breakpoints.down('sm')]: {
+  width: '100%', 
+  },
+}));
 
 export default function MobileHeader() {
   return (
     <div className=''>
-     <div className='flex space-x-3 items-center '>
+      <div className='flex justify-between space-x-3 p-4 bg-gray-100 items-center'>
+        <div className='flex gap-2'>
+        <div className=''>
+          <CloseIcon />
+        </div>
+        <div>
+        <img 
+        className='w-8 mix-blend-multiply object-contain ' 
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpqfEZTbw3kP6VH9MXJ018iDt9z6WzhDA-yQ&s" 
+        alt="logo" 
+      />
+      <h1 className='text-teal-950 text-sm'>Pakistan's no.1 Marketplace</h1>
+        </div>
+          </div>
+        <div className='flex '>
+          <button className='bg-blue-500 text-white p-2 rounded-md'>Open App</button>
+        </div>
+      </div>
+     <div className='flex space-x-3 items-center bs-container'>
     <div >
     <MenuIcon />
     </div>
@@ -30,12 +60,14 @@ export default function MobileHeader() {
         </div>
       </div>
     </div>
-    <div className='border border-teal-950 flex items-center mt-5 rounded-sm'>
+   <div className='bs-container'>
+   <div className='border  border-teal-950 flex items-center mt-5 rounded-sm'>
       <button className='px-2'>
     <SearchIcon className='text-teal-950' />
       </button>
-     <input className='w-full border-none p-2' placeholder='Vehicles in Pakistan' type="text" name="" id="" />
+      <StyledInputBase placeholder="Find Cars, Mobile Phones and more..." inputProps={{ 'aria-label': 'search' }} />
     </div>
+   </div>
     </div>
   )
 }
