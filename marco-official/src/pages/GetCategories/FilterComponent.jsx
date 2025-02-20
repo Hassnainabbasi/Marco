@@ -1,13 +1,23 @@
 import { ArrowBack, ArrowForwardIos } from '@mui/icons-material'
 import { MenuIcon } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function FilterComponent({setFilter}) {
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(1000000);
+    const [mobile, setMobile] = useState(window.innerWidth <768)
     const maxLimit = 1000000;
 
+  useEffect(()=>{
   
+    const handleSize = () =>{
+      setMobile(window.innerWidth < 768)
+    }
+    window.addEventListener("resize", handleSize);
+    return () => window.removeEventListener("resize", handleSize);
+   },[])
+  
+
     const handleMinChange = (e) => {
         let value = parseInt(e.target.value);
         if (value >= 0 && value < maxPrice) {
@@ -22,6 +32,9 @@ export default function FilterComponent({setFilter}) {
         }
       };
     return (
+  <div className=''>
+  
+  {mobile ? (
     <div className=''>
      <div className='bg-gray-100 flex items-center justify-between gap-2 p-4'>
     <div className='flex items-center gap-2'>
@@ -218,5 +231,11 @@ export default function FilterComponent({setFilter}) {
         <button className='bg-teal-950 p-4 rounded-md text-white w-full'>Filter</button>
      </div>
     </div>
+  ) : (
+    setFilter(false)
+  )}
+
+  </div>
+  
   )
 }

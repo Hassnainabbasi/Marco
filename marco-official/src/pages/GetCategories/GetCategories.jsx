@@ -283,7 +283,7 @@ export default function GetCategories() {
 
 
   return (
-    <div>
+    <div className='absolute'>
       {filter ? (
        <FilterComponent setFilter={setFilter}/>
       ) : (
