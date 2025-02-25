@@ -1,15 +1,18 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCar, faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 export default function TopCatHeader() {
   return (
     <div className='flex items-center gap-2 ml-'>
+   <Link to={'/'}>
     <img 
         className='w-14 object-contain ' 
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpqfEZTbw3kP6VH9MXJ018iDt9z6WzhDA-yQ&s" 
         alt="logo" 
       />
+    </Link>
       <div className="flex space-x-8 items-center p-2 ml-">
         <div className="flex items-center space-x-2">
          <div className='bg-slate-100 rounded-full p-2'>

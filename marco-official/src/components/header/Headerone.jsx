@@ -14,7 +14,6 @@ export default function Header() {
         <hr />
       </div>
 
-      {/* Add margin-top to push down the SelectCategory */}
       <div className="mt-36 bs-container">
         <SelectCategory />
       </div>

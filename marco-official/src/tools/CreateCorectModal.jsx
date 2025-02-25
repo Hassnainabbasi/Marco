@@ -17,7 +17,7 @@ export default function PasswordCreate() {
 
   return (
     <div className="max-w-md mx-auto mt-5 p-2 bg-white rounded-xl">
-      <h2 className="text-xl font-semibold text-center text-teal-950 mb-4">Login in with Phone</h2>
+      <h2 className="text-2xl font-bold text-center  text-teal-950 mb-8">Login in with Phone</h2>
       
       <div className="mb-4 relative">
        
@@ -28,7 +28,7 @@ export default function PasswordCreate() {
           Phone number
         </label>
         <div className="flex border border-red-500 rounded-sm">
-          <div className="flex items-center px-1 bg-gray-100 border-r  border-gray-500">
+          <div className="flex items-center px-1 py-3  bg-gray-100 border-r  border-gray-500">
             <img
               alt="Country flag"
               className="w-5 h-5 object-contain"
@@ -61,8 +61,8 @@ export default function PasswordCreate() {
             type={showConfirmPassword ? "text" : "password"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg border-teal-950 border focus:outline-none focus:ring-2 focus:ring-teal-950"
-            placeholder="Confirm new password"
+            className="w-full px-4 py-3 rounded border-teal-950 border focus:outline-none focus:ring-2 focus:ring-teal-950"
+            placeholder="Enter Password"
           />
           <button
             type="button"
@@ -76,11 +76,11 @@ export default function PasswordCreate() {
           <p className="text-teal-950 text-sm">Passwords do not match</p>
         )}
       </div>
-      <a className="text-blue-500 text-sm" href="#">
+      <a className="text-blue-500 text-sm font-bold" href="#">
           Forgot your password?
         </a>
       <button
-        className="w-full py-2 mt-2 bg-blue-500 text-slate-400 rounded-sm disabled:bg-gray-200 mb-4"
+        className="w-full py-2 mt-6 bg-blue-500 text-slate-400 rounded-sm disabled:bg-gray-200 mb-7"
         disabled={!(
           isValid.length &&
           isValid.number &&

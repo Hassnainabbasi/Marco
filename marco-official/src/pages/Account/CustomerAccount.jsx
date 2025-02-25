@@ -5,14 +5,15 @@ import GetCustomerBanner from '../../tools/GetCustomerBanner'
 import Footer from '../../components/footer/Footer'
 import HeaderCat from '../../components/header/HeaderCat'
 import MobileAcoount from './MobileAcoount'
+import FooterTwo from '../../components/footer/FooterTwo'
 
 export default function CustomerAccount() {
 
- const [ mobile , setMobile] = useState(window.innerWidth <768)
+ const [ mobile , setMobile] = useState(window.innerWidth <1024)
 
  useEffect(()=>{
   const handleMobile = () =>{
-    setMobile(window.innerWidth < 768)
+    setMobile(window.innerWidth < 1024)
   }
 
   window.addEventListener("resize",handleMobile)
@@ -24,8 +25,8 @@ export default function CustomerAccount() {
     {mobile ? (
       <MobileAcoount />
     ) : (
-   <div className="bs-container">
-       <div className='bs-container mb-56'>
+   <div className="">
+       <div className='bs-container mb-10'>
        <HeaderCat />
        </div>
        <div className='bs-container'>
@@ -36,6 +37,7 @@ export default function CustomerAccount() {
        </div>
        <div>
         <Footer />
+        <FooterTwo />
        </div>
         </div>
     )}

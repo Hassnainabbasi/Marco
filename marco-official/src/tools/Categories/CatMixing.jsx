@@ -14,6 +14,7 @@ import Login from '../../auth/Login';
 import ForgetModal from '../ForgetModal';
 import PasswordReset from '../CreateModal';
 import PasswordCreate from '../CreateCorectModal';
+import { Eye, EyeOff, PlusIcon } from 'lucide-react';
 
 const LocationIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 1024 1024">
@@ -165,17 +166,45 @@ export default function MixingItemsCat() {
   const [create, setCreate] = useState(false);
   const [createnew, setCreatenew] = useState(false);
   const [createcorrect, setCreatecorrect] = useState(false);
+  const [login, setLogin] = useState(false)
+  const [newAccountModal, setNewAccountModal] = useState(false)
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState(false)
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+ 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [location , setLocation] = useState('Pakistan')
+  const handleLocationClick = () => {
+    setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown state
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+    NewAccountClose()
+  }
+    const handleClose = () => setOpen(false);
   
   const newCreateOpen = () => setCreatecorrect(true);
   const newCreateClose = () => setCreatecorrect(false);
   
-  
+  const PhoneOpen = () =>{
+    handleClose()
+    setPhone(true)
+  }
+
+ const PhoneClose = () => setPhone(false)
+
   const CorrectCreateOpen = () => setCreatecorrect(true);
   const CorrectCreateClose = () => setCreatecorrect(false);
   
+  const NewAccountOpen = () => {
+   handleClose()
+    setNewAccountModal(true);
+  }
+  const NewAccountClose = () => setNewAccountModal(false)
 
 
   const CreateOpen = () => {
@@ -184,17 +213,20 @@ export default function MixingItemsCat() {
   }
   const CreateClose = () => setCreate(false);
 
-  const forgetOpen = () => {
+  const LoginOpen = () => {
     handleClose()
+    setLogin(true)
+  }
+
+  const LoginClose = () => setLogin(false);
+  
+  const forgetOpen = () => {
+    LoginClose()
     setForgett(true)
   }
+  
   const forgetClose = () => setForgett(false);
   
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [location , setLocation] = useState('Pakistan')
-  const handleLocationClick = () => {
-    setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown state
-  };
 
   const handleLocationSelect = (location) => {
     setLocation(location); // Update the selected location
@@ -212,20 +244,24 @@ export default function MixingItemsCat() {
     
     }}>
        
- <Modal open={open} onClose={handleClose}>
+       <Modal open={open} onClose={handleClose} BackdropProps={{
+    sx: { backgroundColor: "rgba(0, 0, 0, 0.8)" },
+  }}
+>
   <Box
     sx={{
       position: "absolute",
       top: "50%",
       left: "50%",
       transform: "translate(-50%, -50%)",
-      width: { xs: "90%", sm: 400 }, // Mobile pe 90%, bigger screens pe 400px
+      width: { xs: "90%", sm: 400 }, 
       maxWidth: 430,
       bgcolor: "background.paper",
       boxShadow: 24,
-      p: { xs: 2, sm: 3 }, // Mobile pe thoda kam padding
+      p: { xs: 2, sm: 3 }, 
       borderRadius: 2,
       textAlign: "center",
+      overflow : "scroll"
     }}
   >
     <Button
@@ -244,11 +280,8 @@ export default function MixingItemsCat() {
       <ClearOutlined className="text-teal-950" />
     </Button>
   <div className='flex justify-center'>
-      <div className="bg-white p-8 rounded-sm w-full max-w-sm">
+      <div className="bg-white rounded-sm w-full max-w-sm">
       <div className="flex justify-end">
-        <button className="text-gray-500">
-          <i className="fas fa-times"></i>
-        </button>
       </div>
       <div className="text-center mb-6">
         <img
@@ -256,14 +289,14 @@ export default function MixingItemsCat() {
           className="mx-auto mb-4"
           height={50}
           src="https://upload.wikimedia.org/wikipedia/commons/9/91/Logotyp_OLX_.png"
-          width={100}
+          width={70}
         />
-        <h2 className="text-xl font-semibold text-teal-950">
+        <h2 className="text-2xl whitespace-nowrap font-bold text-teal-950">
           Login into your OLX account
         </h2>
       </div>
       <div className="space-y-4">
-        <button className="w-full flex items-center justify-center border border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
+        <button className="w-full flex items-center font-bold justify-center border-2 border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
           <img
             alt="Google logo"
             className="mr-2"
@@ -273,7 +306,7 @@ export default function MixingItemsCat() {
           />
           Login with Google
         </button>
-        <button className="w-full flex items-center justify-center border border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
+        <button className="w-full flex items-center justify-center font-bold border-2 border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
           <img
             alt="Facebook logo"
             className="mr-2"
@@ -284,17 +317,17 @@ export default function MixingItemsCat() {
           Login with Facebook
         </button>
         <div className="text-center text-teal-950">OR</div>
-        <button className="w-full flex items-center justify-center border border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
+        <button onClick={LoginOpen} className="w-full font-bold flex items-center justify-center border-2 border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
         <EmailOutlined className="mr-2 text-teal-950" /> Login with Email
         </button>
-        <button className="w-full flex items-center justify-center border border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
-         <button className="w-full rounded-sm flex items-center justify-center">
+        <button className="w-full flex items-center justify-center font-bold border-2 border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
+         <button onClick={PhoneOpen} className="w-full rounded-sm flex items-center justify-center">
           <PhoneOutlined className="text-teal-950 mr-2" /> Login with Phone
           </button>
         </button>
       </div>
       <div className="text-center mt-6">
-        <a onClick={forgetOpen} className="text-teal-ring-teal-950 hover:underline" href="#">
+        <a onClick={NewAccountOpen} className="text-blue-600 hover:underline font-bold" href="#">
           New to OLX? Create an account
         </a>
       </div>
@@ -302,6 +335,156 @@ export default function MixingItemsCat() {
     </div>
   </Box>
 </Modal> 
+
+<Modal open={newAccountModal} onClose={NewAccountClose} BackdropProps={{
+    sx: { backgroundColor: "rgba(0, 0, 0, 0.8)" },
+  }}
+>
+  <Box
+    sx={{
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: { xs: "90%", sm: 400 }, 
+      maxWidth: 430,
+      bgcolor: "background.paper",
+      boxShadow: 24,
+      p: { xs: 2, sm: 3 }, 
+      borderRadius: 2,
+      textAlign: "center",
+      overflow : "scroll",
+      height : "550px"
+    }}
+  >
+    <Button
+      color="teal"
+      onClick={NewAccountClose}
+      sx={{
+        position: "absolute",
+        top: "8px",
+        right: "8px",
+        minWidth: "30px",
+        padding: "5px",
+        borderRadius: "50%",
+        fontSize: "12px",
+      }}
+    >
+      <ClearOutlined className="text-teal-950" />
+    </Button>
+  <div className='flex justify-center'>
+      <div className="bg-white rounded-sm w-full max-w-sm">
+      <div className="flex justify-end">
+      </div>
+      <div className="text-center mb-6">
+        <img
+          alt="OLX logo"
+          className="mx-auto mb-4"
+          height={50}
+          src="https://upload.wikimedia.org/wikipedia/commons/9/91/Logotyp_OLX_.png"
+          width={70}
+        />
+        <h2 className="text-2xl whitespace-nowrap font-semibold text-teal-950">
+          Create a new OLX account
+        </h2>
+      </div>
+      <div className="space-y-4">
+        <button className="w-full flex items-center justify-center font-bold border-teal-950 border-2 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
+          <img
+            alt="Google logo"
+            className="mr-2"
+            height={20}
+            src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+            width={30}
+          />
+          Join with Google
+        </button>
+        <button className="w-full flex font-bold items-center justify-center  border-teal-950 border-2 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
+          <img
+            alt="Facebook logo"
+            className="mr-2"
+            height={20}
+            src="https://www.wavetransit.com/wp-content/uploads/2021/08/Facebook-logo.png"
+            width={40}
+          />
+          Join with Facebook
+        </button>
+        <div className="text-center text-teal-950">OR</div>
+        <button  className="w-full flex items-center justify-center font-bold border-teal-950 border-2 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
+        <EmailOutlined className="mr-2 text-teal-950" /> Join with Email
+        </button>
+        <button className="w-full flex items-center justify-center  border-teal-950 border-2 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
+         <button className="w-full rounded-sm flex font-bold items-center justify-center">
+          <PhoneOutlined className="text-teal-950 mr-2" /> Join with Phone
+          </button>
+        </button>
+      </div>
+      <div className="text-center mt-6 mb-8">
+        <p className='whitespace-nowrap text-sm'>When creating a new account you agree to <span className='underline font-bold'>OLX's</span></p>
+        <a className="hover:underline text-sm" href="#">
+        <span className='underline font-bold'>Terms and conditions</span> 
+        and <span className='underline font-bold'>Privacy Policy</span>
+        </a>
+      </div>
+     <h1 onClick={handleOpen} className='text-blue-500 cursor-pointer font-bold mb-3'>Already have an account? Login</h1>
+    </div>
+    </div>
+  </Box>
+</Modal> 
+
+<Modal open={phone} onClose={{PhoneClose}}
+BackdropProps={{
+  sx: { backgroundColor: "rgba(0, 0, 0, 0.8)" },
+}}
+>
+  <Box
+    sx={{
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: { xs: "90%", sm: 400 }, // Mobile pe 90%, bigger screens pe 400px
+      maxWidth: 430,
+      bgcolor: "background.paper",
+      boxShadow: 24,
+      p: { xs: 2, sm: 3 }, // Mobile pe thoda kam padding
+      borderRadius: 2,
+      textAlign: "",
+    }}
+  >
+    <Button
+      color="teal"
+      onClick={PhoneClose}
+      sx={{
+        position: "absolute",
+        top: "8px",
+        left: "8px",
+        minWidth: "30px",
+        padding: "5px",
+        borderRadius: "50%",
+        fontSize: "12px",
+      }}
+    >
+      <ArrowBackIos className="text-teal-950" />
+    </Button>
+    <Button
+      color="teal"
+      onClick={PhoneClose}
+      sx={{
+        position: "absolute",
+        top: "8px",
+        right: "8px",
+        minWidth: "30px",
+        padding: "5px",
+        borderRadius: "50%",
+        fontSize: "12px",
+      }}
+    >
+      <ClearOutlined className="text-teal-950" />
+    </Button>
+   <PasswordCreate />
+  </Box>
+</Modal>
 
 <Modal open={forgett} onClose={forgetClose}>
   <Box
@@ -377,6 +560,129 @@ export default function MixingItemsCat() {
   </Box>
 </Modal>
 
+<Modal open={login} onClose={LoginClose} BackdropProps={{
+    sx: { backgroundColor: "rgba(0, 0, 0, 0.8)" },
+  }}>
+  <Box
+    sx={{
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: { xs: "90%", sm: 400 }, 
+      maxWidth: 430,
+      bgcolor: "background.paper",
+      boxShadow: 24,
+      p: { xs: 2, sm: 3 }, // Mobile pe thoda kam padding
+      borderRadius: 2,
+      height : "550px",
+      overflowY : "scroll"
+      // textAlign: "",
+    }}
+  >
+    <Button
+      color="teal"
+      onClick={LoginClose}
+      sx={{
+        position: "absolute",
+        top: "8px",
+        left: "8px",
+        minWidth: "30px",
+        padding: "5px",
+        borderRadius: "50%",
+        fontSize: "12px",
+      }}
+    >
+      <ArrowBackIos className="text-teal-950" />
+    </Button>
+    <Button
+      color="teal"
+      onClick={LoginClose}
+      sx={{
+        position: "absolute",
+        top: "8px",
+        right: "8px",
+        minWidth: "30px",
+        padding: "5px",
+        borderRadius: "50%",
+        fontSize: "12px",
+      }}
+    >
+      <ClearOutlined className="text-teal-950" />
+    </Button>
+    <div className='mt-5'>
+    <h2 className="text-2xl font-bold text-gray-800 mb-10 text-center">Log in with Email</h2>
+    <label htmlFor="email" className=" flex text-gray-800 font-semibold mb-3">
+      Enter your email address
+    </label>
+    <input
+      type="email"
+      id="email"
+      className="w-full border border-red-500 p-3 rounded mb-3"
+      placeholder="Email address"
+    />
+    <p className="flex text-red-500 text-sm mb-4">
+      Please enter your e-mail address.
+    </p>
+    <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="phone"
+        >
+          Password
+        </label>
+         <div className="relative">
+          <input
+            type={showConfirmPassword ? "text" : "password"}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="w-full px-4 py-3 rounded border-teal-950 border focus:outline-none focus:ring-2 focus:ring-teal-950"
+            placeholder="Confirm new password"
+          />
+          <button
+            type="button"
+            className="absolute inset-y-0 right-3 flex items-center"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          >
+            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
+        {confirmPassword && confirmPassword !== password && (
+          <p className="text-teal-950 text-sm">Passwords do not match</p>
+        )}
+    <p className="flex text-red-500 text-sm mb-4 mt-2">
+      Password is required
+    </p>
+    <p onClick={forgetOpen} className="flex cursor-pointer text-blue-600 font-bold text-sm mb-10 mt-2">
+      Forget Password?
+    </p>
+    <button onClick={CreateOpen}
+      className="w-full bg-gray-200 text-gray-500 font-semibold py-2 mb-10 rounded"
+      disabled=""
+    >
+      Login
+    </button> 
+    <div className="text-center">
+    <div className="flex items-center justify-center mb-4">
+      <hr className="w-1/4 border-gray-300" />
+      <span className="mx-2 text-gray-400">OR</span>
+      <hr className="w-1/4 border-gray-300" />
+    </div>
+    <p className="mb-4 text-sm text-gray-700">
+      Try a{" "}
+      <span className="font-semibold text-gray-900">password-free login</span>
+    </p>
+    <button className="flex items-center justify-center w-full px-4 py-2 mb-4 text-sm font-medium text-gray-900 border border-gray-400 rounded-md hover:bg-gray-100">
+      <i className="fas fa-link mr-2" />
+      Log in with a one-time link
+    </button>
+    <a href="#" className="text-sm font-medium text-blue-600 hover:underline">
+      New to OLX? Create an account
+    </a>
+  </div>
+    </div>
+  </Box>
+</Modal>
+
 <Modal open={create} onClose={CreateClose}>
   <Box
     sx={{
@@ -434,7 +740,7 @@ export default function MixingItemsCat() {
     <input
       type="password"
       id="password"
-      className="w-full border border-teal-950 p-2 rounded mb-3"
+      className="w-full  border-teal-950 border-2 p-2 rounded mb-3"
       placeholder="Enter password"
     />
     <label htmlFor="password" className=" flex text-gray-800 font-semibold mb-3">
@@ -646,7 +952,7 @@ export default function MixingItemsCat() {
        <input id="default-checkbox" type="checkbox" value="" className="w-5 h-6 mt-3 accent-teal-950  text-teal-950 rounded-sm focus:ring-teal-950 dark:focus:ring-teal-950 "/>
        <label className='flex items-center whitespace-nowrap text-sm text-teal-950'>Only Property for Rent</label>
        </div>
-          <SearchButton onClick={CorrectCreateOpen}>
+          <SearchButton>
             <SearchIcon />
           </SearchButton>
         </Grid>
@@ -655,11 +961,12 @@ export default function MixingItemsCat() {
         </Grid>
 
         <Grid item xs={12} sm={1}>
-          <GradientBorderDiv>
-            <SellButton onClick={newCreateOpen}>
-              <span className="icon">+</span>Sell
-            </SellButton>
-          </GradientBorderDiv>
+        <div className=''>
+      <img className='' src="https://www.olx.com.pk/assets/iconSellBorder_noinline.d9eebe038fbfae9f90fd61d971037e02.svg" alt="" />
+      <button className='flex items-center ml-4 absolute bottom-7'>
+        <PlusIcon size={18} className=''/>
+        Sell</button>
+      </div>
         </Grid>
       </Grid>
     </Box>

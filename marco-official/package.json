@@ -31,8 +31,7 @@
     "react-photo-gallery": "^8.0.0",
     "react-router-dom": "^7.1.1",
     "swiper": "^11.2.2",
-    "yet-another-react-lightbox": "^3.21.7",
-    "yet-another-react-lightbox/plugins": "^3.0.0"
+    "yet-another-react-lightbox": "^3.21.7"
 
   },
   "devDependencies": {

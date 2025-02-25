@@ -22,23 +22,3 @@
       width: 1200px;
     }
   }
-  .custom-dot-list-style {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  .react-multi-carousel-dot button {
-    width: 5px;
-    height: 5px;
-    background: #ddd;
-    border-radius: 50%;
-    margin: 0 5px;
-    transition: 0.3s;
-  }
-  .react-multi-carousel-dot--active button {
-    background: #fff;
-    width: 5px;
-    height: 10px;
-  }

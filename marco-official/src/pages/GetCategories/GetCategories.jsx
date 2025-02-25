@@ -208,7 +208,7 @@ export default function GetCategories() {
   const [value, setValue] = useState("0");
   const [view, setView] = useState(false)
   const [isVisible, setIsVisible] = useState(false);
-  const [mobile, setMobile] = useState(window.innerWidth < 768)
+  const [mobile, setMobile] = useState(window.innerWidth < 1024)
   const [filter, setFilter] = useState(false)
 
  const filterOpen = () => setFilter(true)
@@ -217,7 +217,7 @@ export default function GetCategories() {
  useEffect(()=>{
 
   const handleSize = () =>{
-    setMobile(window.innerWidth < 768)
+    setMobile(window.innerWidth < 1024)
   }
   window.addEventListener("resize", handleSize);
   return () => window.removeEventListener("resize", handleSize);
@@ -283,7 +283,7 @@ export default function GetCategories() {
 
 
   return (
-    <div className='absolute'>
+    <div className={`${mobile ? "absolute" : ""}`}>
       {filter ? (
        <FilterComponent setFilter={setFilter}/>
       ) : (
@@ -306,15 +306,15 @@ export default function GetCategories() {
     </button>
     </div>
          )}
-         <div className='bs-container mx-auto'>
-      <div>       
+         <div className=''>
+      <div className='bs-container'>       
       </div>
-      <div className='bs-container hidden sm:block p-4 sm:p-7'>
+      <div className='bs-container hidden lg:block p-4 sm:p-7'>
           <div className='flex justify-center mb-10'>
           <img src="https://tpc.googlesyndication.com/simgad/11643353606679889402" alt="" />
           </div>
       <div className='hidden sm:block'>
-      <div className='flex '>
+      <div className='flex'>
        <h1 className='mb-4 text-teal-900 text-sm'>Home</h1>
       </div>
       <div className='flex gap-5'>
@@ -323,8 +323,9 @@ export default function GetCategories() {
        </div>
       </div>
       </div>
-    <div className='flex flex-col sm:flex-row '>
-    <div className="flex-1 hidden sm:block">
+  <div className='bs-container '>
+  <div className='flex flex-col sm:flex-row '>
+    <div className="flex-1 hidden lg:block">
     <div className="p-4 bg-gray-100 rounded">
       <h2 className="text-lg text-teal-950 font-sans font-bold mb-2">Categories</h2>
       <ul className="space-y-2 px-5">
@@ -546,8 +547,6 @@ export default function GetCategories() {
     <button><KeyboardArrowDownOutlined /></button>
      </div>
       }
-     
-     
         <div>
           <hr />
         </div>
@@ -747,7 +746,7 @@ export default function GetCategories() {
     </div>
     <div className='flex justify-center mt-12 mb-5'>
     <img src="https://tpc.googlesyndication.com/simgad/1948415569106598874" alt="" />
-    </div>
+    </div></div>    
     <div>
     <GetCatFooter />
     <Footer />
@@ -764,9 +763,3 @@ export default function GetCategories() {
     </div>
   )
 }
-
-// {filter &&(
-//   <div>
-//     <h1></h1>
-//   </div>
-// )}

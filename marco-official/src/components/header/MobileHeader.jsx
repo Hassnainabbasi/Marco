@@ -61,7 +61,7 @@ export default function MobileHeader() {
       </div>
     </div>
    <div className='bs-container'>
-   <div className='border  border-teal-950 flex items-center mt-5 rounded-sm'>
+   <div className='border border-teal-950 flex items-center mt-5 rounded-sm'>
       <button className='px-2'>
     <SearchIcon className='text-teal-950' />
       </button>

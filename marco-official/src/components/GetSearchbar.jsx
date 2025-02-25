@@ -10,7 +10,7 @@ export default function GetSearchbar() {
   return (
  <div className='bs-container'>
         <ThemeProvider theme={theme}>
-    <TopCatHeader />
+    <TopCatHeader/>
     <div className=''>
         <MixingItemsCat />
 </div>
