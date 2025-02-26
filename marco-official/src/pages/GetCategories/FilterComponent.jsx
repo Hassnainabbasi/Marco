@@ -1,6 +1,7 @@
 import { ArrowBack, ArrowForwardIos } from '@mui/icons-material'
 import { MenuIcon } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
+import MultiRangeSlider from 'multi-range-slider-react';
 
 export default function FilterComponent({setFilter}) {
     const [minPrice, setMinPrice] = useState(0);
@@ -32,10 +33,10 @@ export default function FilterComponent({setFilter}) {
         }
       };
     return (
-  <div className=''>
+  <div className='w-screen overflow-x-hidden'>
   
   {mobile ? (
-    <div className=''>
+    <div className='overflow-hidden'>
      <div className='bg-gray-100 flex items-center justify-between gap-2 p-4'>
     <div className='flex items-center gap-2'>
  <button onClick={()=> setFilter(false)}>
@@ -51,8 +52,10 @@ export default function FilterComponent({setFilter}) {
      <div className='py-3 text-teal-950 font-bold'>
         Sort
      </div>
-     <div className='flex gap-3 overflow-x-auto w-full pb-2'>
+     <div className='flex gap-3 w-full overflow-x-scroll pb-2'>
     <button className='border-2 text-xs px-2 whitespace-nowrap p-2 border-teal-600 bg-teal-100 text-teal-500 rounded-sm'>New Listed</button>
+    <button className='border text-xs px-2 whitespace-nowrap p-2 border-gray-600 rounded-sm'>New Listed</button>
+    <button className='border text-xs px-2 whitespace-nowrap p-2 border-gray-600 rounded-sm'>New Listed</button>
     <button className='border text-xs px-2 whitespace-nowrap p-2 border-gray-600 rounded-sm'>New Listed</button>
     <button className='border text-xs px-2 whitespace-nowrap p-2 border-gray-600 rounded-sm'>New Listed</button>
     <button className='border text-xs px-2 whitespace-nowrap p-2 border-gray-600 rounded-sm'>New Listed</button>
@@ -93,7 +96,7 @@ export default function FilterComponent({setFilter}) {
      </div>
         </div>
      </div>
-     <div className='py-5 '>
+     <div className='py-5'>
      <hr className='border border-gray-300'/>
      </div>
      <div className='bs-container'>
@@ -110,10 +113,9 @@ export default function FilterComponent({setFilter}) {
      <div className='py-5 '>
      <hr className='border border-gray-300'/>
      </div>
-     <div className='bs-container'>
-        <h1 className='font-bold'>Price</h1>
-    
-        <div className="flex gap-5 mt-3">
+               <div className='bs-container py-5'>
+            <h1 className='font-bold'>Price</h1>
+            <div className="flex gap-5 mt-3">
         <input
           type="number"
           className="border-2 px-4 py-2 rounded w-1/2"
@@ -132,56 +134,36 @@ export default function FilterComponent({setFilter}) {
         />
       </div>
 
-      <div className="flex justify-between text-sm text-gray-600 mt-2">
-        <p>PKR {(minPrice / 100000).toFixed(2)} Lac</p>
-        <p>PKR {(maxPrice / 100000).toFixed(2)} Lac</p>
-      </div>
-
-      <div className="relative mt-4 bs-container">
-        <input
-          type="range"
-          min="0"
-          max={maxLimit}
-          value={maxPrice}
-          onChange={(e) => setMaxPrice(Number(e.target.value))}
-          className="absolute w-full z-10 opacity-0 cursor-pointer"
-        />
-    <input
-          type="range"
-          min="0"
-          max={maxLimit}
-          value={minPrice}
-          onChange={(e) => setMinPrice(Number(e.target.value))}
-          className="absolute w-full z-10 opacity-0 cursor-pointer"
-        />
-        <div className="relative w-full h-2 bg-gray-200 mt-6 rounded-full">
-          <div
-            className="absolute h-2 bg-teal-950 rounded-full"
+            <MultiRangeSlider
             style={{
-              left: `${(minPrice / maxLimit) * 100}%`,
-              right: `${100 - (maxPrice / maxLimit) * 100}%`,
+              border : "none",
+              boxShadow : "none",
+              color : "#00544"
             }}
-          ></div>
-
-          <div
-            className="absolute w-6 h-6 bg-white border-2 border-teal-950 rounded-full cursor-pointer"
-            style={{
-              left: `${(minPrice / maxLimit) * 100}%`,
-              transform: "translate(-50%, -50%)",
-              top: "50%",
-            }}
-          ></div>
-          <div
-            className="absolute w-6 h-6 bg-white border-2 border-teal-950 rounded-full cursor-pointer"
-            style={{
-              left: `${(maxPrice / maxLimit) * 100}%`,
-              transform: "translate(-50%, -50%)",
-              top: "50%",
-            }}
-          ></div>
-        </div>
-      </div>
-     </div>
+              min={0}
+              max={maxLimit}
+              step={5000}
+              ruler={false}
+              label={false}
+             thumbLeftColor='#F8F8F8'
+              barInnerColor='#005443'
+              minValue={minPrice}
+              maxValue={maxPrice}
+              onInput={(e) => {
+                setMinPrice(e.minValue);
+                setMaxPrice(e.maxValue);
+              }}
+            />
+            <style>
+  {`
+    .thumb::before {
+      border: 2px solid #01352B !important;
+    }
+  `}
+</style>  
+            <div className='flex justify-between text-sm text-gray-600 mt-2'>
+            </div>
+          </div>
      <div className='py-6 '>
         <hr className='border border-gray-300'/>
      </div>

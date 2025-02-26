@@ -13,7 +13,7 @@ export default function LastSection() {
         />
       </div>
 
-      <div className="md:ml-6 mt-4 md:mt-0 mb-5 text-center md:text-left px-6 md:px-20">
+      <div className="hidden lg:block md:ml-6 mt-4 md:mt-0 mb-5 text-center md:text-left px-6 md:px-20">
         <h2 className="text-2xl md:text-3xl font-bold text-teal-950">TRY THE OLX APP</h2>
         <p className="text-teal-950 text-lg md:text-xl mt-4 font-semibold">
           Buy, sell and find just about anything using the app on your mobile.

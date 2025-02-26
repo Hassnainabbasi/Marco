@@ -194,7 +194,7 @@ const AccountCarousel = () => {
             maxWidth: "none",
             boxShadow: 24,
             zIndex : "50",
-            height : "100vh",
+            height : "95vh",
             borderRadius : "10px",
           }}
         >
@@ -204,7 +204,7 @@ const AccountCarousel = () => {
           <ArrowBackIos />
         </div>
      <div className="flex justify-evenly gap-5 items-center w-full">
-     <div className="flex flex-col px-2">
+     <div className="flex flex-col px-2 mt-5">
           <h1 className="whitespace-nowrap font-bold">Oppo Reno Z (8gb/512gb)Ur...</h1>
           <h1>Rs 22,499</h1>
         </div>
@@ -215,7 +215,7 @@ const AccountCarousel = () => {
      </div>
         </div>
       
-        <div className=" mb-3 overflow-y-auto max-h-[calc(95vh-100px)] grid auto-rows-auto overflow-auto  ">
+        <div className="mb-3 overflow-y-auto max-h-[calc(86vh-100px)] grid auto-rows-auto overflow-auto  ">
           {products.map((img, index) => (
             <button
               key={index}

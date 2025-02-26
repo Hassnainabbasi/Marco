@@ -45,6 +45,32 @@ export const LocationIcon = () => (
   </svg>
 );
 
+const items = [
+  {
+    id: 1,
+    price: "Rs 38,000",
+    title: "A71 10/9 8/9/128 Full Box",
+    location: "Gulgasht Colony, Multan",
+    image: "https://cdn.pixabay.com/photo/2019/11/23/11/33/mobile-phone-4646854_640.jpg",
+    featured: false,
+  },
+  {
+    id: 2,
+    price: "Rs 37,00,000",
+    title: "Grand 1.5D Executive Auto",
+    location: "Korangi, Karachi",
+    image: "https://img-ik.cars.co.za/ik-seo/carsimages/tr:n-stock_med/9567231/2024-Hyundai-Creta-Grand-15D-Executive-Auto.jpg?v=1691358132",
+    featured: true,
+  },
+  {
+    id: 3,
+    price: "Rs 78,000",
+    title: "Inverter AC",
+    location: "Sukkur, Sindh",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe1G13Fyju4n8hR2Ydh8q-ZNLcuDHm1M0GxQ&s",
+    featured: true,
+  },
+];
 
 const dummyData = [
   {
@@ -283,10 +309,12 @@ export default function GetCategories() {
 
 
   return (
-    <div className={`${mobile ? "absolute" : ""}`}>
+    <div className={`${mobile ? "absolute w-screen overflow-x-hidden" : ""}`}>
       {filter ? (
+    <div className='overflow-x-hidden'>
        <FilterComponent setFilter={setFilter}/>
-      ) : (
+    </div>
+) : (
         <div className=''>
         {mobile ? 
           <MobileHeader />
@@ -294,10 +322,10 @@ export default function GetCategories() {
       <HeaderCat />
     }
          {!mobile &&(
-    <div className="fixed top-1/5 left-1/2 transform -translate-x-1/2 sm:top-1/4">
+    <div className="fixed z-50 top-1/5 left-1/2 transform -translate-x-1/2 sm:top-1/4">
     <button
      onClick={scrollToTop}
-     className={`flex items-center gap-2 px-5 bg-white py-2 rounded-full text-teal-950 shadow-lg border border-teal-950 transition-all duration-300 ${
+     className={`flex items-center gap-2 px-5 z-50 bg-white py-2 rounded-full text-teal-950 shadow-lg border border-teal-950 transition-all duration-300 ${
        isVisible ? "opacity-100 scale-100" : "opacity-0 scale-0"
      }`}
     >
@@ -554,14 +582,14 @@ export default function GetCategories() {
       <div className=''>
          {dummyData.map((item)=>(
     <Link to={'/customer-account'}>
-    <div key={item.id} className="rounded gap-5 mb-2 shadow-lg flex">
-    <div className="w-1/3">
+    <div key={item.id} className="rounded gap-3 sm:gap-5 mb-1 sm:mb-2 shadow-lg flex">
+    <div className="w-2/3 sm:w-1/3">
     <span className="bg-yellow-400 absolute text-xs font-semibold px-2 p-1 mt-3 mx-4 rounded">
      Featured
     </span>
     <img
     alt="Image of a PBX solution"
-    className="w-full h-56 object-cover"
+    className="w-full h-40 sm:h-56 object-cover"
     height={200}
     src={item.image}
     width={200}
@@ -569,25 +597,25 @@ export default function GetCategories() {
     </div>
     <div className="p-2">
     <div className="flex justify-between items-center">
-    <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
+    <h3 className="text-sm sm:text-2xl font-bold mt-2 sm:mt-4 text-teal-950">
     {item.price}
     </h3>
     <Heart className='text-teal-950' />
     </div>
     
-    <h3 className="text-xl mb-6 font-semibold text-teal-950">
+    <h3 className="text-xs sm:text-xl mt-2 sm:mt-4 font-semibold text-teal-950">
     {item.title}
     </h3>
-    <p className="text-teal-950 text-sm mt-2">
+    <p className="text-teal-950 text-xs sm:text-sm mt-2">
     {item.location}
     </p>
-    <div className="flex space-x-2 mt-4">
+    <div className="flex space-x-2 mt-1 sm:mt-4">
     <button className="flex items-center justify-c
-    enter py-2 px-7 text-teal-950  border-2 border-teal-950 rounded">
+    enter py-2 px-4 sm:px-7 text-teal-950  border-2 border-teal-950 rounded">
     <svg className='mr-2 text-teal-950 text-xl' width="26" height="26" viewBox="0 0 1024 1024" ><path d="M784.55 852.4c-331.43-14.64-598.31-281.52-612.94-612.95l149.97-60 91.69 183.43-71 35.5v26.45c0 141.66 115.25 256.9 256.9 256.9h26.45l11.86-23.64 23.68-47.36 183.38 91.74-59.99 149.93zM918.1 643.45L661.16 514.99l-57.47 19.2-30.04 60.03c-74.07-11.1-132.73-69.8-143.87-143.87l60.08-30.04L509 362.88 380.6 105.94l-54.2-20.6-214.18 85.63-26.88 39.8c0 401.37 326.57 727.9 727.94 727.9l39.76-26.88 85.64-214.19-20.61-54.19z"></path></svg>
      Call
     </button>
-    <button className="flex items-center px-6 justify-center py-2 text-white bg-teal-950 border-2 border-teal-950 rounded">
+    <button className="flex items-center px-4 sm:px-6 justify-center py-2 text-white bg-teal-950 border-2 border-teal-950 rounded">
     <FontAwesomeIcon className='mr-2 text-xl' icon={faComment} />
     Chat
     </button>
@@ -643,91 +671,30 @@ export default function GetCategories() {
       <h1 className='text-teal-950 font-semibold mb-3'>Recently View</h1>
       <hr className='border-gray-400' />
     </div>
-    <div className='grid grid-cols-3 gap-2'>
-    <div className="border ">
-    <div className="">
-    
-    <img
-    alt="Image of a PBX solution"
-    className="w-full h-56 object-cover"
-    height={200}
-    src='https://cdn.pixabay.com/photo/2019/11/23/11/33/mobile-phone-4646854_640.jpg'
-    width={200}
-    />
-    </div>
-    <div className="p-2">
-    <div className="flex justify-between items-center">
-    <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
-    Rs 38,000
-    </h3>
-    <Heart className='text-teal-950' />
-    </div>
-    
-    <h3 className="text-xl mb-6 font-semibold text-teal-950">
-    A71 10/9 8/9/128 Full Box
-    </h3>
-    <p className="text-teal-950 text-sm mt-2">
-    Gulgasht Colony, Multan
-    </p>
-    </div>
-    </div>
-    <div className="border">
-    <div className="">
-    <span className="bg-yellow-400 absolute text-xs font-semibold px-2 p-1 mt-3 mx-4 rounded">
-     Featured
-    </span>
-    <img
-    alt="Image of a PBX solution"
-    className="w-full h-56 object-cover"
-    height={200}
-    src='https://img-ik.cars.co.za/ik-seo/carsimages/tr:n-stock_med/9567231/2024-Hyundai-Creta-Grand-15D-Executive-Auto.jpg?v=1691358132'
-    width={200}
-    />
-    </div>
-    <div className="p-2">
-    <div className="flex justify-between items-center">
-    <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
-    Rs 37,000,00
-    </h3>
-    <Heart className='text-teal-950' />
-    </div>
-    <h3 className="text-xl mb-6 font-semibold text-teal-950">
-    Grand 1.5D Executive Auto
-    </h3>
-    <p className="text-teal-950 text-sm">
-    Korangi ,Karachi
-    </p>
-    </div>
-    </div>
-    <div className="border">
-    <div className="">
-    <span className="bg-yellow-400 absolute text-xs font-semibold px-2 p-1 mt-3 mx-4 rounded">
-     Featured
-    </span>
-    <img
-    alt="Image of a PBX solution"
-    className="w-full h-56 object-cover"
-    height={200}
-    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe1G13Fyju4n8hR2Ydh8q-ZNLcuDHm1M0GxQ&s'
-    width={200}
-    />
-    </div>
-    <div className="p-2">
-    <div className="flex justify-between items-center">
-    <h3 className="text-2xl font-bold mt-1 mb-1 text-teal-950">
-    Rs 78,000
-    </h3>
-    <Heart className='text-teal-950' />
-    </div>
-    
-    <h3 className="text-xl mb-6 font-semibold text-teal-950">
-    . Inverter AC
-    </h3>
-    <p className="text-teal-950 text-sm mt-2">
-    Sukkur , Sindh
-    </p>
-    </div>
-    </div>
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+      {items.filter((_,index) => index < 2 || window.innerWidth >= 1024)
+      .map((item) => (
+        <div key={item.id} className="border relative">
+          {item.featured && (
+            <span className="bg-yellow-400 absolute text-xs font-semibold px-2 p-1 mt-3 mx-4 rounded">
+              Featured
+            </span>
+          )}
+          <img
+            alt={item.title}
+            className="w-full h-40 sm:h-56 object-cover"
+            src={item.image}
+          />
+          <div className="p-2">
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg sm:text-2xl font-bold text-teal-950">{item.price}</h3>
+              <Heart className="text-teal-950" />
+            </div>
+            <h3 className="text-sm sm:text-xl font-semibold text-teal-950">{item.title}</h3>
+            <p className="text-xs sm:text-sm text-teal-950 mt-2">{item.location}</p>
+          </div>
+        </div>
+      ))}
     </div>
       </div>
     </div>
