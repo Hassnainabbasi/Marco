@@ -1,75 +1,3 @@
-{/* <Location onClick={handleLocationClick}>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-<path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-</svg>
-<Typography  variant="body1" sx={{ ml: 1, color: 'black' }}>{location}</Typography>
-{!isMobile && (
-<SmallIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
-<path d={isDropdownOpen
-? "M85.4 746.67h60.32l366.34-366.34L878.4 746.67h60.33v-60.33L529.74 277.33h-35.3L85.4 686.33z" // Up arrow
-: "M85.4 277.33h60.32l366.34 366.34L878.4 277.33h60.33v60.33l-408.99 409h-35.3l-409.05-409z" // Down arrow
-}></path>
-</SmallIcon>
-)}
-</Location> */}
-// {isDropdownOpen && (
-// <DropdownMenu >
-// {/* Use Current Location */}
-// <div className="flex items-center border-b  pb-5 px-3 py-6 hover:bg-[#B4F9FF]">
-// <MyLocation className='text-blue-500'/>
-// <span className="text-blue-600 font-medium px-2">Use current location</span>
-// </div>
-// {/* See Ads in All Pakistan */}
-// <div className="flex items-center mb-4 border-b gap-2 p-5 border-gray-200 pb-4 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <span className="text-teal-950 hover:bg-[#B4F9FF]">See ads in all Pakistan</span>
-// </div>
-
-// <div className="text-slate-400 font-thin mb-2 px-3 text-sm">POPULAR LOCATIONS</div>
-
-// <div  onClick={() => handleLocationSelect('Azad Kashmire, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <p className="text-teal-950 px-3 hover:bg-[#B4F9FF]">Azad Kashmir, Pakistan</p>
-// </div>
-// <div   onClick={() => handleLocationSelect('Balochistan, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <p className="text-teal-950 px-3 hover:bg-[#B4F9FF]">Balochistan, Pakistan</p>
-// </div>
-// <div   onClick={() => handleLocationSelect('Sindh, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <p className="text-teal-950 px-3">Sindh, Pakistan</p>
-// </div>
-// <div onClick={() => handleLocationSelect('Punjab, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <p className="text-teal-950 px-3">Punjab, Pakistan</p>
-// </div>
-// <div onClick={() => handleLocationSelect('Khyber Pakhtunkhwa, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <p className="text-teal-950 px-3">Khyber Pakhtunkhwa, Pakistan</p>
-// </div>
-// <div   onClick={() => handleLocationSelect('Gilgit-Baltistan, Pakistan')} className="flex items-center mb-2 px-3 hover:bg-[#B4F9FF]">
-// <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024">
-// <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
-// </svg>
-// <p className="text-teal-950 px-3">Gilgit-Baltistan, Pakistan</p>
-// </div>
-// </DropdownMenu>
-
-// )}
-
-
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
@@ -128,11 +56,11 @@ const StyledPopper = styled(Popper)(({ theme }) => ({
   ];
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  padding: theme.spacing(3, 2),
+  padding: theme.spacing( 2),
   border: '1px solid #ccc',
   borderRadius: theme.shape.borderRadius,
   color: '#000000',
-  height: '40px',
+  height: '46px !important',
   width: '119%',
   [theme.breakpoints.down('sm')]: {
   width: '100%', 
@@ -142,7 +70,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const SearchButton = styled(IconButton)(({ theme }) => ({
   backgroundColor: '#143f32',
   color: theme.palette.common.white,
-  paddingBlock: "13px",
+  paddingBlock: "11px",
   paddingInline: "11px",
   borderRadius: '2px',
   width: 'auto',
@@ -175,59 +103,6 @@ const LoginButton = styled('button')(({ theme }) => ({
   },
 }));
 
-// const GradientBorderDiv = styled('div')(({ theme }) => ({
-//   padding: '5px',
-//   borderRadius: '25px',
-//   position: 'relative',
-//   zIndex: 1,
-//   overflow: 'hidden',
-//   background: '#fff',
-//   width: '100%',
-//   '&:before': {
-//     content: '""',
-//     position: 'absolute',
-//     top: 0,
-//     left: 0,
-//     right: 0,
-//     bottom: 0,
-//     zIndex: -1,
-//     margin: '-1px',
-//     borderRadius: 'inherit',
-//     background: 'linear-gradient(to right, #FFD54F, #00E676, #2979FF)',
-//   },
-//   [theme.breakpoints.down('sm')]: {
-//     fontSize: 12,
-//     position: 'relative',
-//     top: '-66px',
-//     padding : '10px'
-//   },
-// }));
-
-const SellButton = styled('button')(({ theme }) => ({
-  padding: theme.spacing(1, 2),
-  borderRadius: '20px',
-  height: '40px',
-  backgroundColor: 'white',
-  color: '#000',
-  fontWeight: 'bold',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  cursor: 'pointer',
-  width: '100%',
-  '& .icon': {
-    marginRight: theme.spacing(1),
-  },
-  [theme.breakpoints.down('sm')]: {
-    fontSize: 12,
-  },
-}));
-
-const SmallIcon = styled('svg')({
-  width: '16px',
-  height: '16px',
-  marginLeft: 'auto',
-});
 
 export default function MixingItems() {
   const [open, setOpen] = useState(false);
@@ -983,7 +858,7 @@ BackdropProps={{
         )
       }
       sx={{
-        width: { xs: 180, sm: 175, md: 230, lg: 285 },
+        width: { xs: 180, sm: 175, md: 230, lg: 304 },
         "& .MuiOutlinedInput-root": {
         },
       }}
@@ -997,7 +872,7 @@ BackdropProps={{
         InputProps={{
           ...params.InputProps,
           style: {
-            height: "50px",
+            height: "46px",
           paddingInline: "10px"
           },
           startAdornment: (
@@ -1022,13 +897,15 @@ BackdropProps={{
         </Link>
         </Grid>
         <Grid item xs={12} sm={1}>
+          <div className='pl-5'>
           <LoginButton onClick={handleOpen}>Login</LoginButton>
-        </Grid>
+          </div>
+           </Grid>
 
         <Grid item xs={12} sm={1}>
       <div className=''>
       <img className='' src="https://www.olx.com.pk/assets/iconSellBorder_noinline.d9eebe038fbfae9f90fd61d971037e02.svg" alt="" />
-      <button className='flex items-center ml-4 absolute bottom-7'>
+      <button className='flex items-center ml-5 absolute bottom-7'>
         <PlusIcon size={18} className=''/>
         Sell</button>
       </div>
@@ -1037,22 +914,3 @@ BackdropProps={{
     </Box>
   )
 }
- // <Box sx={{
-    //   width: '100%',
-    //   paddingBlock : "15px",
-    //   height: 'auto', // Ensure the height is flexible by default
-    //   paddingInline : 'auto',
-    //   [theme.breakpoints.down('sm')]: {
-    //     height: '260px', // Adjust height for mobile
-    //     padding: '15px', // Reduce padding for mobile
-    //   },
-    //   [theme.breakpoints.down('lg')]: {
-    //     paddingInline: '40px',
-    //     // padding : '8px'
-    //     // Reduce padding for mobile
-    //   },
-    //   [theme.breakpoints.down('xl')]: {
-    //     paddingInline: '96px', // Reduce padding for mobile
-    //   }
-    // }}>
- 

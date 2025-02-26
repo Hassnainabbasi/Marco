@@ -11,10 +11,13 @@ export default function Header() {
         <div className="fixed left-1/2 w-full z-50 top-0 transform -translate-x-1/2 bg-white">
           <SearchBar />
         </div>
-        <hr />
       </div>
 
-      <div className="mt-36 bs-container">
+<div>
+<hr className='mt-36'/>
+</div>
+
+      <div className="bs-container">
         <SelectCategory />
       </div>
     </div>
