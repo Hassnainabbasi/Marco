@@ -234,7 +234,7 @@ export default function SelectCategory() {
   ];
  return(
   <div>
-  <div className="flex mx-auto  container ">
+  <div className="flex mx-auto container ">
     <ul className="flex flex-wrap gap-3 md:gap-5 justify-center mt-2">
       <li
         className="text-teal-950 font-bold text-xs md:text-sm cursor-pointer flex items-center"

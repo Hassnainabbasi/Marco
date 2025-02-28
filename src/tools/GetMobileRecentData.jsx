@@ -3,9 +3,10 @@ import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
-import { Link } from 'react-router-dom'
+import { ArrowForwardIos } from '@mui/icons-material'
+import FooterTwo from '../components/footer/FooterTwo'
 
-export function RecentData() {
+export function GetMobileRecentData() {
   const categories = [
     {
       title: 'Mobile Phones',
@@ -356,99 +357,136 @@ export function RecentData() {
   ]
 
   return (
-    <div className="container mx-auto">
-      {categories.map((category) => (
-       <Link to={'/customer-account'}>
-         <div key={category.title} className="mb-8 cursor-pointer">
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold text-teal-950">
-              {category.title}
-            </h1>
-            <a
-              href="#"
-              className="text-blue-500 flex items-center font-bold    "
-            >
-              View more
-              <i className="fas fa-chevron-right ml-1"></i>
-            </a>
-          </div>
-          <Carousel
-            additionalTransfrom={0}
-            arrows={false}
-            autoPlay
-            autoPlaySpeed={1500}
-            centerMode={false}
-            className=""
-            containerClass=""
-            dotListClass=""
-            draggable
-            focusOnSelect={false}
-            infinite={false}
-            itemClass="px-2"
-            keyBoardControl
-            minimumTouchDrag={80}
-            pauseOnHover
-            renderArrowsWhenDisabled={false}
-            renderButtonGroupOutside={false}
-            renderDotsOutside={false}
-            responsive={{
-              desktop: {
-                breakpoint: { max: 3000, min: 1024 },
-                items: 4,
-                partialVisibilityGutter: 40,
-              },
-              mobile: {
-                breakpoint: { max: 464, min: 0 },
-                items: 1,
-                partialVisibilityGutter: 30,
-              },
-              tablet: {
-                breakpoint: { max: 1024, min: 464 },
-                items: 3,
-                partialVisibilityGutter: 30,
-              },
-            }}
-            rewind
-            rewindWithAnimation={false}
-            rtl={false}
-            shouldResetAutoplay
-            showDots={false}
-            sliderClass=""
-            slidesToSlide={1}
-            swipeable
-          >
-            {category.items.map((item) => (
-              <div
-                key={item.id}
-                className="w-72 min-h-[365px] bg-white border border-gray-300 rounded-lg shadow-md overflow-hidden"
+    <div className="">
+      <div className="flex justify-center mt-5 mb-10">
+        <img
+          src="https://tpc.googlesyndication.com/simgad/17786895429702338437"
+          alt=""
+        />
+      </div>
+      <div className="bs-container">
+        {categories.map((category) => (
+          <div key={category.title} className="mb-8">
+            <div className="flex justify-between items-center mb-4">
+              <h1 className="text-2xl font-bold text-teal-950">
+                {category.title}
+              </h1>
+              <a
+                href="#"
+                className="text-blue-500 hover:underline flex items-center font-semibold  text-sm font-sans"
               >
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-lg sm:text-base font-bold text-teal-950">
-                      {item.price}
-                    </span>
-                    <FontAwesomeIcon
-                      icon={farHeart}
-                      className="text-teal-950 h-5"
-                    />
+                See All
+              </a>
+            </div>
+            <div className="flex overflow-x-auto gap-4 hide-scrollbar">
+              {category.items.map((item) => (
+                <div
+                  key={item.id}
+                  className="w-52 min-h-[100px] bg-white border border-gray-300 rounded-lg shadow-md flex-shrink-0"
+                >
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-32 object-cover"
+                  />
+                  <div className="p-2">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-sm sm:text-base font-bold text-teal-950">
+                        {item.price}
+                      </span>
+                      <FontAwesomeIcon
+                        icon={farHeart}
+                        className="text-teal-950"
+                      />
+                    </div>
+                    <h2 className="text-teal-950 text-sm sm:text-base font-semibold">
+                      {item.name}
+                    </h2>
+                    <p className="text-teal-950 mt-1">{item.location}</p>
+                    <p className="text-teal-950 text-sm">{item.time}</p>
                   </div>
-                  <h2 className="text-teal-950 text-lg sm:text-base font-semibold">
-                    {item.name}
-                  </h2>
-                  <p className="text-teal-950 mt-4">{item.location}</p>
-                  <p className="text-teal-950 text-sm">{item.time}</p>
                 </div>
-              </div>
-            ))}
-          </Carousel>
-        </div>
-       </Link>
-      ))}
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className='py-4'>
+     <hr className='border border-gray-300'/>
+       </div>
+      <div className='flex text-teal-950 justify-between bs-container'>
+        <h1>Categories</h1>
+        <button><ArrowForwardIos style={{fontSize : "18", color : "black"}}/></button>
+       </div>
+       <div className='py-4'>
+     <hr className='border border-gray-300'/>
+       </div>
+       <div className='flex text-teal-950 justify-between bs-container'>
+        <h1>Popular Categories</h1>
+        <button><ArrowForwardIos style={{fontSize : "18", color : "black"}}/></button>
+       </div>
+       <div className='py-4'>
+     <hr className='border border-gray-300'/>
+       </div>
+       <div className='flex text-teal-950 justify-between bs-container'>
+        <h1>Trending Searches</h1>
+        <button><ArrowForwardIos style={{fontSize : "18", color : "black"}}/></button>
+       </div>
+       <div className='py-4'>
+     <hr className='border border-gray-300'/>
+       </div>
+       <div className='flex text-teal-950 justify-between bs-container'>
+        <h1>About Us</h1>
+        <button><ArrowForwardIos style={{fontSize : "18", color : "black"}}/></button>
+       </div>
+       <div className='py-4'>
+     <hr className='border border-gray-300'/>
+       </div>
+       <div className='flex text-teal-950 justify-between bs-container'>
+        <h1>Follow Us</h1>
+       <div className='space-x-4'>
+       <i class="fa-brands fa-twitter"></i>
+       <i class="fa-brands fa-facebook-f"></i>
+       <i class="fa-regular fa-circle-play"></i>
+       <i class="fa-brands fa-instagram"></i>
+       </div>
+       </div>
+       <div className='py-4'>
+     <hr className='border border-gray-300'/>
+       </div>
+       <div className="flex space-x-2 bs-container justify-center">
+              <a href="#">
+                <img width={70}
+                className='object-cover'
+                  src="https://www.olx.com.pk/assets/iconAppStoreEN_noinline.a731d99c8218d6faa0e83a6d038d08e8.svg"
+                  alt="Download on the App Store"
+                />
+              </a>
+              <a href="#">
+                <img
+                width={70}
+                  src="https://www.olx.com.pk/assets/iconGooglePlayEN_noinline.9892833785b26dd5896b7c70b089f684.svg"
+                  alt="Get it on Google Play"
+                />
+              </a>
+              <a href="#">
+                <img
+                width={70}
+                  src="https://www.olx.com.pk/assets/iconAppGallery_noinline.6092a9d739c77147c884f1f7ab3f1771.svg"
+                  alt="Explore it on AppGallery"
+                />
+              </a>
+            </div>
+            <div className='bg-teal-950 p-5 flex items-center  whitespace-nowrap mt-5'>
+     <ul className='flex bs-container items-center flex-row-reverse gap-5'>
+     <li className='text-white font-bold text-xs'>
+          . © 2006-2025 OLX
+        </li>
+        <li className='text-white font-bold text-xs'>
+        Free Classifieds in Pakistan
+        </li>
+     </ul>
+    </div>
     </div>
   )
 }

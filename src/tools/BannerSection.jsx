@@ -3,9 +3,9 @@ import React from 'react'
 
 export default function BannerSection() {
   return (
-    <div className='flex justify-center mt-10'>
+    <div className='w-full mt-5'>
       <img 
-        className='w-full max-w-screen-xl h-auto sm:object-cover md:object-contain' 
+        className='w-full object-cover sm:object-fill h-56' 
         src='https://images.olx.com.pk/thumbnails/512911842-800x600.webp' 
         alt="OLX Auto Fest" 
       />

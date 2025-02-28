@@ -1,10 +1,11 @@
+import { KeyboardArrowDown } from '@mui/icons-material';
 import { InputBase, MenuItem, styled, TextField } from '@mui/material'
-import { MenuIcon, SearchIcon } from 'lucide-react'
-import React from 'react'
+import { MenuIcon, PlusIcon, SearchIcon } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
 import { CloseIcon } from 'yet-another-react-lightbox';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  padding: theme.spacing(3, 2),
+  padding: theme.spacing(2, 0),
   borderRadius: theme.shape.borderRadius,
   color: '#000000',
   height: '40px',
@@ -14,27 +15,39 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
+export const LocationIcon = () => (
+  <svg className='fill-blue-500' xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 1024 1024">
+    <path d="M512 85.33c211.75 0 384 172.27 384 384 0 200.58-214.8 392.34-312.66 469.34H440.68C342.83 861.67 128 669.9 128 469.33c0-211.73 172.27-384 384-384zm0 85.34c-164.67 0-298.67 133.97-298.67 298.66 0 160.02 196.89 340.53 298.46 416.6 74.81-56.72 298.88-241.32 298.88-416.6 0-164.69-133.98-298.66-298.67-298.66zm0 127.99c94.1 0 170.67 76.56 170.67 170.67s-76.56 170.66-170.66 170.66-170.67-76.56-170.67-170.66S417.9 298.66 512 298.66zm0 85.33c-47.06 0-85.33 38.28-85.33 85.34s38.27 85.33 85.34 85.33 85.33-38.27 85.33-85.33-38.27-85.34-85.33-85.34z"></path>
+  </svg>
+);
+
 export default function HomeMobileHeader() {
+  const [sticky, setSticky] = useState(false)
+  const [showButton, setShowButton] = useState(false)
+  useEffect(()=>{
+    const handleScroll = () =>{
+      if (window.scrollY > 2300) {
+        setShowButton(false)
+      }
+      else{
+        setShowButton(true)
+      }
+      if(window.scrollY > 30){
+        setSticky(true)
+      }
+      else{
+        setSticky(false)
+      }
+    }
+  window.addEventListener('scroll',handleScroll)
+  return () =>{
+    window.removeEventListener("scroll",handleScroll)
+  }
+  },[])
+
   return (
     <div className=''>
-      <div className='flex justify-between space-x-3 p-4 bg-gray-100 items-center'>
-        <div className='flex gap-2'>
-        <div className=''>
-          <CloseIcon />
-        </div>
-        <div>
-        <img 
-        className='w-8 mix-blend-multiply object-contain ' 
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpqfEZTbw3kP6VH9MXJ018iDt9z6WzhDA-yQ&s" 
-        alt="logo" 
-      />
-      <h1 className='text-teal-950 text-sm'>Pakistan's no.1 Marketplace</h1>
-        </div>
-          </div>
-        <div className='flex '>
-          <button className='bg-blue-500 text-white p-2 rounded-md'>Open App</button>
-        </div>
-      </div>
      <div className='flex space-x-3 items-center bs-container'>
     <div >
     <MenuIcon />
@@ -60,14 +73,32 @@ export default function HomeMobileHeader() {
         </div>
       </div>
     </div>
-   <div className='bs-container'>
-   <div className='border  border-teal-950 flex items-center mt-5 rounded-sm'>
+    <div className='bs-container mt-2'>
+     <div className='flex gap-2 items-center'>
+     <LocationIcon />
+      <h1 className='text-teal-950 font-bold font-sans text-sm'>Pakistan</h1>
+      <KeyboardArrowDown />
+     </div>
+     </div>
+   <div className={`bg-white w-full bs-container transition-all duration-300 ${sticky ? 'fixed top-0 left-0 z-50 h-20' : "relative mt-5"}`}>
+   <div className='border border-teal-950 flex items-center mt-5 rounded-sm'>
       <button className='px-2'>
     <SearchIcon className='text-teal-950' />
       </button>
-      <StyledInputBase placeholder="Find Cars, Mobile Phones and more..." inputProps={{ 'aria-label': 'search' }} />
+      <StyledInputBase placeholder="All ads in Pakistan" inputProps={{ 'aria-label': 'search' }} />
     </div>
+   
    </div>
+  {showButton &&(
+    <div className='fixed bottom-5 left-1/2 transform -translate-x-1/2 z-50 rounded-full shadow-lg  transition-all duration-300'>
+    <img className='' src="https://www.olx.com.pk/assets/iconSellBorder_noinline.d9eebe038fbfae9f90fd61d971037e02.svg" alt="" />
+    <button className='flex items-center ml-7 absolute bottom-3'>
+      <PlusIcon size={18} className=''/>
+      Sell</button>
     </div>
+  )}
+
+    </div>
+    
   )
 }

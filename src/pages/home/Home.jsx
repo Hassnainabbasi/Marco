@@ -19,15 +19,19 @@ export default function Home() {
   return (
     <div className="">
       <div className="">{mobile ? <HomeMobileHeader /> : <Header />}</div>
-      <div className="bs-container">
+      <div className="">
         <Centerone />
       </div>
-      <div className="">
+      {!mobile &&(
+        <div>
+          <div className="">
         <Footer />
       </div>
       <div className="">
         <FooterTwo />
       </div>
+        </div>
+      )}
     </div>
   )
 }

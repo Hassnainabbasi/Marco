@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import SearchIcon from '@mui/icons-material/Search';
 import { theme } from '../context/ThemeContext';
-import { ArrowBackIos, ArrowLeft, ClearOutlined, EmailOutlined, LocationOnOutlined, MyLocation, PhoneOutlined, ReportOutlined } from '@mui/icons-material';
+import { ArrowBackIos, ArrowLeft, ClearOutlined, EmailOutlined, KeyboardArrowDown, LocationOnOutlined, MyLocation, PhoneOutlined, ReportOutlined } from '@mui/icons-material';
 import { Autocomplete, Button, InputAdornment, Modal, Popper, TextField } from '@mui/material';
 import Login from '../auth/Login';
 import ForgetModal from './ForgetModal';
@@ -857,6 +857,7 @@ BackdropProps={{
           </li>
         )
       }
+      popupIcon={<KeyboardArrowDown sx={{color : "#014F43", fontSize : 35 }} />}
       sx={{
         width: { xs: 180, sm: 175, md: 230, lg: 304 },
         "& .MuiOutlinedInput-root": {
@@ -876,8 +877,8 @@ BackdropProps={{
           paddingInline: "10px"
           },
           startAdornment: (
-            <InputAdornment position="start">
-              <LocationIcon />
+            <InputAdornment position="start" className='text-teal-950' >
+                  <LocationIcon  /> 
             </InputAdornment>
           ),
         }}
@@ -904,9 +905,9 @@ BackdropProps={{
 
         <Grid item xs={12} sm={1}>
       <div className=''>
-      <img className='' src="https://www.olx.com.pk/assets/iconSellBorder_noinline.d9eebe038fbfae9f90fd61d971037e02.svg" alt="" />
-      <button className='flex items-center ml-5 absolute bottom-7'>
-        <PlusIcon size={18} className=''/>
+      <img className=''src="https://www.olx.com.pk/assets/iconSellBorder_noinline.d9eebe038fbfae9f90fd61d971037e02.svg" alt="" />
+      <button className='flex items-center ml-5 absolute bottom-7 font-bold text-teal-950'>
+        <PlusIcon size={20} className=''/>
         Sell</button>
       </div>
         </Grid>

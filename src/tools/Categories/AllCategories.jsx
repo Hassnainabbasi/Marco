@@ -25,7 +25,7 @@ export default function AllCategories() {
     },
     {
       title: 'Bikes',
-      img: 'https://www.olx.com.pk/assets/property-for-sale.e3a00dbfdaa69fe5f713665f1069502f.png',
+      img: 'https://www.olx.com.pk/assets/bikes.4dcd02c49b2b83aa5b4d629d1e2b383e.png',
     },
     {
       title: 'Business, Industrial & Agriculture',
@@ -65,20 +65,20 @@ export default function AllCategories() {
       <h1 className="text-2xl font-bold mb-4 text-teal-950 mx-auto">
         All categories
       </h1>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-9 gap-4">
+      <div className="grid grid-flow-col sm:grid-flow-row auto-cols-[minmax(80px,_1fr)] overflow-x-scroll scrollbar-hidden sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-9 lg:gap-5">
         {categories.map((item) => (
           <Link to={'/get-cat'}>
             <div className="flex flex-col items-center">
-              <div className="w-20 h-20 rounded-full flex items-center ">
+              <div className="sm:w-20 sm:h-20 rounded-full flex items-center ">
                 <img
                   alt="Mobile icon"
-                  className="w-20 h-20 rounded-full object-cover"
+                  className="sm:w-20 sm:h-20 rounded-full object-cover"
                   height={50}
                   src={item.img}
                   width={50}
                 />
               </div>
-              <p className="mt-2 text-center font-bold text-gray-900">
+              <p className="mt-2 text-center line-clamp-2 text-sm sm:font-bold text-teal-950">
                 {item.title}
               </p>
             </div>
