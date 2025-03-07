@@ -3,7 +3,7 @@ import { MenuIcon, SearchIcon } from 'lucide-react'
 import React from 'react'
 import { CloseIcon } from 'yet-another-react-lightbox';
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   padding: theme.spacing(3, 2),
   borderRadius: theme.shape.borderRadius,
   color: '#000000',

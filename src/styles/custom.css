@@ -1,33 +1,60 @@
 .bs-container {
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.post-container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.edite-container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 768px) {
+  .bs-container {
+    width: 750px;
   }
-  
-  @media (min-width: 768px) {
-    .bs-container {
-      width: 750px;
-    }
+}
+
+@media (min-width: 992px) {
+  .bs-container {
+    width: 970px;
   }
-  
-  @media (min-width: 992px) {
-    .bs-container {
-      width: 970px;
-    }
+}
+
+@media (min-width: 1170px) {
+  .bs-container {
+    width: 1310px;
   }
-  
-  @media (min-width: 1170px) {
-    .bs-container {
-      width: 1300px;
-    }
+}
+
+@media (min-width: 1170px) {
+  .post-container {
+    width: 1370px;
   }
-  .scrollbar-hidden::-webkit-scrollbar {
-    display: none;
+}
+
+@media (min-width: 1170px) {
+  .edite-container {
+    width: 1000px;
   }
-  
-  .scrollbar-hidden {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+  background-color: green;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

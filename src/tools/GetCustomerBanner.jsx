@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPhoneAlt,
   faComments,
   faMapMarkerAlt,
   faHeart,
+  faHeartbeat,
+  faChevronLeft,
+  faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   ArrowBackIos,
@@ -33,6 +36,7 @@ import ProductCarousel from './CarouselProduct'
 import { Box, Button, Modal } from '@mui/material'
 import Testing from './Testing'
 import Lightbox from 'yet-another-react-lightbox'
+import { Heart } from 'lucide-react'
 
 const images = [
   'https://images.olx.com.pk/thumbnails/518749137-800x600.webp',
@@ -101,11 +105,24 @@ export default function GetCustomerBanner() {
   const openModal = () => setModal(true)
   const closeModal = () => setModal(false)
   const [selectedImage, setSelectedImage] = useState(images[0])
+  const scrollRef = useRef(null)
 
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { current } = scrollRef
+      const scrollamount = 600
+
+      if (direction === 'left') {
+        current.scrollLeft -= scrollamount
+      } else {
+        current.scrollLeft += scrollamount
+      }
+    }
+  }
   return (
     <div className="">
       <div className="flex flex-col lg:flex-row gap-6 mt-10">
-        <div className="w-1/2">
+        <div className="w-full">
           <div
             onClick={() => setModal(true)}
             className="border px-5 bg-gray-100 rounded-md"
@@ -231,7 +248,68 @@ export default function GetCustomerBanner() {
               <h2 className="text-xl font-bold text-teal-950 mb-4">
                 Related Ads
               </h2>
-              <ProductCarousel />
+              <div className="max-w-[800px] ">
+                {categories.map((category) => (
+                  <div key={category.title} className="">
+                    <div className="relative">
+                      <button
+                        className="absolute -left-5 top-1/2 transform -translate-y-1/2 bg-white p-2 px-4 rounded-full border border-slate-300 z-10"
+                        onClick={() => scroll('left')}
+                      >
+                        <FontAwesomeIcon
+                          icon={faChevronLeft}
+                          className="text-gray-700"
+                        />
+                      </button>
+
+                      <div
+                        ref={scrollRef}
+                        className="flex overflow-x-scroll gap-4 scroll-smooth scrollbar-hidden"
+                      >
+                        {category.items.map((item) => (
+                          <div
+                            key={item.id}
+                            className="w-64 min-h-[330px] bg-white border border-gray-300 rounded-lg shadow-md flex-shrink-0"
+                          >
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className="w-full h-40 border rounded-sm object-cover"
+                            />
+                            <div className="p-4">
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-sm sm:text-base font-bold text-teal-950">
+                                  {item.price}
+                                </span>
+                               <FavoriteBorder className='text-teal-950'/>
+                              </div>
+                              <h2 className="text-teal-950 text-sm sm:text-base mb-4 font-semibold">
+                                {item.name}
+                              </h2>
+                              <p  className="text-teal-950 mt-1">
+                                {item.location}
+                              </p>
+                              <p className="text-teal-950 text-sm">
+                                {item.time}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <button
+                        className="absolute -right-5 top-1/2 transform -translate-y-1/2 bg-white p-2 px-4 rounded-full border border-slate-300 z-10"
+                        onClick={() => scroll('right')}
+                      >
+                        <FontAwesomeIcon
+                          icon={faChevronRight}
+                          className="text-gray-700"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
