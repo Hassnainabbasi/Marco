@@ -203,7 +203,7 @@ export default function MixingItems() {
       p: { xs: 2, sm: 3 }, 
       borderRadius: 2,
       textAlign: "center",
-      overflow : "scroll"
+      overflowY : "auto"
     }}
   >
     <Button
@@ -385,11 +385,11 @@ BackdropProps={{
       top: "50%",
       left: "50%",
       transform: "translate(-50%, -50%)",
-      width: { xs: "90%", sm: 400 }, // Mobile pe 90%, bigger screens pe 400px
+      width: { xs: "90%", sm: 400 }, 
       maxWidth: 430,
       bgcolor: "background.paper",
       boxShadow: 24,
-      p: { xs: 2, sm: 3 }, // Mobile pe thoda kam padding
+      p: { xs: 2, sm: 3 },
       borderRadius: 2,
       textAlign: "",
     }}
@@ -435,13 +435,12 @@ BackdropProps={{
       top: "50%",
       left: "50%",
       transform: "translate(-50%, -50%)",
-      width: { xs: "90%", sm: 400 }, // Mobile pe 90%, bigger screens pe 400px
+      width: { xs: "90%", sm: 400 }, 
       maxWidth: 430,
       bgcolor: "background.paper",
       boxShadow: 24,
-      p: { xs: 2, sm: 3 }, // Mobile pe thoda kam padding
+      p: { xs: 2, sm: 3 },
       borderRadius: 2,
-      // textAlign: "",
     }}
   >
     <Button
@@ -904,12 +903,14 @@ BackdropProps={{
            </Grid>
 
         <Grid item xs={12} sm={1}>
+    <Link to={'/post'}>
       <div className=''>
       <img className=''src="https://www.olx.com.pk/assets/iconSellBorder_noinline.d9eebe038fbfae9f90fd61d971037e02.svg" alt="" />
       <button className='flex items-center ml-5 absolute bottom-7 font-bold text-teal-950'>
         <PlusIcon size={20} className=''/>
         Sell</button>
       </div>
+    </Link>
         </Grid>
       </Grid>
     </Box>

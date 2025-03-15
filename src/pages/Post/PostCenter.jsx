@@ -1,6 +1,7 @@
 import { ArrowRightAlt, KeyboardArrowRight } from '@mui/icons-material'
 import { ArrowRight } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
+import ChooseACateogry from './ChooseACateogry'
 
 const categories = [
     {
@@ -12,11 +13,11 @@ const categories = [
       img: 'https://www.olx.com.pk/assets/vehicles.29fb808d5118f0db56f68a39ce5392e2.png',
     },
     {
-      title: 'Property For Sale',
+      title: 'Property for Sale',
       img: 'https://www.olx.com.pk/assets/property-for-sale.e3a00dbfdaa69fe5f713665f1069502f.png',
     },
     {
-      title: 'Property For Rent',
+      title: 'Property for Rent',
       img: 'https://www.olx.com.pk/assets/property-for-rent.8436595fbaa90d47f0178006f57090a8.png',
     },
     {
@@ -62,21 +63,31 @@ const categories = [
   ]
 
 export default function PostCenter() {
+  const [activeCategory, setActiveCategory] = useState('default')
+
+  const handleActiveComponent = (categoryTitle) =>{
+    setActiveCategory(categoryTitle)
+  }
   return (
-    <div>
+    <div className=''>
       <div className="bs-container">
         <h1 className="text-teal-950 text-xl text-center mt-5 font-bold">
           POST YOUR AD
         </h1>
-        <h1 className="text-teal-950 text-lg mt-6 font-bold">
+      </div>
+    {activeCategory === "default" ? 
+    <div>
+        <div className="bs-container">
+       <h1 className="text-teal-950 text-lg mt-6 font-bold">
           Choose a category
         </h1>
-      </div>
+        </div>
       <div className='bs-container'>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-5">
       {categories.map((cat)=>{
       return(
-        <div className='flex justify-between gap-3 items-center border p-4 border-gray-400 rounded-md'>
+        <div key={cat.title} onClick={()=> handleActiveComponent(cat.title)} className={`flex justify-between gap-3 items-center border p-4 border-gray-400 rounded-md ${
+                activeCategory === cat.title ? 'bg-teal-100' : 'hover:bg-teal-100' }`}>
         <div className='flex items-center gap-3'>
         <img className='w-12'
             src={cat.img}
@@ -92,6 +103,11 @@ export default function PostCenter() {
       })}
       </div>
       </div>
+    </div>   
+    : (
+      <ChooseACateogry selectedsetCategory={activeCategory}/>
+    )
+  }
     </div>
   )
 }

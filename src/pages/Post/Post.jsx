@@ -16,7 +16,7 @@ export default function Post() {
   return (
    <div>
     {mobile ? <PostMobile /> : (
-       <div>
+       <div className='overflow-x-hidden'>
        <div>
          <PostHeader />
        </div>

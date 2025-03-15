@@ -9,6 +9,7 @@ import Testing from './tools/Testing'
 import Myads from './pages/MyAds/Myads'
 import Post from './pages/Post/Post'
 import EditProfile from './pages/editProfile/EditProfile'
+import PostAd from './pages/Post/PostAd'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
    <Route path="/customer-account" element={<CustomerAccount />}/>
    <Route path="/my-ads" element={<Myads />}/>
    <Route path="/post" element={<Post />}/>
+   <Route path="/post/attributes" element={<PostAd />}/>
    <Route path="/edit-profile" element={<EditProfile />}/>
    <Route path='/get-cat' element={<GetCategories />}/>
    <Route path='/test' element={<Testing />}/>
