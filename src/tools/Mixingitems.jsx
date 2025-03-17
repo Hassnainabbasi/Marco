@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom';
 import { Eye, EyeOff, PlusIcon } from 'lucide-react';
 
 
-const StyledPopper = styled(Popper)(({ theme }) => ({
+ const StyledPopper = styled(Popper)(({ theme }) => ({
   zIndex: 10,
   backgroundColor: '#fff',
   boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',

@@ -132,7 +132,7 @@ export default function EditeProfileCenter() {
         <hr className="mt-3 mb-5 border-gray-500" />
         <div className="">
           <div className="flex">
-            <div className="p-3">
+            <div className="p-3 w-1/2">
               <h1 className="font-bold text-teal-950 mb-2">Name</h1>
               <div className="w-full flex-grow">
                 <Grid container spacing={2} alignItems="center">
