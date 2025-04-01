@@ -76,17 +76,17 @@ export default function PostCenter() {
         </h1>
       </div>
     {activeCategory === "default" ? 
-    <div>
-        <div className="bs-container">
+    <div className='post-container'>
+        <div className="">
        <h1 className="text-teal-950 text-lg mt-6 font-bold">
           Choose a category
         </h1>
         </div>
-      <div className='bs-container'>
+      <div className=''>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-5">
       {categories.map((cat)=>{
       return(
-        <div key={cat.title} onClick={()=> handleActiveComponent(cat.title)} className={`flex justify-between gap-3 items-center border p-4 border-gray-400 rounded-md ${
+        <div key={cat.title} onClick={()=> handleActiveComponent(cat.title)} className={`flex justify-between gap-3 items-center border p-4 text-sm whitespace-nowrap border-gray-400 rounded-md ${
                 activeCategory === cat.title ? 'bg-teal-100' : 'hover:bg-teal-100' }`}>
         <div className='flex items-center gap-3'>
         <img className='w-12'

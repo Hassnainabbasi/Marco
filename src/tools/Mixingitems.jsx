@@ -858,7 +858,7 @@ BackdropProps={{
       }
       popupIcon={<KeyboardArrowDown sx={{color : "#014F43", fontSize : 35 }} />}
       sx={{
-        width: { xs: 180, sm: 175, md: 230, lg: 304 },
+        width: "100%",
         "& .MuiOutlinedInput-root": {
         },
       }}

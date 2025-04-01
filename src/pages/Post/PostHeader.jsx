@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 export default function PostHeader() {
   return (
     <div className="bg-gray-50">
-      <div className="post-container">
+      <div className="px-5">
         <div className="flex items-center gap-3 py-2">
           <Link to={'/'}>
           <svg className='text-teal-950'

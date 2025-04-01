@@ -113,6 +113,8 @@ const StyledDescriptionBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function PostAd() {
+  const [isOn, setIsOn] = useState(false);
+
    const [comment, setComment] = useState('')
     const [wordCount, setWordCount] = useState(0)
   
@@ -135,17 +137,17 @@ export default function PostAd() {
       }
     }
   return (
-    <div>
+    <div className=''>
      <div className='overflow-x-hidden'>
       <PostHeader />
      </div>
-     <div className="bs-container">
+     <div className="">
         <h1 className="text-teal-950 text-xl text-center mt-5 font-bold">
           POST YOUR AD
         </h1>
       </div>
-    <div className='flex bs-container gap-4'>
- <div className=' mx-auto container mt-5'>
+    <div className='flex gap-4 post-container'>
+ <div className=' mx-auto flex-2 container mt-5 w-full'>
  <div className='border rounded-md border-gray-400'>
    <div className='py-5 px-8 '>
       <div className='flex justify-between items-center'>
@@ -177,7 +179,7 @@ export default function PostAd() {
        </h1>
     <div>
          <div className="w-full flex flex-col">
-       <div className="grid grid-cols-7 gap-2 p-4">
+       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-2 p-4">
         <div className="min-w-[70px] bg-blue-50 h-14 border border-gray-300 flex items-center justify-center rounded-lg cursor-pointer hover:border-blue-500">
           <Add className="text-blue-500" fontSize="large" />
         </div>
@@ -209,11 +211,13 @@ export default function PostAd() {
       <hr className=' border-gray-400'/>
      </div>
      <div>
-     <div className='postad-container'>
-     <div className='items-center flex gap-60 justify-between'>
-    <h1 className='text-teal-950 font-bold whitespace-nowrap text-sm'>
+     <div className='px-10'>
+     <div className='items-center flex gap-48 justify-between'>
+   <div className=''>
+   <h1 className='text-teal-950 font-bold whitespace-nowrap text-sm'>
      Type*
        </h1>
+   </div>
        <div className="mt-6 w-full">
        <Autocomplete
       disablePortal={false}
@@ -265,7 +269,7 @@ export default function PostAd() {
       }
       popupIcon={null}
       sx={{
-        width: { xs: 180, sm: 175, md: 230, lg: 554 },
+        width: "100%",
         "& .MuiOutlinedInput-root": {
           "& fieldset": {
             borderColor: "#fff", 
@@ -306,8 +310,8 @@ export default function PostAd() {
         <div className='mt-8'>
       <hr className=' border-gray-400'/>
      </div>
-     <div className='postad-container'>
-     <div className='items-center flex gap-52 justify-between'>
+     <div className='px-11'>
+     <div className='items-center gap-5 sm:gap-10 md:gap-20 lg:gap-32 xl:gap-40 flex justify-between'>
     <h1 className='text-teal-950 font-bold whitespace-nowrap text-sm'>
         Add title*
        </h1>
@@ -335,8 +339,8 @@ export default function PostAd() {
                   </div>
     </div>
      </div>
-     <div className='postad-container'>
-     <div className='items-center flex gap-48 justify-between'>
+     <div className='px-10'>
+     <div className='items-center flex gap-5 sm:gap-10 md:gap-20 lg:gap-32 xl:gap-36 justify-between'>
     <h1 className='text-teal-950 font-bold whitespace-nowrap text-sm'>
      Description*
        </h1>
@@ -365,8 +369,8 @@ export default function PostAd() {
                   </div>
     </div>
      </div>
-     <div className='postad-container mb-5'>
-     <div className='items-center flex gap-52 justify-between'>
+     <div className='px-10 mb-5'>
+     <div className='items-center flex gap-5 sm:gap-10 md:gap-20 lg:gap-32 xl:gap-40 justify-between'>
     <h1 className='text-teal-950 font-bold whitespace-nowrap text-sm'>
      Location*
        </h1>
@@ -419,7 +423,7 @@ export default function PostAd() {
       }
       popupIcon={null}
       sx={{
-        width: { xs: 180, sm: 175, md: 230, lg: 555 },
+        width: { xs: 180, sm: 175, md: 230, lg: 400 },
         "& .MuiOutlinedInput-root": {
           "& fieldset": {
             borderColor: "#fff", 
@@ -461,20 +465,20 @@ export default function PostAd() {
      </div>
    </div>
    <div className='flex'>
-     <div className='border container w-full mt-5 rounded-md border-gray-400'>
-     <div className='postad-container'>
-     <div className='items-center flex gap-40 justify-between'>
+     <div className='border container w-full mt-5 border-gray-400'>
+     <div className='px-10'>
+     <div className='items-center flex gap-28 justify-between'>
     <h1 className='text-teal-950 font-bold whitespace-nowrap text-sm'>
         Down Payment*
        </h1>
-       <div className="flex border w-full rounded-md border-teal-950 h-12  mt-5 mb-5">
+       <div className="flex border w-full rounded-sm border-teal-950 h-12  mt-5 mb-5">
                     <div className="flex items-center px-1 h-5 self-center border-teal-950 border-r">
                       <span className="ml-1 mr-3 text-teal-950 text-xs">
                         Rs
                       </span>
                     </div>
                     <input
-                      className="w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                      className="w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
                       id="phone"
                       placeholder="Enter Down Payment"
                       type="text"
@@ -487,8 +491,8 @@ export default function PostAd() {
      </div>
      <div className='flex'>
      <div className='border container w-full mt-5 rounded-md border-gray-400'>
-     <div className='postad-container'>
-     <div className='items-center flex gap-52 justify-between mb-5'>
+     <div className='px-10'>
+     <div className='items-center flex gap-40 justify-between mb-5'>
     <h1 className='text-teal-950 font-bold whitespace-nowrap text-sm'>
         Names  *
        </h1>
@@ -510,15 +514,68 @@ export default function PostAd() {
                   </div>
                    
                   </div>
+                  <div className='items-center flex gap-16 justify-between mb-5'>
+    <h1 className='text-teal-950 font-bold whitespace-nowrap text-sm'>
+        Mobile Phone Number
+       </h1>
+       <div className="flex border w-full rounded-sm border-teal-950 h-12  mt-5 mb-5">
+                    <div className="flex items-center px-1 h-5 self-center border-teal-950 border-r">
+                      <span className="ml-1 mr-3 text-teal-950 text-xs">
+                        Rs
+                      </span>
+                    </div>
+                    <input
+                      className="w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                      id="phone"
+                      placeholder="Enter Down Payment"
+                      type="text"
+                    />
+                  </div>
+                   
+                   
+                  </div>
+                  <div className='items-center flex gap-16 justify-between mb-5'>
+    <h1 className='text-teal-950 font-bold whitespace-nowrap text-sm'>
+        Show My Phone Number Ads
+       </h1>
+       <div
+      className={`w-12 h-6 flex items-center px-1 rounded-full cursor-pointer transition-all duration-300 ${
+        isOn ? "bg-teal-950" : "bg-[#2A5D67]"
+      }`}
+      onClick={() => setIsOn(!isOn)}
+    >
+      <div
+        className={`w-4 h-4 flex items-center justify-center bg-white rounded-full shadow-md transform transition-all duration-300 ${
+          isOn ? "translate-x-6 bg-teal-950" : "translate-x-0 bg-white"
+        }`}
+      >
+        <div
+          className={`w-3 h-3 bg-teal-950 rounded-full shadow-md transition-all duration-300`}
+        ></div>
+      </div>
+    </div>
+                   
+                   
+                  </div>
+                  
+                  <div>
+                  </div>
+            
+     </div>
+     <div className='mt-10 mb-5'>
+      <hr className=' border-gray-400'/>
+     </div>
+     <div className='mb-5 px-10 flex justify-end'>
+      <button className='text-white p-3 rounded-md font-bold bg-teal-950'>Post Now</button>
      </div>
      </div>
      </div>
  </div>
    
-   <div className=' mx-auto container flex-1 w-full '>
-  <div className='w-96 border mt-5 rounded-md border-gray-400'>
+   <div className='mx-auto container w-full '>
+  <div className=' border mt-5 rounded-md border-gray-400'>
   <div className='px-6 mt-7'>
-  <h1 className='text-teal-950 font-bold text-base whitespace-nowrap'>
+  <h1 className='text-teal-950 font-bold text-base'>
         Need help getting startd?
        </h1>
        <h1 className='text-teal-950 mt-8 text-sm '>

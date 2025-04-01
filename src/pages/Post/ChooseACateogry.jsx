@@ -855,7 +855,7 @@ export default function ChooseACateogry({selectedsetCategory}) {
  const navigate = useNavigate()
 
   return (
-    <div className="bs-container mt-8">
+    <div className="post-container mt-8">
       <div className="mb-4">
         <h1 className="text-lg font-bold px-8 text-teal-950">Choose a category</h1>
       </div>

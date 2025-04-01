@@ -40,13 +40,13 @@
 
 @media (min-width: 1170px) {
   .bs-container {
-    width: 1310px;
+    width: 1240px;
   }
 }
 
 @media (min-width: 1170px) {
   .post-container {
-    width: 1370px;
+    width: 1100px;
   }
 }
 
