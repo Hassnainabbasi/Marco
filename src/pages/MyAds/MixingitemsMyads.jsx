@@ -31,7 +31,7 @@ import {
   TextField,
 } from '@mui/material'
 import { LocationIcon } from '../GetCategories/GetCategories'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ArrowDown, ArrowDownIcon, Eye, EyeOff, PlusIcon } from 'lucide-react'
 import OpenMeuFilter from '../OpenMeuFilter'
 import OpenDesktopFilter from '../OpenDesktopFilter'
@@ -123,6 +123,7 @@ const LoginButton = styled('button')(({ theme }) => ({
 export default function MixingItemsMyads() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [location, setLocation] = useState('Pakistan')
+  const navigate = useNavigate()
   const [isopen, setIsopen] = useState(false)
   const handleLocationClick = () => {
     setIsDropdownOpen(!isDropdownOpen)
@@ -201,7 +202,7 @@ export default function MixingItemsMyads() {
               <KeyboardArrowDown sx={{ color: '#014F43', fontSize: 35 }} />
             }
             sx={{
-              width: { xs: 180, sm: 175, md: 230, lg: 304 },
+              width: "100%",
               '& .MuiOutlinedInput-root': {},
             }}
             renderInput={(params) => (
@@ -253,8 +254,9 @@ export default function MixingItemsMyads() {
         </Grid>
         <Grid item xs={12} sm={1}>
           <div className="relative -left-14">
-            <div className="flex gap-5 justify-start items-center">
+            <div className="flex gap-5 justify-start items-center cursor-pointer">
               <img
+               onClick={()=> navigate('/chate-page')}
                 src="https://www.olx.com.pk/assets/iconChat_noinline.31f5df4a6a21fc770ed6863958662677.svg"
                 alt=""
               />
@@ -283,7 +285,7 @@ export default function MixingItemsMyads() {
               src="https://www.olx.com.pk/assets/iconSellBorder_noinline.d9eebe038fbfae9f90fd61d971037e02.svg"
               alt=""
             />
-            <button className="flex items-center ml-5 absolute bottom-7 font-bold text-teal-950">
+            <button onClick={()=> navigate('/post')} className="flex items-center ml-5 absolute bottom-7 font-bold text-teal-950">
               <PlusIcon size={20} className="" />
               Sell
             </button>

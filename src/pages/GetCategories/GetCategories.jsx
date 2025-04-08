@@ -360,9 +360,9 @@ export default function GetCategories() {
   }
 
   return (
-    <div className={`${mobile ? 'absolute w-screen overflow-x-hidden' : ''}`}>
+    <div className={`${mobile ? 'absolute w-screen overflow-x-hidden' : 'overflow-x-hidden'}`}>
       {filter ? (
-        <div className="overflow-x-hidden">
+        <div className="">
           <FilterComponent setFilter={setFilter} />
         </div>
       ) : (
@@ -849,7 +849,7 @@ export default function GetCategories() {
               Load more
             </button>
           </div>
-          <div className="mb-4">
+          <div className="mb-4 bs-container">
             <h1 className="text-teal-950 font-semibold mb-3">Recently View</h1>
             <hr className="border-gray-400 " />
           </div>
@@ -857,7 +857,7 @@ export default function GetCategories() {
             <GetMobileRecentData />
           ) : (
             <div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {/* <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {items
                   .filter((_, index) => index < 2 || window.innerWidth >= 1024)
                   .map((item) => (
@@ -888,7 +888,7 @@ export default function GetCategories() {
                       </div>
                     </div>
                   ))}
-              </div>
+              </div> */}
 
               <div className="bs-container mt-3">
                 <ul className="flex gap-3 text-teal-950 text-sm">
@@ -903,10 +903,7 @@ export default function GetCategories() {
                 </ul>
               </div>
               <div className="flex justify-center mt-12 mb-5">
-                <img
-                  src="https://tpc.googlesyndication.com/simgad/1948415569106598874"
-                  alt=""
-                />
+              
                 <div>
                   <GetCatFooter />
                   <Footer />

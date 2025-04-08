@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PostHeader from './PostHeader'
 import { Add, AddAPhoto, AddOutlined, CameraAlt, CameraAltOutlined, KeyboardArrowDown, MyLocation } from '@mui/icons-material'
 import { SearchIcon } from 'lucide-react'
 import { Autocomplete, Grid, InputAdornment, InputBase, Popper, styled, TextField } from '@mui/material';
+import PostAdMobile from './PostAdMobile';
 
 const names = ["Corner Plot", "Park Facing","Corner Plot", "Park Facing","Corner Plot", "Park Facing","Corner Plot", "Park Facing"];
 
@@ -114,10 +115,12 @@ const StyledDescriptionBase = styled(InputBase)(({ theme }) => ({
 
 export default function PostAd() {
   const [isOn, setIsOn] = useState(false);
-
+  const [mobile, setMobile] = useState(window.innerWidth < 1024)
    const [comment, setComment] = useState('')
     const [wordCount, setWordCount] = useState(0)
   
+    
+    
     const handleComment = (e) => {
       const words = e.target.value
       if (words.length <= 70) {
@@ -125,10 +128,10 @@ export default function PostAd() {
         setWordCount(words.length)
       }
     }
-
+    
     const [descomment, dessetComment] = useState('')
     const [deswordCount, dessetWordCount] = useState(0)
-  
+    
     const deshandleComment = (e) => {
       const words = e.target.value
       if (words.length <= 4096) {
@@ -136,8 +139,19 @@ export default function PostAd() {
         dessetWordCount(words.length)
       }
     }
+    useEffect(()=>{
+      const handleSize = () =>{
+       setMobile(window.innerWidth < 1024)
+     }   
+       window.addEventListener("resize", handleSize)
+       return ()=> window.removeEventListener("resize", handleSize)
+    },[])
   return (
-    <div className=''>
+  <div>
+    { mobile ? 
+    <PostAdMobile /> : (
+
+      <div className=''>
      <div className='overflow-x-hidden'>
       <PostHeader />
      </div>
@@ -597,6 +611,9 @@ export default function PostAd() {
    </div>
     </div>
     </div>
+    )
+  }
+  </div>
   )
 }
 

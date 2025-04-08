@@ -1,5 +1,6 @@
 import { KeyboardArrowRight } from '@mui/icons-material'
-import React from 'react'
+import React, { useState } from 'react'
+import MobileChooseCategory from './MobileChooseCategory'
 
 const categories = [
   {
@@ -61,57 +62,69 @@ const categories = [
 ]
 
 export default function PostMobile() {
+  const [selectedMobileCategory, setSelectedMobileCategory] = useState("default")
+
+  const handleActiveComponent = (categoryTitle) =>{
+    setSelectedMobileCategory(categoryTitle)
+  }
   return (
-    <div>
-      <div className="bg-gray-50">
-        <div className="post-container">
-          <div className="flex gap-3 py-4">
-            <svg
-              className="text-teal-950"
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-            <h1 className="text-teal-950 text-xl font-bold">Post your ad</h1>
-          </div>
-        </div>
-      </div>
-      <div className=" mt-5">
-        <h1 className="text-teal-950 font-bold px-4 text-sm">
-          CHOOSE A CATEGORY
-        </h1>
-        <div className="">
-          <div className="grid grid-cols-1 gap-4 mt-5 mb-12">
-            
-            {categories.map((cat) => {
-              return (
-                <div className=''>
-                   <div className='relative'>
-                    <hr className='mb-3'/>
-                  </div>
-                  <div className="flex justify-between bs-container gap-3 items-center rounded-md">
-                  <div className="flex items-center gap-3">
-                    <img className="w-7" src={cat.img} alt="" />
-                    <h1 className='text-sm text-teal-950'>{cat.title}</h1>
-                  </div>
-                  <div>
-                    <KeyboardArrowRight className='text-gray-400' />
-                  </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </div>
-    </div>
+   <div>
+  {selectedMobileCategory === "default" ?(
+     <div>
+     <div className="bg-gray-50">
+       <div className="post-container">
+         <div className="flex gap-3 py-4">
+           <svg
+             className="text-teal-950"
+             xmlns="http://www.w3.org/2000/svg"
+             width="30"
+             height="30"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             strokeWidth="1.5"
+             strokeLinecap="round"
+             strokeLinejoin="round"
+           >
+             <path d="M19 12H5M12 19l-7-7 7-7" />
+           </svg>
+           <h1 className="text-teal-950 text-xl font-bold">Post your ad</h1>
+         </div>
+       </div>
+     </div>
+     <div className=" mt-5">
+       <h1 className="text-teal-950 font-bold px-4 text-sm">
+         CHOOSE A CATEGORY
+       </h1>
+       <div className="">
+         <div className="grid grid-cols-1 gap-4 mt-5 mb-12">
+           
+           {categories.map((cat) => {
+             return (
+               <div key={cat.title} onClick={()=> handleActiveComponent(cat.title)} className=''>
+                  <div className='relative'>
+                   <hr className='mb-3'/>
+                 </div>
+                 <div className="flex justify-between bs-container gap-3 items-center rounded-md">
+                 <div className="flex items-center gap-3">
+                   <img className="w-7" src={cat.img} alt="" />
+                   <h1 className='text-sm text-teal-950'>{cat.title}</h1>
+                 </div>
+                 <div>
+                   <KeyboardArrowRight className='text-gray-400' />
+                 </div>
+                 </div>
+               </div>
+             )
+           })}
+         </div>
+       </div>
+     </div>
+   </div>
+  ):(
+    <MobileChooseCategory selectedMobileCategory={selectedMobileCategory} />
+  )}
+   </div>
+  
   )
 }
