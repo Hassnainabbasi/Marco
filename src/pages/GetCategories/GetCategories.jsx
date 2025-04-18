@@ -360,9 +360,11 @@ export default function GetCategories() {
   }
 
   return (
-    <div className={`${mobile ? 'absolute w-screen overflow-x-hidden' : 'overflow-x-hidden'}`}>
+    <div
+      className={`${mobile ? 'absolute w-screen overflow-x-hidden' : 'overflow-x-hidden'}`}
+    >
       {filter ? (
-        <div className="">
+        <div className="">  
           <FilterComponent setFilter={setFilter} />
         </div>
       ) : (
@@ -903,7 +905,6 @@ export default function GetCategories() {
                 </ul>
               </div>
               <div className="flex justify-center mt-12 mb-5">
-              
                 <div>
                   <GetCatFooter />
                   <Footer />
