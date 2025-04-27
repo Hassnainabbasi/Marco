@@ -12,26 +12,29 @@ import EditProfile from './pages/editProfile/EditProfile'
 import PostAd from './pages/Post/PostAd'
 import Chatpage from './pages/Chatpage/Chatpage'
 import MobileChooseCategory from './pages/Post/MobileChooseCategory'
+import GoogleLoginSuccess from './api/google-login'
+import MixingItems from './tools/Mixingitems'
 
 function App() {
 
   return (
-   <BrowserRouter >
-   <Routes >
-    <Route index element={<Home />}></Route>
-    <Route path='/auth' element={<Login />}/>
-   <Route path="/customer-account" element={<CustomerAccount />}/>
-   <Route path="/my-ads" element={<Myads />}/>
-   <Route path="/post" element={<Post />}/>
-   <Route path="/chate-page" element={<Chatpage />}/>
-   <Route path="/post/attributes" element={<PostAd />}/>
-   <Route path="/edit-profile" element={<EditProfile />}/>
-   <Route path='/get-cat' element={<GetCategories />}/>
-   <Route path='/test' element={<Testing />}/>
-   <Route path='/testPost' element={<MobileChooseCategory />}/>
-
-   </Routes>
-   </BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Home />}></Route>
+        <Route path="/auth" element={<Login />} />
+        <Route path="/customer-account" element={<CustomerAccount />} />
+        <Route path="/my-ads" element={<Myads />} />
+        <Route path="/post" element={<Post />} />
+        <Route path="/chate-page" element={<Chatpage />} />
+        <Route path="/post/attributes" element={<PostAd />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/get-cat" element={<GetCategories />} />
+        <Route path="/test" element={<Testing />} />
+        <Route path="/api/google-login" element={<GoogleLoginSuccess />} />
+        <Route path="/testPost" element={<MobileChooseCategory />} />
+        <Route path="/login" element={<MixingItems />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

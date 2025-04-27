@@ -10,8 +10,10 @@ import {
 } from '@mui/icons-material'
 import { EyeIcon, Heart, MenuIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { UserUse } from '../useContext/Context'
 
 export default function OpenDesktopFilter() {
+  const {logout} = UserUse()
   return (
     <div>
       <div className="">
@@ -122,7 +124,7 @@ export default function OpenDesktopFilter() {
               <h1 className="">
                 <ExitToApp />
               </h1>
-              <h1 className="text-teal-950 font-semibold">Logout</h1>
+              <h1 onClick={logout} className="text-teal-950 font-semibold">Logout</h1>
             </div>
           </div>
         </div>

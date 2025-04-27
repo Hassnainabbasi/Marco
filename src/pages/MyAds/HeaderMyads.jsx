@@ -14,7 +14,7 @@ export default function HeaderMyads() {
       </div>
 
 <div>
-<hr className='mt-36'/>
+<hr className='mt-3'/>
 </div>
 
       <div className="bs-container">
