@@ -144,10 +144,14 @@ export default function MixingItems() {
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
   const [joinPhone, setjoinPhone] = useState('')
-  const [phoneAdd ,setPhoneAdd] = useState('')
+  const [phoneAdd, setPhoneAdd] = useState('')
   const [phoneError, setPhoneError] = useState('')
   const [phoneStore, setPhoneStore] = useState('')
   const [phonecreate, setphonecreate] = useState('')
+  const [otp, setOtp] = useState(null)
+  const [otpValue, setOtpValue] = useState(['', '', '', ''])
+
+  const [name, setName] = useState('')
 
   const handleEmailSubmit = async () => {
     if (!emailInput) {
@@ -191,7 +195,7 @@ export default function MixingItems() {
       })
 
       const data = await res.json()
-
+      console.log(data, '=>ok')
       if (data.exists) {
         setPhoneError('Phone Number already exists. Try logging in.')
       } else {
@@ -230,31 +234,73 @@ export default function MixingItems() {
     }
   }
 
-      const handlePhonePasswordSubmit = async () => {
-        if (!password || password !== confirmPassword) {
-          alert('Passwords do not match or are empty.')
-          return
-        }
+  const handleInputChange = (e, index) => {
+    const newOtpValue = [...otpValue]
+    newOtpValue[index] = e.target.value
+    setOtpValue(newOtpValue)
+  }
 
-        try {
-          const res = await fetch('http://localhost:3000/users/phoneadd', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ phoneNo: phoneStore, password }),
-          })
+  const handleOtpSubmit = async () => {
+    const otpString = otpValue.join('')
+    console.log('OTP submitted:', otpString) // Log OTP
 
-          const data = await res.json()
+    if (otpString.length !== 4) {
+      alert('Please enter a 4-digit OTP')
+      return
+    }
 
-          if (res.ok) {
-            alert('Account created successfully!')
-            setCreate(false)
-          } else {
-            alert(data.message || 'Something went wrong.')
-          }
-        } catch (error) {
-          console.log('Error creating account:', error)
-        }
+    try {
+      const response = await fetch('http://localhost:3000/verify-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phoneNo: phoneStore,
+          password,
+          otp: otpString,
+        }),
+      })
+
+      const data = await response.json()
+      if (response.ok) {
+        alert('OTP verified successfully!')
+      } else {
+        alert(data.message || 'OTP verification failed')
       }
+    } catch (error) {
+      console.error('Error verifying OTP:', error)
+      alert('Something went wrong. Please try again.')
+    }
+  }
+
+  const handlePhonePasswordSubmit = async () => {
+    if (!password || password !== confirmPassword) {
+      alert('Passwords do not match or are empty.')
+      return
+    }
+
+    try {
+      const response = await fetch('http://localhost:3000/send-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNo: phoneStore }),
+      })
+
+      const data = await response.json()
+      console.log(data)
+      if (response.ok) {
+        setphonecreate(false)
+        setOtp(true)
+      } else {
+        alert(data.message || 'Something went wrong.')
+      }
+    } catch (error) {
+      console.log('Error creating account:', error)
+    }
+  }
 
   const responseFacebook = (response) => {
     console.log(response)
@@ -289,12 +335,12 @@ export default function MixingItems() {
     NewAccountClose()
   }
 
-  const handleJoinPhoneOpen = () =>{
+  const handleJoinPhoneOpen = () => {
     setNewAccountModal(false)
     setjoinPhone(true)
   }
 
-  const handleJoinPhoneClose = ()=> {
+  const handleJoinPhoneClose = () => {
     setjoinPhone(false)
   }
 
@@ -341,6 +387,10 @@ export default function MixingItems() {
   const LoginOpen = () => {
     handleClose()
     setLogin(true)
+  }
+
+  const OtpClose = () => {
+    setOtp(false)
   }
 
   const LoginClose = () => setLogin(false)
@@ -686,6 +736,103 @@ export default function MixingItems() {
                   </Box>
                 </Modal>
 
+                <Modal open={joinPhone} onClose={handleJoinPhoneClose}>
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: { xs: '90%', sm: 400 }, // Mobile pe 90%, bigger screens pe 400px
+                      maxWidth: 430,
+                      bgcolor: 'background.paper',
+                      boxShadow: 24,
+                      p: { xs: 2, sm: 3 }, // Mobile pe thoda kam padding
+                      borderRadius: 2,
+                      textAlign: '',
+                    }}
+                  >
+                    <Button
+                      color="teal"
+                      onClick={CreateClose}
+                      sx={{
+                        position: 'absolute',
+                        top: '8px',
+                        left: '8px',
+                        minWidth: '30px',
+                        padding: '5px',
+                        borderRadius: '50%',
+                        fontSize: '12px',
+                      }}
+                    >
+                      <ArrowBackIos className="text-teal-950" />
+                    </Button>
+                    <Button
+                      color="teal"
+                      onClick={handleJoinPhoneClose}
+                      sx={{
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                        minWidth: '30px',
+                        padding: '5px',
+                        borderRadius: '50%',
+                        fontSize: '12px',
+                      }}
+                    >
+                      <ClearOutlined className="text-teal-950" />
+                    </Button>
+                    <div className="min-h-screen flex items-center justify-center bg-white px-4">
+                      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+                        <h2 className="text-2xl font-semibold text-center mb-4">
+                          Almost there
+                        </h2>
+
+                        <p className="text-center text-gray-700 mb-2">
+                          Your name is set to:{' '}
+                          <span className="font-semibold">User 1768WV</span>
+                        </p>
+
+                        <p className="text-center text-gray-600 mb-6">
+                          Add your real name to build credibility and connect
+                          better with other people on OLX
+                        </p>
+
+                        <label
+                          htmlFor="name"
+                          className="block text-sm font-medium text-gray-700 mb-1"
+                        >
+                          Your name
+                        </label>
+                        <input
+                          id="name"
+                          type="text"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="Enter your name"
+                          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+                        />
+
+                        <div className="flex justify-between">
+                          <button className="border border-gray-800 text-gray-800 px-6 py-2 rounded-md hover:bg-gray-100">
+                            Skip
+                          </button>
+                          <button
+                            className={`px-6 py-2 rounded-md text-white ${
+                              name
+                                ? 'bg-blue-600 hover:bg-blue-700'
+                                : 'bg-gray-300 cursor-not-allowed'
+                            }`}
+                            disabled={!name}
+                          >
+                            Finish
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </Box>
+                </Modal>
+
                 <Modal open={create} onClose={CreateClose}>
                   <Box
                     sx={{
@@ -876,6 +1023,220 @@ export default function MixingItems() {
                       >
                         Submit
                       </button>
+                    </div>
+                  </Box>
+                </Modal>
+
+                {/* <Modal
+                  open={otp}
+                  onClose={OtpClose}
+                  BackdropProps={{
+                    sx: { backgroundColor: 'rgba(0, 0, 0, 0.8)' },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: { xs: '90%', sm: 410 },
+                      maxWidth: 430,
+                      bgcolor: 'background.paper',
+                      boxShadow: 24,
+                      p: { xs: 2, sm: 3 }, // Mobile pe thoda kam padding
+                      borderRadius: 1,
+                      height: '460px',
+                      overflowY: 'hidden',
+                    }}
+                  >
+                    <Button
+                      color="teal"
+                      onClick={OtpClose}
+                      sx={{
+                        position: 'absolute',
+                        top: '8px',
+                        left: '8px',
+                        minWidth: '30px',
+                        padding: '5px',
+                        borderRadius: '50%',
+                        fontSize: '12px',
+                      }}
+                    >
+                      <ArrowBackIos className="text-teal-950" />
+                    </Button>
+                    <Button
+                      color="teal"
+                      onClick={LoginClose}
+                      sx={{
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                        minWidth: '30px',
+                        padding: '5px',
+                        borderRadius: '50%',
+                        fontSize: '12px',
+                      }}
+                    >
+                      <ClearOutlined className="text-teal-950" />
+                    </Button>
+                    <div className="h-full flex items-center justify-center ">
+                      <div className="bg-white rounded-lg p-2 w-full max-w-md text-center relative">
+                        <h2 className="text-xl font-bold text-teal-950 mb-8">
+                          Enter confirmation code
+                        </h2>
+                        <p className="text-teal-950 text-sm mb-4">
+                          You will receive a 4-digit code through a call on{' '}
+                          <br />
+                          <span className="font-bold text-sm text-teal-950">
+                            +923194695906
+                          </span>
+                        </p>
+
+                        <div className="flex justify-center gap-4 mb-6">
+                          <input
+                            type="text"
+                            maxLength="1"
+                            className="w-full h-16 border border-black rounded text-center text-xl outline-none focus:border-teal-500"
+                          />
+                          <input
+                            type="text"
+                            maxLength="1"
+                            className="w-full h-16 border border-black rounded text-center text-xl outline-none focus:border-teal-500"
+                          />
+                          <input
+                            type="text"
+                            maxLength="1"
+                            className="w-full h-16 border border-black rounded text-center text-xl outline-none focus:border-teal-500"
+                          />
+                          <input
+                            type="text"
+                            maxLength="1"
+                            className="w-full h-16 border border-black rounded text-center text-xl outline-none focus:border-teal-500"
+                          />
+                        </div>
+
+                        <div className="mt-7">
+                          <button className="text-blue-500 font-bold">
+                            Resend Code by Call
+                          </button>
+                          <p className="text-teal-950 text-sm mt-8">
+                            If you have not received the code by call, please
+                            request
+                          </p>
+                          <button className="text-blue-500 font-bold">
+                            Resend Code by SMS
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </Box>
+                </Modal> */}
+
+                <Modal
+                  open={otp}
+                  onClose={OtpClose}
+                  BackdropProps={{
+                    sx: { backgroundColor: 'rgba(0, 0, 0, 0.8)' },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: { xs: '90%', sm: 410 },
+                      maxWidth: 430,
+                      bgcolor: 'background.paper',
+                      boxShadow: 24,
+                      p: { xs: 2, sm: 3 },
+                      borderRadius: 1,
+                      height: '460px',
+                      overflowY: 'hidden',
+                    }}
+                  >
+                    <Button
+                      color="teal"
+                      onClick={OtpClose}
+                      sx={{
+                        position: 'absolute',
+                        top: '8px',
+                        left: '8px',
+                        minWidth: '30px',
+                        padding: '5px',
+                        borderRadius: '50%',
+                        fontSize: '12px',
+                      }}
+                    >
+                      <ArrowBackIos className="text-teal-950" />
+                    </Button>
+                    <Button
+                      color="teal"
+                      onClick={OtpClose}
+                      sx={{
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                        minWidth: '30px',
+                        padding: '5px',
+                        borderRadius: '50%',
+                        fontSize: '12px',
+                      }}
+                    >
+                      <ClearOutlined className="text-teal-950" />
+                    </Button>
+
+                    <div className="h-full flex items-center justify-center ">
+                      <div className="bg-white rounded-lg p-2 w-full max-w-md text-center relative">
+                        <h2 className="text-xl font-bold text-teal-950 mb-8">
+                          Enter confirmation code
+                        </h2>
+                        <p className="text-teal-950 text-sm mb-4">
+                          You will receive a 4-digit code through a call on{' '}
+                          <br />
+                          <span className="font-bold text-sm text-teal-950">
+                            {phoneStore}
+                          </span>
+                        </p>
+
+                        <div className="flex justify-center gap-4 mb-6">
+                          {otpValue.map((value, index) => (
+                            <input
+                              key={index}
+                              type="text"
+                              maxLength="1"
+                              value={value}
+                              onChange={(e) => handleInputChange(e, index)}
+                              className="w-full h-16 border border-black rounded text-center text-xl outline-none focus:border-teal-500"
+                            />
+                          ))}
+                        </div>
+
+                        <div className="mt-7">
+                          <button className="text-blue-500 font-bold">
+                            Resend Code by Call
+                          </button>
+                          <p className="text-teal-950 text-sm mt-8">
+                            If you have not received the code by call, please
+                            request
+                          </p>
+                          <button className="text-blue-500 font-bold">
+                            Resend Code by SMS
+                          </button>
+                        </div>
+
+                        <div className="mt-4">
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleOtpSubmit}
+                            fullWidth
+                          >
+                            Submit OTP
+                          </Button>
+                        </div>
+                      </div>
                     </div>
                   </Box>
                 </Modal>
