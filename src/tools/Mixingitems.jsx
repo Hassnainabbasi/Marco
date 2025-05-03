@@ -150,8 +150,9 @@ export default function MixingItems() {
   const [phonecreate, setphonecreate] = useState('')
   const [otp, setOtp] = useState(null)
   const [otpValue, setOtpValue] = useState(['', '', '', ''])
-
   const [name, setName] = useState('')
+  const [nameOpen, setNameOpen] = useState(false)
+  const [uid, setUid] = useState('')
 
   const handleEmailSubmit = async () => {
     if (!emailInput) {
@@ -265,12 +266,42 @@ export default function MixingItems() {
       const data = await response.json()
       if (response.ok) {
         alert('OTP verified successfully!')
+        const generateUid = `User-${Math.random().toString(36).substring(2, 7).toUpperCase()}`
+        setName(generateUid)
+        setUid(generateUid)
+        setOtp(false)
+        setNameOpen(true)
       } else {
         alert(data.message || 'OTP verification failed')
       }
     } catch (error) {
       console.error('Error verifying OTP:', error)
       alert('Something went wrong. Please try again.')
+    }
+  }
+
+  const handleDataShift = async () => {
+    try {
+      let respones = await fetch('http://localhost:3000/users/phoneuser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNo: phoneStore, password, username: name }),
+      })
+      console.log({ phoneNo: phoneStore, password, username: name })
+      const data = await respones.json()
+      console.log(data)
+      if(respones.ok){
+        alert('User Created Succesfully')
+        setNameOpen(false)
+      }
+      else{
+        console.log('Something Went Wrong')
+      }
+
+    } catch (error) { 
+      console.log(error)
     }
   }
 
@@ -291,6 +322,8 @@ export default function MixingItems() {
 
       const data = await response.json()
       console.log(data)
+
+      console.log('OTP:', data.otp)
       if (response.ok) {
         setphonecreate(false)
         setOtp(true)
@@ -299,6 +332,26 @@ export default function MixingItems() {
       }
     } catch (error) {
       console.log('Error creating account:', error)
+    }
+  }
+
+  const handleSkip = async() =>{
+    try {
+      let respones = await fetch('http://localhost:3000/users/skip',{
+        method: "POST",
+        headers: {'Content-Type' : 'application/json'},
+        body : JSON.stringify({phoneNo: phoneStore, password, username : uid})
+      })
+       const data = await respones.json()
+       console.log(data)
+       if (respones.ok) {
+         alert('User Created Succesfully')
+         setNameOpen(false)
+       } else {
+         console.log('Something Went Wrong')
+       }
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -369,6 +422,8 @@ export default function MixingItems() {
 
   const PhoneClose = () => setPhone(false)
 
+  const NameClose = () => setNameOpen(false)
+
   const CorrectCreateOpen = () => setCreatecorrect(true)
   const CorrectCreateClose = () => setCreatecorrect(false)
 
@@ -419,10 +474,10 @@ export default function MixingItems() {
       }
 
       const result = await res.json()
-      console.log(result)
+      // console.log(result)
       setUser(result)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       setUser(null)
     }
   }
@@ -736,7 +791,7 @@ export default function MixingItems() {
                   </Box>
                 </Modal>
 
-                <Modal open={joinPhone} onClose={handleJoinPhoneClose}>
+                <Modal open={nameOpen} onClose={NameClose}>
                   <Box
                     sx={{
                       position: 'absolute',
@@ -769,7 +824,7 @@ export default function MixingItems() {
                     </Button>
                     <Button
                       color="teal"
-                      onClick={handleJoinPhoneClose}
+                      onClick={NameClose}
                       sx={{
                         position: 'absolute',
                         top: '8px',
@@ -782,15 +837,15 @@ export default function MixingItems() {
                     >
                       <ClearOutlined className="text-teal-950" />
                     </Button>
-                    <div className="min-h-screen flex items-center justify-center bg-white px-4">
-                      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+                    <div className="h-96 flex items-center justify-center px-4">
+                      <div className="w-full max-w-md rounded-lg">
                         <h2 className="text-2xl font-semibold text-center mb-4">
                           Almost there
                         </h2>
 
                         <p className="text-center text-gray-700 mb-2">
                           Your name is set to:{' '}
-                          <span className="font-semibold">User 1768WV</span>
+                          <span className="font-semibold">{name || uid}</span>
                         </p>
 
                         <p className="text-center text-gray-600 mb-6">
@@ -810,18 +865,21 @@ export default function MixingItems() {
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           placeholder="Enter your name"
-                          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+                          className="w-full border border-gray-300 rounded-sm px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
                         />
 
-                        <div className="flex justify-between">
-                          <button className="border border-gray-800 text-gray-800 px-6 py-2 rounded-md hover:bg-gray-100">
+                        <div className="flex gap-2 mt-3 justify-between">
+                          <button 
+                          onClick={handleSkip}
+                          className="w-full border-teal-950 border-2 text-teal-950 font-bold  py-2 rounded-sm hover:bg-gray-100">
                             Skip
                           </button>
                           <button
-                            className={`px-6 py-2 rounded-md text-white ${
+                            onClick={handleDataShift}
+                            className={`w-full py-2 rounded-sm  ${
                               name
-                                ? 'bg-blue-600 hover:bg-blue-700'
-                                : 'bg-gray-300 cursor-not-allowed'
+                                ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                : 'bg-gray-300 text-gray-100 font-bold cursor-not-allowed'
                             }`}
                             disabled={!name}
                           >
@@ -1026,112 +1084,6 @@ export default function MixingItems() {
                     </div>
                   </Box>
                 </Modal>
-
-                {/* <Modal
-                  open={otp}
-                  onClose={OtpClose}
-                  BackdropProps={{
-                    sx: { backgroundColor: 'rgba(0, 0, 0, 0.8)' },
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      width: { xs: '90%', sm: 410 },
-                      maxWidth: 430,
-                      bgcolor: 'background.paper',
-                      boxShadow: 24,
-                      p: { xs: 2, sm: 3 }, // Mobile pe thoda kam padding
-                      borderRadius: 1,
-                      height: '460px',
-                      overflowY: 'hidden',
-                    }}
-                  >
-                    <Button
-                      color="teal"
-                      onClick={OtpClose}
-                      sx={{
-                        position: 'absolute',
-                        top: '8px',
-                        left: '8px',
-                        minWidth: '30px',
-                        padding: '5px',
-                        borderRadius: '50%',
-                        fontSize: '12px',
-                      }}
-                    >
-                      <ArrowBackIos className="text-teal-950" />
-                    </Button>
-                    <Button
-                      color="teal"
-                      onClick={LoginClose}
-                      sx={{
-                        position: 'absolute',
-                        top: '8px',
-                        right: '8px',
-                        minWidth: '30px',
-                        padding: '5px',
-                        borderRadius: '50%',
-                        fontSize: '12px',
-                      }}
-                    >
-                      <ClearOutlined className="text-teal-950" />
-                    </Button>
-                    <div className="h-full flex items-center justify-center ">
-                      <div className="bg-white rounded-lg p-2 w-full max-w-md text-center relative">
-                        <h2 className="text-xl font-bold text-teal-950 mb-8">
-                          Enter confirmation code
-                        </h2>
-                        <p className="text-teal-950 text-sm mb-4">
-                          You will receive a 4-digit code through a call on{' '}
-                          <br />
-                          <span className="font-bold text-sm text-teal-950">
-                            +923194695906
-                          </span>
-                        </p>
-
-                        <div className="flex justify-center gap-4 mb-6">
-                          <input
-                            type="text"
-                            maxLength="1"
-                            className="w-full h-16 border border-black rounded text-center text-xl outline-none focus:border-teal-500"
-                          />
-                          <input
-                            type="text"
-                            maxLength="1"
-                            className="w-full h-16 border border-black rounded text-center text-xl outline-none focus:border-teal-500"
-                          />
-                          <input
-                            type="text"
-                            maxLength="1"
-                            className="w-full h-16 border border-black rounded text-center text-xl outline-none focus:border-teal-500"
-                          />
-                          <input
-                            type="text"
-                            maxLength="1"
-                            className="w-full h-16 border border-black rounded text-center text-xl outline-none focus:border-teal-500"
-                          />
-                        </div>
-
-                        <div className="mt-7">
-                          <button className="text-blue-500 font-bold">
-                            Resend Code by Call
-                          </button>
-                          <p className="text-teal-950 text-sm mt-8">
-                            If you have not received the code by call, please
-                            request
-                          </p>
-                          <button className="text-blue-500 font-bold">
-                            Resend Code by SMS
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </Box>
-                </Modal> */}
 
                 <Modal
                   open={otp}
@@ -1530,7 +1482,7 @@ export default function MixingItems() {
                     >
                       <ClearOutlined className="text-teal-950" />
                     </Button>
-                    <PasswordCreate />
+                    <PasswordCreate setUser={setUser} setPhone={setPhone} />
                   </Box>
                 </Modal>
 
