@@ -12,7 +12,7 @@ export default function ForgetModal() {
         Enter your email address
       </label>
       <input
-        type="email"
+        type="text"
         id="email"
         className="w-full border border-red-500 p-2 rounded mb-3"
         placeholder="Email address"

@@ -271,7 +271,7 @@ export default function MixingItemsMyads() {
               </button>
             </div>
             {isopen && (
-              <div className="absolute -right-14 mt-3 w-72 bg-white shadow-lg rounded-lg overflow-y-scroll overflow-x-hidden max-h-[505px] z-50">
+              <div className="absolute -right-14 mt-3 w-72 bg-white shadow-lg rounded-lg overflow-y-auto overflow-x-hidden max-h-[455px] z-50">
                 <OpenDesktopFilter />
               </div>
             )}

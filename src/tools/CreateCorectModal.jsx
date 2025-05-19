@@ -1,25 +1,53 @@
 import { useEffect, useState } from 'react'
 import { Eye, EyeOff, LoaderCircle } from 'lucide-react'
 import { ClearOutlined, ReportOutlined } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
+import {
+  ArrowBackIos,
+  ArrowLeft,
+  EmailOutlined,
+  KeyboardArrowDown,
+  LocationOnOutlined,
+  MyLocation,
+  PhoneOutlined,
+} from '@mui/icons-material'
+import {
+  Autocomplete,
+  Button,
+  InputAdornment,
+  Modal,
+  Popper,
+  TextField,
+} from '@mui/material'
+import ForgetPasswordForm from './Forget_Password'
 
 export default function PasswordCreate({ setPhone, setUser }) {
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [phonepassword, setPhonePassword] = useState('')
+  const [loginconfirmPassword, setLoginConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const [phoneNo, setPhoneNo] = useState('')
-  const [loading, setLoading] = useState(true)
+  const [loginshowConfirmPassword, setloginShowConfirmPassword] = useState(false)
+  const [MobilephoneNo, setMobilePhoneNo] = useState('')
+  const [resetOpen, setResetOpen] = useState(false)
 
+  const resetOpenClose = () => {
+    setResetOpen(false)
+  }
+
+  const handleResetOpen = () =>{
+    setResetOpen(true)
+  }
+
+  const navigate = useNavigate()
   const handleDataPass = async (e) => {
     e.preventDefault()
-    console.log(phoneNo, confirmPassword)
+    console.log(MobilephoneNo, loginconfirmPassword)
     try {
       const res = await fetch('http://localhost:3000/users/login-phone', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          phoneNo,
-          password: confirmPassword,
+          phoneNo : MobilephoneNo,
+          password: loginconfirmPassword,
         }),
       })
       let data = await res.json()
@@ -30,17 +58,12 @@ export default function PasswordCreate({ setPhone, setUser }) {
       }
     } catch (error) {
       console.log(error)
-    }
-    finally {
-    setLoading(false)
   }
-
   }
-
-  const getToken = async() => {
+  const getToken = async () => {
     const token = localStorage.getItem('token')
     console.log(token)
-    try{
+    try {
       const res = await fetch('http://localhost:3000/users/login-phonetoken', {
         method: 'GET',
         headers: {
@@ -54,10 +77,9 @@ export default function PasswordCreate({ setPhone, setUser }) {
       }
 
       const result = await res.json()
-      console.log(result,'this is result')
+      console.log(result, 'this is result')
       setUser(result)
-    }
-    catch(e){
+    } catch (e) {
       console.log(e)
       setUser(null)
     }
@@ -69,11 +91,6 @@ export default function PasswordCreate({ setPhone, setUser }) {
       getToken()
     }
   }, [])
-
-  if (loading) {
-    return <p><LoaderCircle /></p>
-  }
-
 
   return (
     <div className="max-w-md mx-auto mt-5 p-2 bg-white rounded-xl">
@@ -100,7 +117,7 @@ export default function PasswordCreate({ setPhone, setUser }) {
             <span className="ml-1 mr-3 text-gray-700">+92</span>
           </div>
           <input
-            onChange={(e) => setPhoneNo(e.target.value)}
+            onChange={(e) => setMobilePhoneNo(e.target.value)}
             value={phoneNo}
             className="w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
             id="phone"
@@ -120,22 +137,28 @@ export default function PasswordCreate({ setPhone, setUser }) {
         </label>
         <div className="relative">
           <input
-            type={showConfirmPassword ? 'text' : 'password'}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            type={loginshowConfirmPassword ? 'text' : 'password'}
+            value={loginconfirmPassword}
+            onChange={(e) => setLoginConfirmPassword(e.target.value)}
             className="w-full px-4 py-3 rounded border-teal-950 border focus:outline-none focus:ring-2 focus:ring-teal-950"
             placeholder="Enter Password"
           />
           <button
             type="button"
             className="absolute inset-y-0 right-3 flex items-center"
-            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            onClick={() => setloginShowConfirmPassword(!loginshowConfirmPassword)}
           >
-            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            {loginshowConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         </div>
       </div>
-      <a className="text-blue-500 text-sm font-bold" href="#">
+      <a
+        onClick={handleResetOpen}
+        resetOpen={resetOpen}
+        resetOpenClose={resetOpenClose}
+        className="text-blue-500 text-sm font-bold"
+        href="#"
+      >
         Forgot your password?
       </a>
       <button

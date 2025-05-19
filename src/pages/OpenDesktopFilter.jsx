@@ -18,7 +18,7 @@ export default function OpenDesktopFilter() {
     <div>
       <div className="">
         <div className=" mt-2">
-          <div className="px-2">
+          <div className="px-2">  
             <div className="flex items-center gap-3">
               <div className="">
                 <img

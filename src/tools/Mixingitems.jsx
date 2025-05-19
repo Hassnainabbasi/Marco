@@ -37,6 +37,8 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Eye, EyeOff, PlusIcon } from 'lucide-react'
 import HeaderMyads from '../pages/MyAds/HeaderMyads'
 import { UserContext } from '../useContext/Context'
+import ForgetPasswordForm from './Forget_Password'
+import { use } from 'react'
 
 const StyledPopper = styled(Popper)(({ theme }) => ({
   zIndex: 10,
@@ -129,6 +131,7 @@ export default function MixingItems() {
   const [createnew, setCreatenew] = useState(false)
   const [createcorrect, setCreatecorrect] = useState(false)
   const [login, setLogin] = useState(false)
+  const [llogin, setLlogin] = useState(false)
   const [newAccountModal, setNewAccountModal] = useState(false)
   const [password, setPassword] = useState('')
   const [phone, setPhone] = useState(false)
@@ -153,6 +156,163 @@ export default function MixingItems() {
   const [name, setName] = useState('')
   const [nameOpen, setNameOpen] = useState(false)
   const [uid, setUid] = useState('')
+  const [phonepassword, setPhonePassword] = useState('')
+  const [loginconfirmPassword, setLoginConfirmPassword] = useState('')
+  const [loginshowConfirmPassword, setloginShowConfirmPassword] =
+    useState(false)
+  const [MobilephoneNo, setMobilePhoneNo] = useState('')
+  const [resetOpen, setResetOpen] = useState(false)
+  const [restEmail, setResetEmail] = useState('')
+  const [restPassword, setResetPassword] = useState('')
+
+  const resetOpenClose = () => {
+    setResetOpen(false)
+  }
+
+  const handleResetOpen = () => {
+    setPhone(false)
+    setResetOpen(true)
+  }
+
+  const handleDataPass = async (e) => {
+    e.preventDefault()
+
+    let cleanedPhone = MobilephoneNo.replace(/^0/, '')
+    let formattedPhone = `+92${cleanedPhone}`
+
+    console.log(formattedPhone, loginconfirmPassword)
+    try {
+      const res = await fetch('http://localhost:3000/users/login-phone', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phoneNo: formattedPhone,
+          password: loginconfirmPassword,
+        }),
+      })
+      let data = await res.json()
+      if (res.ok) {
+        alert('Login Successfull')
+        localStorage.setItem('token', data.data.token)
+        setPhone(false)
+        navigate('/')
+        setTimeout(() => {
+          window.location.reload()
+        }, 100)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  // const getToken = async () => {
+  //   const token = localStorage.getItem('token')
+  //   console.log(token)
+  //   try {
+  //     const res = await fetch('http://localhost:3000/users/login-phonetoken', {
+  //       method: 'GET',
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         'Content-Type': 'application/json',
+  //       },
+  //     })
+  //     if (!res.ok) {
+  //       const errorData = await res.json()
+  //       throw new Error(errorData.message || 'Something went wrong!')
+  //     }
+
+  //     const result = await res.json()
+  //     console.log(result, 'this is result')
+  //     setUser(result)
+  //   } catch (e) {
+  //     console.log(e)
+  //     setUser(null)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token')
+  //   if (token) {
+  //     getToken()
+  //   }
+  // }, [setUser])
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      const token = localStorage.getItem('token')
+
+      if (token) {
+        // Step 1: Check phone login token
+        try {
+          const res = await fetch(
+            'http://localhost:3000/users/login-phonetoken',
+            {
+              method: 'GET',
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          )
+
+          if (res.ok) {
+            const result = await res.json()
+            console.log(result, 'Phone token valid')
+            setUser(result)
+            return
+          } else {
+            console.log('Phone token invalid')
+          }
+        } catch (e) {
+          console.log('Phone token error:', e.message)
+        }
+
+        // Step 2: Check regular JWT token
+        try {
+          const res = await fetch('http://localhost:3000/users/user-data', {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          })
+
+          if (res.ok) {
+            const userData = await res.json()
+            console.log(userData, 'Regular token valid')
+            setUser(userData)
+            return
+          } else {
+            console.log('Regular token invalid')
+          }
+        } catch (err) {
+          console.log('Regular token error:', err.message)
+        }
+      }
+
+      // Step 3: OAuth login check (Google/Facebook)
+      try {
+        const res = await fetch('http://localhost:3000/auth/me', {
+          credentials: 'include',
+        })
+
+        if (res.ok) {
+          const data = await res.json()
+          console.log(data, 'OAuth login valid')
+          setUser(data)
+          return
+        } else {
+          console.log('OAuth login invalid')
+        }
+      } catch (err) {
+        console.log('OAuth error:', err.message)
+      }
+
+      // Step 4: All failed
+      setUser(null)
+    }
+
+    checkLogin()
+  }, [setUser])
 
   const handleEmailSubmit = async () => {
     if (!emailInput) {
@@ -182,17 +342,22 @@ export default function MixingItems() {
   }
 
   const handlePhoneSubmit = async () => {
-    console.log(phoneAdd)
     if (!phoneAdd) {
       setPhoneError('Please enter your Phone Number')
       return
     }
 
+    let cleanedPhone = phoneAdd.replace(/^0/, '')
+    let formattedPhone = `+92${cleanedPhone}`
+
+    console.log('Original:', phoneAdd)
+    console.log('Formatted:', formattedPhone)
+
     try {
       const res = await fetch('http://localhost:3000/users/check-phone', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phoneNo: phoneAdd }),
+        body: JSON.stringify({ phoneNo: formattedPhone }),
       })
 
       const data = await res.json()
@@ -200,7 +365,7 @@ export default function MixingItems() {
       if (data.exists) {
         setPhoneError('Phone Number already exists. Try logging in.')
       } else {
-        setPhoneStore(phoneAdd)
+        setPhoneStore(formattedPhone)
         setjoinPhone(false)
         setphonecreate(true)
       }
@@ -243,7 +408,7 @@ export default function MixingItems() {
 
   const handleOtpSubmit = async () => {
     const otpString = otpValue.join('')
-    console.log('OTP submitted:', otpString) // Log OTP
+    console.log('OTP submitted:', otpString)
 
     if (otpString.length !== 4) {
       alert('Please enter a 4-digit OTP')
@@ -292,15 +457,13 @@ export default function MixingItems() {
       console.log({ phoneNo: phoneStore, password, username: name })
       const data = await respones.json()
       console.log(data)
-      if(respones.ok){
+      if (respones.ok) {
         alert('User Created Succesfully')
         setNameOpen(false)
-      }
-      else{
+      } else {
         console.log('Something Went Wrong')
       }
-
-    } catch (error) { 
+    } catch (error) {
       console.log(error)
     }
   }
@@ -319,9 +482,9 @@ export default function MixingItems() {
         },
         body: JSON.stringify({ phoneNo: phoneStore }),
       })
-
+      console.log(phoneStore, 'this 92 wala')
       const data = await response.json()
-      console.log(data)
+      console.log(data, 'this is data ')
 
       console.log('OTP:', data.otp)
       if (response.ok) {
@@ -335,21 +498,46 @@ export default function MixingItems() {
     }
   }
 
-  const handleSkip = async() =>{
+  const handleSmsForward = async () => {
     try {
-      let respones = await fetch('http://localhost:3000/users/skip',{
-        method: "POST",
-        headers: {'Content-Type' : 'application/json'},
-        body : JSON.stringify({phoneNo: phoneStore, password, username : uid})
+      const response = await fetch('http://localhost:3000/send-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNo: phoneStore }),
       })
-       const data = await respones.json()
-       console.log(data)
-       if (respones.ok) {
-         alert('User Created Succesfully')
-         setNameOpen(false)
-       } else {
-         console.log('Something Went Wrong')
-       }
+
+      const data = await response.json()
+      console.log(data, 'this is data ')
+
+      console.log('OTP:', data.otp)
+      if (response.ok) {
+        setphonecreate(false)
+        setOtp(true)
+      } else {
+        alert(data.message || 'Something went wrong.')
+      }
+    } catch (error) {
+      console.log('Error creating account:', error)
+    }
+  }
+
+  const handleSkip = async () => {
+    try {
+      let respones = await fetch('http://localhost:3000/users/skip', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phoneNo: phoneStore, password, username: uid }),
+      })
+      const data = await respones.json()
+      console.log(data)
+      if (respones.ok) {
+        alert('User Created Succesfully')
+        setNameOpen(false)
+      } else {
+        console.log('Something Went Wrong')
+      }
     } catch (error) {
       console.log(error)
     }
@@ -373,6 +561,7 @@ export default function MixingItems() {
       if (res.ok) {
         alert('Account Login successfully!')
         setUser(data.data.user)
+        console.log(data, '=>data sety')
         localStorage.setItem('token', data.data.token)
         setLogin(false)
       } else {
@@ -409,6 +598,13 @@ export default function MixingItems() {
   const handlePhoneClose = () => {
     setphonecreate(false)
   }
+  
+  const handlePostLogin = (e) =>{
+   if(!user){
+    e.preventDefault()
+    setOpen(true)
+   }
+  }
 
   const handleClose = () => setOpen(false)
 
@@ -441,14 +637,14 @@ export default function MixingItems() {
 
   const LoginOpen = () => {
     handleClose()
-    setLogin(true)
+    setLlogin(true)
   }
 
   const OtpClose = () => {
     setOtp(false)
   }
 
-  const LoginClose = () => setLogin(false)
+  const LoginClose = () => setLlogin(false)
 
   const forgetOpen = () => {
     LoginClose()
@@ -457,67 +653,76 @@ export default function MixingItems() {
 
   const forgetClose = () => setForgett(false)
 
-  const getUserData = async () => {
-    const token = localStorage.getItem('token')
+  // const getUserData = async () => {
+  //   const token = localStorage.getItem('token')
+  //   try {
+  //     const res = await fetch('http://localhost:3000/users/user-data', {
+  //       method: 'GET',
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         'Content-Type': 'application/json',
+  //       },
+  //     })
+
+  //     if (!res.ok) {
+  //       const errorData = await res.json()
+  //       throw new Error(errorData.message || 'Something went wrong!')
+  //     }
+
+  //     const result = await res.json()
+  //     // console.log(result)
+  //     setUser(result)
+  //   } catch (error) {
+  //     // console.log(error)
+  //     setUser(null)
+  //   }
+  // }
+
+  const logout = async () => {
     try {
-      const res = await fetch('http://localhost:3000/users/user-data', {
+      await fetch('http://localhost:3000/auth/logout', {
         method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      })
-
-      if (!res.ok) {
-        const errorData = await res.json()
-        throw new Error(errorData.message || 'Something went wrong!')
-      }
-
-      const result = await res.json()
-      // console.log(result)
-      setUser(result)
-    } catch (error) {
-      // console.log(error)
-      setUser(null)
-    }
-  }
-
-  const logout = () => {
-    localStorage.removeItem('token')
-    setUser(null)
-  }
-
-  useEffect(() => {
-    getUserData()
-  }, [])
-
-  useEffect(() => {
-    fetch('http://localhost:3000/auth/me', {
-      credentials: 'include',
-    })
-      .then((res) => (res.status === 401 ? null : res.json()))
-      .then((data) => {
-        if (data) setUser(data)
-      })
-      .catch((err) => console.log('Not logged in'))
-  }, [])
-
-  const handleFacebookAuth = async (type) => {
-    try {
-      const res = await fetch(`http://localhost:3000/auth/facebook/${type}`, {
-        method: 'POST',
         credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
       })
-
-      const data = await res.json()
-      if (data.url) {
-        window.location.href = data.url
-      }
-    } catch (err) {
-      console.error('Error starting Facebook OAuth', err)
+      localStorage.removeItem('token')
+      setUser(null)
+    } catch (error) {
+      console.error('Logout failed:', error)
     }
   }
+
+
+  // useEffect(() => {
+  //   getUserData()
+  // }, [])
+
+  // useEffect(() => {
+  //   fetch('http://localhost:3000/auth/me', {
+  //     credentials: 'include',
+  //   })
+  //     .then((res) => (res.status === 401 ? null : res.json()))
+  //     .then((data) => {
+  //       if (data) setUser(data)
+  //     })
+  //     .catch((err) => console.log('Not logged in'))
+  // }, [])
+
+  // const handleFacebookAuth = async (type) => {
+  //   try {
+  //     const res = await fetch(`http://localhost:3000/auth/facebook/${type}`, {
+  //       method: 'POST',
+  //       credentials: 'include',
+  //       headers: { 'Content-Type': 'application/json' },
+  //     })
+
+  //     const data = await res.json()
+  //     if (data.url) {
+  //       window.location.href = data.url
+  //     }
+  //   } catch (err) {
+  //     console.error('Error starting Facebook OAuth', err)
+  //   }
+  // }
 
   const handleGoogleAuth = async (type) => {
     try {
@@ -533,7 +738,7 @@ export default function MixingItems() {
       }
     } catch (err) {
       console.error('Error starting Google OAuth', err)
-    }
+    } 
   }
 
   const handleLogout = () => {
@@ -595,6 +800,118 @@ export default function MixingItems() {
                   paddingInline: 'auto',
                 }}
               >
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  BackdropProps={{
+                    sx: { backgroundColor: 'rgba(0, 0, 0, 0.8)' },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: { xs: '90%', sm: 400 },
+                      maxWidth: 430,
+                      bgcolor: 'background.paper',
+                      boxShadow: 24,
+                      p: { xs: 2, sm: 3 },
+                      borderRadius: 2,
+                      textAlign: 'center',
+                      overflowY: 'auto',
+                    }}
+                  >
+                    <Button
+                      color="teal"
+                      onClick={handleClose}
+                      sx={{
+                        position: 'absolute',
+                        top: '8px',
+                        right: '8px',
+                        minWidth: '30px',
+                        padding: '5px',
+                        borderRadius: '50%',
+                        fontSize: '12px',
+                      }}
+                    >
+                      <ClearOutlined className="text-teal-950" />
+                    </Button>
+                    <div className="flex justify-center">
+                      <div className="bg-white rounded-sm w-full max-w-sm">
+                        <div className="flex justify-end"></div>
+                        <div className="text-center mb-6">
+                          <img
+                            alt="OLX logo"
+                            className="mx-auto mb-4"
+                            height={50}
+                            src="https://upload.wikimedia.org/wikipedia/commons/9/91/Logotyp_OLX_.png"
+                            width={70}
+                          />
+                          <h2 className="text-2xl whitespace-nowrap font-bold text-teal-950">
+                            Login into your OLX account
+                          </h2>
+                        </div>
+                        <div className="space-y-4">
+                          <button
+                            onClick={() => handleGoogleAuth('login')}
+                            className="w-full flex items-center font-bold justify-center border-2 border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100"
+                          >
+                            <img
+                              alt="Google logo"
+                              className="mr-2"
+                              height={20}
+                              src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+                              width={30}
+                            />
+                            Login with Google
+                          </button>
+                          <button
+                            onClick={() => handleFacebookAuth('login')}
+                            className="w-full flex items-center justify-center font-bold border-2 border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100"
+                          >
+                            <img
+                              alt="Facebook logo"
+                              className="mr-2"
+                              height={20}
+                              src="https://www.wavetransit.com/wp-content/uploads/2021/08/Facebook-logo.png"
+                              width={40}
+                            />
+                            Login with Facebook
+                          </button>
+                          <div className="text-center text-teal-950">OR</div>
+                          <button
+                            onClick={LoginOpen}
+                            className="w-full font-bold flex items-center justify-center border-2 border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100"
+                          >
+                            <EmailOutlined className="mr-2 text-teal-950" />{' '}
+                            Login with Email
+                          </button>
+                          <button className="w-full flex items-center justify-center font-bold border-2 border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
+                            <button
+                              onClick={PhoneOpen}
+                              className="w-full rounded-sm flex items-center justify-center"
+                            >
+                              <PhoneOutlined className="text-teal-950 mr-2" />{' '}
+                              Login with Phone
+                            </button>
+                          </button>
+                        </div>
+                        <div className="text-center mt-6">
+                          <a
+                            onClick={NewAccountOpen}
+                            className="text-blue-600 hover:underline font-bold"
+                            href="#"
+                          >
+                            New to OLX? Create an account
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </Box>
+                </Modal>
+
                 <Modal
                   open={jEmailModal}
                   onClose={JoinEmailClose}
@@ -869,9 +1186,10 @@ export default function MixingItems() {
                         />
 
                         <div className="flex gap-2 mt-3 justify-between">
-                          <button 
-                          onClick={handleSkip}
-                          className="w-full border-teal-950 border-2 text-teal-950 font-bold  py-2 rounded-sm hover:bg-gray-100">
+                          <button
+                            onClick={handleSkip}
+                            className="w-full border-teal-950 border-2 text-teal-950 font-bold  py-2 rounded-sm hover:bg-gray-100"
+                          >
                             Skip
                           </button>
                           <button
@@ -1173,7 +1491,10 @@ export default function MixingItems() {
                             If you have not received the code by call, please
                             request
                           </p>
-                          <button className="text-blue-500 font-bold">
+                          <button
+                            onClick={handleSmsForward}
+                            className="text-blue-500 font-bold"
+                          >
                             Resend Code by SMS
                           </button>
                         </div>
@@ -1194,8 +1515,8 @@ export default function MixingItems() {
                 </Modal>
 
                 <Modal
-                  open={open}
-                  onClose={handleClose}
+                  open={resetOpen}
+                  onClose={resetOpenClose}
                   BackdropProps={{
                     sx: { backgroundColor: 'rgba(0, 0, 0, 0.8)' },
                   }}
@@ -1210,15 +1531,30 @@ export default function MixingItems() {
                       maxWidth: 430,
                       bgcolor: 'background.paper',
                       boxShadow: 24,
-                      p: { xs: 2, sm: 3 },
+                      p: { xs: 2, sm: 3 }, // Mobile pe thoda kam padding
                       borderRadius: 2,
-                      textAlign: 'center',
+                      maxHeight: '90vh',
                       overflowY: 'auto',
                     }}
                   >
                     <Button
                       color="teal"
-                      onClick={handleClose}
+                      onClick={resetOpenClose}
+                      sx={{
+                        position: 'absolute',
+                        top: '8px',
+                        left: '8px',
+                        minWidth: '30px',
+                        padding: '5px',
+                        borderRadius: '50%',
+                        fontSize: '12px',
+                      }}
+                    >
+                      <ArrowBackIos className="text-teal-950" />
+                    </Button>
+                    <Button
+                      color="teal"
+                      onClick={resetOpenClose}
                       sx={{
                         position: 'absolute',
                         top: '8px',
@@ -1231,77 +1567,7 @@ export default function MixingItems() {
                     >
                       <ClearOutlined className="text-teal-950" />
                     </Button>
-                    <div className="flex justify-center">
-                      <div className="bg-white rounded-sm w-full max-w-sm">
-                        <div className="flex justify-end"></div>
-                        <div className="text-center mb-6">
-                          <img
-                            alt="OLX logo"
-                            className="mx-auto mb-4"
-                            height={50}
-                            src="https://upload.wikimedia.org/wikipedia/commons/9/91/Logotyp_OLX_.png"
-                            width={70}
-                          />
-                          <h2 className="text-2xl whitespace-nowrap font-bold text-teal-950">
-                            Login into your OLX account
-                          </h2>
-                        </div>
-                        <div className="space-y-4">
-                          <button
-                            onClick={() => handleGoogleAuth('login')}
-                            className="w-full flex items-center font-bold justify-center border-2 border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100"
-                          >
-                            <img
-                              alt="Google logo"
-                              className="mr-2"
-                              height={20}
-                              src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
-                              width={30}
-                            />
-                            Login with Google
-                          </button>
-                          <button
-                            onClick={() => handleFacebookAuth('login')}
-                            className="w-full flex items-center justify-center font-bold border-2 border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100"
-                          >
-                            <img
-                              alt="Facebook logo"
-                              className="mr-2"
-                              height={20}
-                              src="https://www.wavetransit.com/wp-content/uploads/2021/08/Facebook-logo.png"
-                              width={40}
-                            />
-                            Login with Facebook
-                          </button>
-                          <div className="text-center text-teal-950">OR</div>
-                          <button
-                            onClick={LoginOpen}
-                            className="w-full font-bold flex items-center justify-center border-2 border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100"
-                          >
-                            <EmailOutlined className="mr-2 text-teal-950" />{' '}
-                            Login with Email
-                          </button>
-                          <button className="w-full flex items-center justify-center font-bold border-2 border-teal-950 rounded-sm py-2 text-teal-950 hover:bg-gray-100">
-                            <button
-                              onClick={PhoneOpen}
-                              className="w-full rounded-sm flex items-center justify-center"
-                            >
-                              <PhoneOutlined className="text-teal-950 mr-2" />{' '}
-                              Login with Phone
-                            </button>
-                          </button>
-                        </div>
-                        <div className="text-center mt-6">
-                          <a
-                            onClick={NewAccountOpen}
-                            className="text-blue-600 hover:underline font-bold"
-                            href="#"
-                          >
-                            New to OLX? Create an account
-                          </a>
-                        </div>
-                      </div>
-                    </div>
+                    <ForgetPasswordForm />
                   </Box>
                 </Modal>
 
@@ -1482,7 +1748,100 @@ export default function MixingItems() {
                     >
                       <ClearOutlined className="text-teal-950" />
                     </Button>
-                    <PasswordCreate setUser={setUser} setPhone={setPhone} />
+                    <div className="max-w-md mx-auto mt-5 p-2 bg-white rounded-xl">
+                      <h2 className="text-2xl font-bold text-center  text-teal-950 mb-8">
+                        Login in with Phone
+                      </h2>
+
+                      <div className="mb-4 relative">
+                        <label
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                          htmlFor="phone"
+                        >
+                          Phone number
+                        </label>
+                        <div className="flex border border-red-500 rounded-sm">
+                          <div className="flex items-center px-1 py-3  bg-gray-100 border-r  border-gray-500">
+                            <img
+                              alt="Country flag"
+                              className="w-5 h-5 object-contain"
+                              height={20}
+                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Flag_of_Pakistan.svg/800px-Flag_of_Pakistan.svg.png"
+                              width={20}
+                            />
+                            <span className="ml-1 mr-3 text-gray-700">+92</span>
+                          </div>
+                          <input
+                            onChange={(e) => setMobilePhoneNo(e.target.value)}
+                            value={MobilephoneNo}
+                            className="w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                            id="phone"
+                            placeholder="Phone number"
+                            type="text"
+                          />
+                        </div>
+                        <p className="text-red-500 text-xs mt-1">
+                          Phone number is required.
+                        </p>
+                      </div>
+
+                      <div className="mb-4 relative">
+                        <label
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                          htmlFor="phone"
+                        >
+                          Password
+                        </label>
+                        <div className="relative">
+                          <input
+                            type={
+                              loginshowConfirmPassword ? 'text' : 'password'
+                            }
+                            value={loginconfirmPassword}
+                            onChange={(e) =>
+                              setLoginConfirmPassword(e.target.value)
+                            }
+                            className="w-full px-4 py-3 rounded border-teal-950 border focus:outline-none focus:ring-2 focus:ring-teal-950"
+                            placeholder="Enter Password"
+                          />
+                          <button
+                            type="button"
+                            className="absolute inset-y-0 right-3 flex items-center"
+                            onClick={() =>
+                              setloginShowConfirmPassword(
+                                !loginshowConfirmPassword
+                              )
+                            }
+                          >
+                            {loginshowConfirmPassword ? (
+                              <EyeOff size={20} />
+                            ) : (
+                              <Eye size={20} />
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                      <a
+                        onClick={handleResetOpen}
+                        resetOpen={resetOpen}
+                        resetOpenClose={resetOpenClose}
+                        className="text-blue-500 text-sm font-bold"
+                        href="#"
+                      >
+                        Forgot your password?
+                      </a>
+                      <button
+                        onClick={handleDataPass}
+                        className="w-full py-2 mt-6 bg-blue-500 text-slate-400 rounded-sm disabled:bg-gray-200 mb-7"
+                      >
+                        Login
+                      </button>
+                      <div className="text-center">
+                        <a className="text-blue-500 text-sm" href="#">
+                          New to OLX? Create an account
+                        </a>
+                      </div>
+                    </div>
                   </Box>
                 </Modal>
 
@@ -1566,7 +1925,7 @@ export default function MixingItems() {
                 </Modal>
 
                 <Modal
-                  open={login}
+                  open={llogin}
                   onClose={LoginClose}
                   BackdropProps={{
                     sx: { backgroundColor: 'rgba(0, 0, 0, 0.8)' },
@@ -1630,6 +1989,7 @@ export default function MixingItems() {
                         Enter your email address
                       </label>
                       <input
+                        onChange={(e) => setResetEmail(e.target.value)}
                         type="email"
                         id="email"
                         className="w-full border border-red-500 p-3 rounded mb-3"
@@ -1647,8 +2007,8 @@ export default function MixingItems() {
                       <div className="relative">
                         <input
                           type={showConfirmPassword ? 'text' : 'password'}
-                          value={confirmPassword}
-                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          value={loginPassword}
+                          onChange={(e) => setLoginPassword(e.target.value)}
                           className="w-full px-4 py-3 rounded border-teal-950 border focus:outline-none focus:ring-2 focus:ring-teal-950"
                           placeholder="Confirm new password"
                         />
@@ -1666,11 +2026,6 @@ export default function MixingItems() {
                           )}
                         </button>
                       </div>
-                      {confirmPassword && confirmPassword !== password && (
-                        <p className="text-teal-950 text-sm">
-                          Passwords do not match
-                        </p>
-                      )}
                       <p className="flex text-red-500 text-sm mb-4 mt-2">
                         Password is required
                       </p>
@@ -1681,7 +2036,7 @@ export default function MixingItems() {
                         Forget Password?
                       </p>
                       <button
-                        onClick={CreateOpen}
+                        onClick={handleLoginEmail}
                         className="w-full bg-gray-200 text-gray-500 font-semibold py-2 mb-10 rounded"
                         disabled=""
                       >
@@ -1940,7 +2295,7 @@ export default function MixingItems() {
                   </Grid>
 
                   <Grid item xs={12} sm={1}>
-                    <Link to={'/post'}>
+                    <Link to={'/post'} onClick={handlePostLogin}>
                       <div className="">
                         <img
                           className=""
