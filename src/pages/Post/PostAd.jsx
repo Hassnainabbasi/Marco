@@ -177,14 +177,32 @@ export default function PostAd() {
   const [comment, setComment] = useState('')
   const [images, setImages] = useState([])
   const [wordCount, setWordCount] = useState(0)
+  const [make, setMake] = useState('')
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [location, setLocation] = useState('')
+  const [price, setPrice] = useState('')
+  const [name, setName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
 
   const handleComment = (e) => {
     const words = e.target.value
     if (words.length <= 70) {
       setComment(words.length)
       setWordCount(words.length)
+      setTitle(e.target.value)
     }
   }
+
+  const handleName = (e) => {
+    const words = e.target.value
+    if (words.length <= 70) {
+      setComment(words.length)
+      setWordCount(words.length)
+      setName(e.target.value)
+    }
+  }
+
 
   const fileInputRef = useRef(null)
 
@@ -209,6 +227,7 @@ export default function PostAd() {
     if (words.length <= 4096) {
       dessetComment(words.length)
       dessetWordCount(words.length)
+      setDescription(e.target.value)
     }
   }
   useEffect(() => {
@@ -218,6 +237,22 @@ export default function PostAd() {
     window.addEventListener('resize', handleSize)
     return () => window.removeEventListener('resize', handleSize)
   }, [])
+
+  const handleSubmit = () => {
+    const data = {
+      make,
+      title,
+      description,
+      location,
+      price,
+      name,
+      phoneNumber,
+      images,
+    }
+
+    console.log('Saved Data:', data)
+  }
+  
   return (
     <div>
       {mobile ? (
@@ -349,6 +384,9 @@ export default function PostAd() {
                           PopperComponent={StyledPopper}
                           options={type}
                           getOptionLabel={(option) => option.label}
+                          onChange={(e, newValue) =>
+                            setLocation(newValue.label || '')
+                          }
                           PopperProps={{
                             modifiers: [
                               {
@@ -459,6 +497,7 @@ export default function PostAd() {
                           <Grid item xs={12} sm={12}>
                             <StyledCommentBase
                               onChange={handleComment}
+                              value={title}
                               placeholder="Enter title"
                               inputProps={{
                                 'aria-label': 'search',
@@ -491,6 +530,7 @@ export default function PostAd() {
                             <StyledDescriptionBase
                               onChange={deshandleComment}
                               multiline={true}
+                              value={description}
                               placeholder="Describe the item you're selling"
                               inputProps={{
                                 'aria-label': 'search',
@@ -522,6 +562,9 @@ export default function PostAd() {
                           disablePortal={false}
                           PopperComponent={StyledPopper}
                           options={locations}
+                          onChange={(e, newValue) =>
+                            setMake(newValue.label || '')
+                          }
                           getOptionLabel={(option) => option.label}
                           PopperProps={{
                             modifiers: [
@@ -630,6 +673,8 @@ export default function PostAd() {
                         <input
                           className="w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
                           id="phone"
+                          value={price}
+                          onChange={(e) => setPrice(e.target.value)}
                           placeholder="Enter Down Payment"
                           type="text"
                         />
@@ -649,8 +694,9 @@ export default function PostAd() {
                         <Grid container spacing={2} alignItems="">
                           <Grid item xs={12} sm={12}>
                             <StyledCommentBase
-                              onChange={handleComment}
+                              onChange={handleName}
                               placeholder="Enter title"
+                              value={name}
                               inputProps={{
                                 'aria-label': 'search',
                                 maxLength: 70,
@@ -668,12 +714,14 @@ export default function PostAd() {
                       <div className="flex border w-full rounded-sm border-teal-950 h-12  mt-5 mb-5">
                         <div className="flex items-center px-1 h-5 self-center border-teal-950 border-r">
                           <span className="ml-1 mr-3 text-teal-950 text-xs">
-                            Rs
+                            92
                           </span>
                         </div>
                         <input
                           className="w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
                           id="phone"
+                          value={phoneNumber}
+                          onChange={(e) => setPhoneNumber(e.target.value)}
                           placeholder="Enter Down Payment"
                           type="text"
                         />
@@ -709,7 +757,7 @@ export default function PostAd() {
                     <hr className=" border-gray-400" />
                   </div>
                   <div className="mb-5 px-10 flex justify-end">
-                    <button className="text-white p-3 rounded-md font-bold bg-teal-950">
+                    <button onClick={handleSubmit} className="text-white p-3 rounded-md font-bold bg-teal-950">
                       Post Now
                     </button>
                   </div>
